@@ -49,6 +49,7 @@
         var array_time_chart1 = new Array();
         var array_avg_chart1 = new Array();
 
+
         AWS.config.update({
             region: "ap-northeast-1",
             endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
@@ -72,6 +73,10 @@
                 for (let i = 0; i < data.Items.length; i++) {
                     distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
                     array_distance_chart1.push(distance_data_chart1);
+
+                    avg_chart1 = array_distance_chart1.reduce((a, b) => a + b, 0) / array_distance_chart1.length;
+                    avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
+                    array_avg_chart1.push(avg_chart1_final);
                 }
                 for (let i = 0; i < data.Items.length; i++) {
                     sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
@@ -89,36 +94,50 @@
                 }
 
                 // Trung bình
-                for (let i = 0; i < data.Items.length; i++) {
-                    distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                    array_avg_chart1.push(distance_data_chart1);
-                }
-                avg_chart1 = array_avg_chart1 = array_avg_chart1.reduce((a, b) => a + b, 0) / array_avg_chart1.length;
-                console.log(avg_chart1)
-                avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
-                console.log(avg_chart1_final)
+                // for (let i = 0; i < data.Items.length; i++) {
+                //     data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
+                //     array_avg_chart1.push(data_chart1);
+                //     // array_avg_chart1.push(distance_avg_chart1);
+
+                //     avg_chart1 = array_avg_chart1 = array_avg_chart1.reduce((a, b) => a + b, 0) / array_avg_chart1.length;
+                //     avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
+                //     // console.log(avg_chart1)
+                //     // console.log(avg_chart1_final)
+                //     final_avg_chart1.push(avg_chart1_final);
+                // }
+                // console.log(final_avg_chart1)
 
                 // Biểu đồ
                 const x_data_chart1 = array_time_chart1;
                 const y_data_chart1 = array_distance_chart1;
+                const avg_data_chart1 = array_avg_chart1;
+                console.log(array_avg_chart1)
 
                 const ctx = document.getElementById("chart-1").getContext("2d");
                 const myChart = new Chart(ctx, {
-                    type: "bar",
+
                     data: {
                         labels: x_data_chart1,
                         datasets: [{
+                            type: "bar",
                             label: "Trạm 1",
                             data: y_data_chart1,
                             backgroundColor: "rgba(255, 99, 132, 0.2)",
                             borderColor: "rgba(255, 99, 132, 1)",
                             borderWidth: 1,
-                        }, ],
+                        }, {
+                            type: "line",
+                            label: "Average",
+                            data: avg_data_chart1,
+                            backgroundColor: "blue",
+                            borderColor: "blue",
+                            borderWidth: 1
+                        }],
                     },
                     options: {
                         plugins: {
                             legend: {
-                                display: false,
+                                display: true,
                             },
                         },
                         scales: {
