@@ -47,6 +47,7 @@
     <script>
         var array_distance_chart1 = new Array();
         var array_time_chart1 = new Array();
+        var array_avg_chart1 = new Array();
 
         AWS.config.update({
             region: "ap-northeast-1",
@@ -84,9 +85,18 @@
                     year = time_stamp_chart1.getFullYear();
 
                     full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
-
                     array_time_chart1.push(full_time);
                 }
+
+                // Trung bình
+                for (let i = 0; i < data.Items.length; i++) {
+                    distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
+                    array_avg_chart1.push(distance_data_chart1);
+                }
+                avg_chart1 = array_avg_chart1 = array_avg_chart1.reduce((a, b) => a + b, 0) / array_avg_chart1.length;
+                console.log(avg_chart1)
+                avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
+                console.log(avg_chart1_final)
 
                 // Biểu đồ
                 const x_data_chart1 = array_time_chart1;
@@ -94,7 +104,7 @@
 
                 const ctx = document.getElementById("chart-1").getContext("2d");
                 const myChart = new Chart(ctx, {
-                    type: "line",
+                    type: "bar",
                     data: {
                         labels: x_data_chart1,
                         datasets: [{
@@ -102,7 +112,7 @@
                             data: y_data_chart1,
                             backgroundColor: "rgba(255, 99, 132, 0.2)",
                             borderColor: "rgba(255, 99, 132, 1)",
-                            borderWidth: 2,
+                            borderWidth: 1,
                         }, ],
                     },
                     options: {

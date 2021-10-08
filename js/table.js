@@ -128,7 +128,6 @@ function fn_change() {
 
         // TRẠM 2----------------------------------------------------------------------------------
     } else if (x == "tram2") {
-        document.getElementById("hien-tai").innerHTML = "Trạm 2";
         var array_distance_chart2 = new Array();
         var array_full_time_chart2 = new Array();
         var array_avg_chart2 = new Array();
@@ -247,8 +246,6 @@ function fn_change() {
 
         //TRẠM 3------------------------------------------------------------------------------------
     } else if (x == "tram3") {
-        document.getElementById("hien-tai").innerHTML = "Trạm 3";
-
         var array_distance_chart3 = new Array();
         var array_full_time_chart3 = new Array();
         var array_avg_chart3 = new Array();

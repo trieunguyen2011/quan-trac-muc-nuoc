@@ -113,18 +113,18 @@ body {
 
 .icon-full-screen a {
     float: right;
-    margin-top: -33px;
     color: black;
-    font-size: 25px;
+    font-size: 22px;
     text-decoration: none;
+    margin-top: -30px;
+    margin-right: -5px;
     padding: 5px 5px 0 4.5px;
-    margin-right: -7px;
     border-radius: 5px;
 }
 
 .icon-full-screen a:hover {
-    background-color: rgb(88, 88, 88);
-    color: white;
+    color: red;
+    font-size: 25px;
 }
 
 #chart-1 {
