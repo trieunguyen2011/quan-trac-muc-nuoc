@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quan trắc mực nước - TP Bạc Liêu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/vi/thumb/6/6c/Logo_Dai_hoc_Can_Tho.svg/1024px-Logo_Dai_hoc_Can_Tho.svg.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <script defer src="https://api.map4d.vn/sdk/map/js?version=1.6.0&key=	01bc4b3257cf82004bfe26cb6cb2c8f4&callback=initMap"></script>
+</head>
+
+<body>
+    <div id="main">
+        <!--Begin Header  -->
+        <div id="header">
+            <h1 class="header-content">Hệ thống quan trắc mực nước tại các trạm bơm xả nước thải</h1>
+            <div class="header-line"></div>
+            <p class="header-sub">Địa điểm: TP Bạc Liêu</p>
+            <p class="header-date">Ngày:</p>
+            <p id="display_time"></p>
+        </div>
+        <!-- End Header -->
+
+        <!-- Begin Chart -->
+        <div id="mini-chart">
+            <div class="chart-box">
+                <p class="chart-title">Trạm 1</p>
+                <div class="icon-full-screen">
+                    <a href="tram1.html"><i class="ti-fullscreen"></i></a>
+                </div>
+                <div class="mini-chart-line"></div>
+                <div>
+                    <canvas id="chart-1" height="200px"></canvas>
+                    <script src="chart-1.js"></script>
+                </div>
+            </div>
+
+            <div class="chart-box">
+                <p class="chart-title">Trạm 2</p>
+                <div class="icon-full-screen">
+                    <a href="tram2.html"><i class="ti-fullscreen"></i></a>
+                </div>
+                <div class="mini-chart-line"></div>
+                <div>
+                    <canvas id="chart-2" height="200px"></canvas>
+                    <script src="chart-2.js"></script>
+                </div>
+
+            </div>
+
+            <div class="chart-box">
+                <p class="chart-title">Trạm 3</p>
+                <div class="icon-full-screen">
+                    <a href="tram3.html"><i class="ti-fullscreen"></i></a>
+                </div>
+                <div class="mini-chart-line"></div>
+                <div>
+                    <canvas id="chart-3" height="200px"></canvas>
+                    <script src="chart-3.js"></script>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-4-box">
+            <p class="chart-title">Tổng hợp</p>
+            <div class="chart-4-line"></div>
+            <div>
+                <canvas id="chart-4" height="500px"></canvas>
+                <script src="chart-4.js"></script>
+            </div>
+        </div>
+        <!-- End Chart -->
+
+        <div class="content-title">
+            <p class="map-title">Vị trí các trạm đo</p>
+            <!-- <p class="table-title">Bảng số liệu</p> -->
+        </div>
+        <div id="content">
+            <!-- Begin Map -->
+            <div class="map-box">
+                <div id="map">
+                    <script src="map.js"></script>
+                </div>
+            </div>
+            <!--End Map -->
+
+            <!-- Begin Table -->
+            <div class="table-box">
+                <select class="form-control" onchange="fn_change()" id="list-tram">
+                    <option value="" selected disabled>Chọn trạm...</option>
+                    <option value="tram1">Trạm 1</option>
+                    <option value="tram2">Trạm 2</option>
+                    <option value="tram3">Trạm 3</option>
+                </select>git
+                <div>
+                    <div class="row-1 font-22">
+                        <p class="text-bold">Mực nước hiện tại</p>
+                        <p class="table-line"></p>
+                        <p id="hien-tai">...</p>
+                        <p id="time-hien-tai">...</p>
+                    </div>
+                    <div class="row-2 font-22">
+                        <p class="text-bold">Mực nước cao nhất</p>
+                        <p class="table-line"></p>
+                        <p id="max">...</p>
+                        <p id="time-max">...</p>
+                    </div>
+                    <div class="row-3 font-22">
+                        <p class="text-bold">Mực nước thấp nhất</p>
+                        <p class="table-line"></p>
+                        <p id="min">...</p>
+                        <p id="time-min">...</p>
+                    </div>
+                    <div class="row-4 font-22">
+                        <p class="text-bold">Mực nước trung bình</p>
+                        <p class="table-line"></p>
+                        <p id="average">...</p>
+                        <p id="time-average">...</p>
+                    </div>
+                </div>
+
+                <script src="table.js"></script>
+            </div>
+        </div>
+
+        <div id="footer"></div>
+
+
+
+</body>
+
+
+</html>

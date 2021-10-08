@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trạm 3</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/vi/thumb/6/6c/Logo_Dai_hoc_Can_Tho.svg/1024px-Logo_Dai_hoc_Can_Tho.svg.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .chart-box {
+            margin: 20px;
+        }
+        
+        .chart-title {
+            font-size: 30px;
+        }
+        
+        .chart-line {
+            width: 100%;
+            margin-bottom: 20px;
+            height: 1px;
+            background: #ccc;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="chart-box">
+            <h1 class="chart-title">Trạm 3</h1>
+            <div class="chart-line"></div>
+            <div>
+                <canvas id="chart-3" height="100px"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var array_distance_chart3 = new Array();
+        var array_time_chart3 = new Array();
+
+        AWS.config.update({
+            region: "ap-northeast-1",
+            endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
+            accessKeyId: "AKIAXKZISWAEZWPSCIVL",
+            secretAccessKey: "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",
+        });
+
+        var params_chart3 = {
+            TableName: "water_level",
+            KeyConditionExpression: "device_id = :a",
+            ExpressionAttributeValues: {
+                ":a": 3,
+            },
+        };
+        var docClient = new AWS.DynamoDB.DocumentClient();
+        docClient.query(params_chart3, function(err, data) {
+            if (err) {
+                alert("Error !!!");
+            } else {
+                for (let i = 0; i < data.Items.length; i++) {
+                    distance_data_chart3 = JSON.parse(data.Items[i].device_data.Distance);
+                    array_distance_chart3.push(distance_data_chart3);
+                }
+                for (let i = 0; i < data.Items.length; i++) {
+                    sample_time_data_chart3 = JSON.parse(data.Items[i].sample_time);
+                    const time_stamp_chart3 = new Date(sample_time_data_chart3);
+                    min_chart3 = time_stamp_chart3.getMinutes();
+                    hour_chart3 = time_stamp_chart3.getHours();
+
+                    const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+                    date = time_stamp_chart3.getDate();
+                    month = month_name[time_stamp_chart3.getMonth()];
+                    year = time_stamp_chart3.getFullYear();
+
+                    full_time = hour_chart3 + ":" + min_chart3 + ', ' + date + "/" + month + "/" + year;
+                    array_time_chart3.push(full_time);
+                }
+                const x_data_chart3 = array_time_chart3;
+                const y_data_chart3 = array_distance_chart3;
+
+                const ctx = document.getElementById("chart-3").getContext("2d");
+                const myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: x_data_chart3,
+                        datasets: [{
+                            label: "Trạm 1",
+                            data: y_data_chart3,
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 2,
+                        }, ],
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                        },
+                    },
+                });
+            }
+        });
+    </script>
+</body>
