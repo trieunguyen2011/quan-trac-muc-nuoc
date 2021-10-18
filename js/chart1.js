@@ -57,7 +57,7 @@ docClient.query(params_chart1, function(err, data) {
 
         const ctx = document.getElementById("chart-1").getContext("2d");
         const myChart = new Chart(ctx, {
-            type: "line",
+            type: "bar",
             data: {
                 labels: x_data_chart1,
                 datasets: [{

@@ -29,6 +29,21 @@
             height: 1px;
             background: #ccc;
         }
+        
+        .button-box {
+            width: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: grey;
+            color: white;
+            border-radius: 5px;
+        }
     </style>
 
 </head>
@@ -39,37 +54,42 @@
             <h1 class="chart-title">Trạm 1</h1>
             <div class="chart-line"></div>
             <div>
-                <canvas id="chart-1" height="100px"></canvas>
+                <canvas id="chart-1"></canvas>
             </div>
         </div>
-    </div>
 
-    <script>
-        var array_distance_chart1 = new Array();
-        var array_time_chart1 = new Array();
-        var array_avg_chart1 = new Array();
+        <div class="button-box">
+            <!-- <button onclick="showChart()">Show</button> -->
+            <!-- <div onload="showChart()"></div> -->
+            <button onclick="toggleData(0)">Tram 1</button>
+            <button onclick="toggleData(1)">Trung bình</button>
+        </div>
+
+        <script>
+            var myChart;
+            var array_distance_chart1 = new Array();
+            var array_time_chart1 = new Array();
+            var array_avg_chart1 = new Array();
 
 
-        AWS.config.update({
-            region: "ap-northeast-1",
-            endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
-            accessKeyId: "AKIAXKZISWAEZWPSCIVL",
-            secretAccessKey: "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",
-        });
+            AWS.config.update({
+                region: "ap-northeast-1",
+                endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
+                accessKeyId: "AKIAXKZISWAEZWPSCIVL",
+                secretAccessKey: "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",
+            });
 
-        var params_chart1 = {
-            TableName: "water_level",
-            KeyConditionExpression: "device_id = :a",
-            ExpressionAttributeValues: {
-                ":a": 1,
-            },
-        };
+            var params_chart1 = {
+                TableName: "water_level",
+                KeyConditionExpression: "device_id = :a",
+                ExpressionAttributeValues: {
+                    ":a": 1,
+                },
+            };
 
-        var docClient = new AWS.DynamoDB.DocumentClient();
-        docClient.query(params_chart1, function(err, data) {
-            if (err) {
-                alert("Error !!!");
-            } else {
+            var docClient = new AWS.DynamoDB.DocumentClient();
+            docClient.query(params_chart1, function(err, data) {
+
                 for (let i = 0; i < data.Items.length; i++) {
                     distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
                     array_distance_chart1.push(distance_data_chart1);
@@ -93,39 +113,25 @@
                     array_time_chart1.push(full_time);
                 }
 
-                // Trung bình
-                // for (let i = 0; i < data.Items.length; i++) {
-                //     data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                //     array_avg_chart1.push(data_chart1);
-                //     // array_avg_chart1.push(distance_avg_chart1);
+            });
 
-                //     avg_chart1 = array_avg_chart1 = array_avg_chart1.reduce((a, b) => a + b, 0) / array_avg_chart1.length;
-                //     avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
-                //     // console.log(avg_chart1)
-                //     // console.log(avg_chart1_final)
-                //     final_avg_chart1.push(avg_chart1_final);
-                // }
-                // console.log(final_avg_chart1)
-
+            function showChart() {
                 // Biểu đồ
-                const x_data_chart1 = array_time_chart1;
-                const y_data_chart1 = array_distance_chart1;
-                const avg_data_chart1 = array_avg_chart1;
-                console.log(array_avg_chart1)
-
-                const ctx = document.getElementById("chart-1").getContext("2d");
-                const myChart = new Chart(ctx, {
-
+                var x_data_chart1 = array_time_chart1;
+                var y_data_chart1 = array_distance_chart1;
+                var avg_data_chart1 = array_avg_chart1;
+                var ctx = document.getElementById("chart-1").getContext("2d");
+                myChart = new Chart(ctx, {
                     data: {
                         labels: x_data_chart1,
-                        datasets: [{
+                        datasets: [{ //0
                             type: "bar",
                             label: "Trạm 1",
                             data: y_data_chart1,
                             backgroundColor: "rgba(255, 99, 132, 0.2)",
                             borderColor: "rgba(255, 99, 132, 1)",
                             borderWidth: 1,
-                        }, {
+                        }, { //1
                             type: "line",
                             label: "Average",
                             data: avg_data_chart1,
@@ -135,19 +141,111 @@
                         }],
                     },
                     options: {
-                        plugins: {
-                            legend: {
-                                display: true,
-                            },
-                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
                             },
                         },
                     },
-                });
+                })
             }
-        });
-    </script>
+
+            setTimeout(showChart, 200);
+
+            function toggleData(value) {
+                const showValue = myChart.isDatasetVisible(value);
+                if (showValue === true) {
+                    myChart.hide(value);
+                }
+                if (showValue === false) {
+                    myChart.show(value);
+                }
+            }
+        </script>
 </body>
+
+
+
+
+
+
+
+<!-- 
+
+// <div class="well">
+//     <div class="row-fluid">
+//         <form action="">
+//             <fieldset>
+//                 <div class="span5-control-gr">
+//                     <div class="control">
+//                         <label class="control-label" for="bdate">From:</label>
+//                         <input type="hidden" name="bdate" value="20211009">
+//                         <table cellpadding="0" cellspacing="2">
+//                             <tbody>
+//                                 <tr>
+//                                     <td valign="middle">
+//                                         <select aria-label="month" class="calendarDateInput" style="width: 86px;" id="bdate_Month_ID" onchange="" bdate_Object.changeMonth(this)>
+//                                             <option value="0">Jan</option>
+//                                             <option value="1">Feb</option>
+//                                             <option value="2">Mar</option>
+//                                             <option value="3">Apr</option>
+//                                             <option value="4">May</option>
+//                                             <option value="5">Jun</option>
+//                                             <option value="6">July</option>
+//                                             <option value="7">Aug</option>
+//                                             <option value="8">Sep</option>
+//                                             <option value="9">Oct</option>
+//                                             <option value="10">Nov</option>
+//                                             <option value="11">Dec</option>
+//                                         </select>
+//                                     </td>
+//                                     <td valign="middle">
+//                                         <select aria-label="day" class="calendarDateInput" style="width: 60px; visibility: visible;" id="bdate_Day_ID" onchange="bdate_Object.changeDay(this)">
+//                                             <option>1</option>
+//                                             <option>2</option>
+//                                             <option>3</option>
+//                                             <option>4</option>
+//                                             <option>5</option>
+//                                             <option>6</option>
+//                                             <option>7</option>
+//                                             <option>8</option>
+//                                             <option>9</option>
+//                                             <option>10</option>
+//                                             <option>11</option>
+//                                             <option>12</option>
+//                                             <option>13</option>
+//                                             <option>14</option>
+//                                             <option>15</option>
+//                                             <option>16</option>
+//                                             <option>17</option>
+//                                             <option>18</option>
+//                                             <option>19</option>
+//                                             <option>20</option>
+//                                             <option>21</option>
+//                                             <option>22</option>
+//                                             <option>23</option>
+//                                             <option>24</option>
+//                                             <option>25</option>
+//                                             <option>26</option>
+//                                             <option>27</option>
+//                                             <option>28</option>
+//                                             <option>29</option>
+//                                             <option>30</option>
+//                                             <option>31</option>
+//                                         </select>
+//                                     </td>
+//                                 </tr>
+//                             </tbody>
+//                         </table>
+
+//                     </div>
+//                 </div>
+//             </fieldset>
+//         </form>
+//     </div>
+// </div>
+// </div> -->
+
+
+
+</html>
