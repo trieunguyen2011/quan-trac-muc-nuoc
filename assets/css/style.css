@@ -62,17 +62,17 @@ body {
     font-size: 25px;
     font-style: italic;
     float: right;
-    margin-top: -30px;
-    margin-right: 130px;
+    margin-top: -28px;
+    margin-right: 205px;
 }
 
 #display_time {
     float: right;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 550;
     font-style: italic;
-    margin-top: -30px;
-    margin-right: 15px;
+    margin-top: -26px;
+    margin-right: -295px;
 }
 
 .header-line {

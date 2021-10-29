@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trạm 1</title>
+    <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/vi/thumb/6/6c/Logo_Dai_hoc_Can_Tho.svg/1024px-Logo_Dai_hoc_Can_Tho.svg.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
@@ -31,7 +32,7 @@
         }
         
         .button-box {
-            width: 1000px;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -43,6 +44,20 @@
             background-color: grey;
             color: white;
             border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .next-btn {
+            padding: 7px 10px 3px 10px;
+        }
+        
+        button:active {
+            transform: translateY(3px);
+        }
+        
+        button:disabled {
+            background-color: white;
+            color: grey;
         }
     </style>
 
@@ -54,14 +69,14 @@
             <h1 class="chart-title">Trạm 1</h1>
             <div class="chart-line"></div>
             <div>
-                <canvas id="chart-1"></canvas>
+                <canvas id="chart-1" height="100x"></canvas>
             </div>
         </div>
 
         <div class="button-box">
-            <!-- <button onclick="showChart()">Show</button> -->
-            <!-- <div onload="showChart()"></div> -->
-            <button onclick="toggleData(0)">Tram 1</button>
+            <button class="next-btn" id="previous" onclick="nextData(-10, -10)"><i class="ti-control-backward"></i></button>
+            <button class="next-btn" id="next" onclick="nextData(10, 10)"><i class="ti-control-forward"></i></button>
+            <button onclick="toggleData(0)">Trạm 1</button>
             <button onclick="toggleData(1)">Trung bình</button>
         </div>
 
@@ -117,15 +132,18 @@
 
             function showChart() {
                 // Biểu đồ
-                var x_data_chart1 = array_time_chart1;
-                var y_data_chart1 = array_distance_chart1;
-                var avg_data_chart1 = array_avg_chart1;
-                var ctx = document.getElementById("chart-1").getContext("2d");
+                const x_data_chart1 = array_time_chart1;
+                const y_data_chart1 = array_distance_chart1;
+                const avg_data_chart1 = array_avg_chart1;
+                const x_length = array_time_chart1.length;
+                console.log(x_length);
+
+                const ctx = document.getElementById("chart-1").getContext("2d");
                 myChart = new Chart(ctx, {
                     data: {
                         labels: x_data_chart1,
                         datasets: [{ //0
-                            type: "bar",
+                            type: "line",
                             label: "Trạm 1",
                             data: y_data_chart1,
                             backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -133,7 +151,7 @@
                             borderWidth: 1,
                         }, { //1
                             type: "line",
-                            label: "Average",
+                            label: "Trung bình",
                             data: avg_data_chart1,
                             backgroundColor: "blue",
                             borderColor: "blue",
@@ -142,6 +160,10 @@
                     },
                     options: {
                         scales: {
+                            x: {
+                                min: x_length - 10,
+                                max: x_length,
+                            },
                             y: {
                                 beginAtZero: true,
                             },
@@ -150,8 +172,8 @@
                 })
             }
 
-            setTimeout(showChart, 200);
 
+            // Hiển thị biểu đồ
             function toggleData(value) {
                 const showValue = myChart.isDatasetVisible(value);
                 if (showValue === true) {
@@ -160,7 +182,37 @@
                 if (showValue === false) {
                     myChart.show(value);
                 }
+            };
+
+
+            function nextData(start, end) {
+                const x_length = array_time_chart1.length;
+                console.log(x_length);
+                const startScale = myChart.options.scales.x.min + start;
+                const endScale = myChart.options.scales.x.max + end;
+                console.log(startScale + start);
+
+                // possition by defaut if
+                myChart.options.scales.x.min = startScale;
+                myChart.options.scales.x.max = endScale;
+                document.getElementById('previous').disabled = false;
+                document.getElementById('next').disabled = false;
+
+                if (endScale > x_length) {
+                    myChart.options.scales.x.min = x_length - 10;
+                    myChart.options.scales.x.max = x_length - 1;
+                    document.getElementById('next').disabled = true;
+                };
+
+                if (startScale < 0) {
+                    myChart.options.scales.x.min = 0;
+                    myChart.options.scales.x.max = 9;
+                    document.getElementById('previous').disabled = true;
+                };
+                myChart.update();
             }
+
+            setTimeout(showChart, 200);
         </script>
 </body>
 
