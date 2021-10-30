@@ -68,8 +68,8 @@ docClient.query(params_chart1, function(err, data) {
                 datasets: [{
                     label: "Trạm 1",
                     data: y_data_chart1,
-                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
                     borderWidth: 2,
                 }, ],
             },

@@ -71,7 +71,7 @@ body {
     font-size: 24px;
     font-weight: 550;
     font-style: italic;
-    margin-top: -26px;
+    margin-top: -27px;
     margin-right: -295px;
 }
 
@@ -160,6 +160,26 @@ body {
 
 #chart-4 {
     width: 100%;
+}
+
+.button-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: grey;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:active {
+    transform: translateY(3px);
 }
 
 .content-title {

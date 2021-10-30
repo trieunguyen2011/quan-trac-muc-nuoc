@@ -16,6 +16,13 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         
+        body {
+            height: 3000px;
+            width: 1500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
         .chart-box {
             margin: 20px;
         }
@@ -48,7 +55,11 @@
         }
         
         .next-btn {
-            padding: 7px 10px 3px 10px;
+            padding: 7px 16px 3px 13px;
+        }
+        
+        .btn-left-2 {
+            margin-right: 1000px;
         }
         
         button:active {
@@ -74,8 +85,8 @@
         </div>
 
         <div class="button-box">
-            <button class="next-btn" id="previous" onclick="nextData(-10, -10)"><i class="ti-control-backward"></i></button>
-            <button class="next-btn" id="next" onclick="nextData(10, 10)"><i class="ti-control-forward"></i></button>
+            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-10, -10)"><i class="ti-control-backward"></i></button>
+            <button class="next-btn btn-left-2" id="next" onclick="nextData(10, 10)"><i class="ti-control-forward"></i></button>
             <button onclick="toggleData(0)">Trạm 1</button>
             <button onclick="toggleData(1)">Trung bình</button>
         </div>
@@ -113,6 +124,7 @@
                     avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
                     array_avg_chart1.push(avg_chart1_final);
                 }
+                // console.log(array_avg_chart1)
                 for (let i = 0; i < data.Items.length; i++) {
                     sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
                     const time_stamp_chart1 = new Date(sample_time_data_chart1);
@@ -136,7 +148,6 @@
                 const y_data_chart1 = array_distance_chart1;
                 const avg_data_chart1 = array_avg_chart1;
                 const x_length = array_time_chart1.length;
-                console.log(x_length);
 
                 const ctx = document.getElementById("chart-1").getContext("2d");
                 myChart = new Chart(ctx, {
@@ -146,15 +157,15 @@
                             type: "line",
                             label: "Trạm 1",
                             data: y_data_chart1,
-                            backgroundColor: "rgba(255, 99, 132, 0.2)",
-                            borderColor: "rgba(255, 99, 132, 1)",
+                            backgroundColor: 'rgb(54, 162, 235)',
+                            borderColor: 'rgb(54, 162, 235)',
                             borderWidth: 1,
                         }, { //1
                             type: "line",
                             label: "Trung bình",
                             data: avg_data_chart1,
-                            backgroundColor: "blue",
-                            borderColor: "blue",
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
                             borderWidth: 1
                         }],
                     },
@@ -187,7 +198,6 @@
 
             function nextData(start, end) {
                 const x_length = array_time_chart1.length;
-                console.log(x_length);
                 const startScale = myChart.options.scales.x.min + start;
                 const endScale = myChart.options.scales.x.max + end;
                 console.log(startScale + start);
@@ -216,6 +226,7 @@
         </script>
 </body>
 
+</html>
 
 
 
@@ -297,7 +308,3 @@
 //     </div>
 // </div>
 // </div> -->
-
-
-
-</html>
