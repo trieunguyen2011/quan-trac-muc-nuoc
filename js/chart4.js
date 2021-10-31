@@ -77,26 +77,27 @@ docClient.query(params_chart3_4, function(err, data) {
 
 
 function showChart() {
-    const x_data_chart = array_time_chart4;
+    const x_data_chart_4 = array_time_chart4;
     const y_data_chart1_4 = array_distance_chart1_4;
     const y_data_chart2_4 = array_distance_chart2_4;
     const y_data_chart3_4 = array_distance_chart3_4;
     const avg_data_chart1_4 = array_avg_chart1_4;
     const avg_data_chart2_4 = array_avg_chart2_4;
     const avg_data_chart3_4 = array_avg_chart3_4;
-    x_length = array_time_chart4.length;
+    const x_length_4 = array_time_chart4.length;
 
     const ctx = document.getElementById("chart-4").getContext("2d");
     myChart = new Chart(ctx, {
         data: {
-            labels: x_data_chart,
+            labels: x_data_chart_4,
             datasets: [{ //0
                     type: "line",
                     label: "Trạm 1",
                     data: y_data_chart1_4,
                     backgroundColor: "red",
                     borderColor: "red",
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
                 },
                 { //1
                     type: "line",
@@ -104,7 +105,8 @@ function showChart() {
                     data: y_data_chart2_4,
                     backgroundColor: "blue",
                     borderColor: "blue",
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
                 },
                 { //2
                     type: "line",
@@ -112,57 +114,76 @@ function showChart() {
                     data: y_data_chart3_4,
                     backgroundColor: "green",
                     borderColor: "green",
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
                 },
                 { //3
-                    type: "scatter",
+                    type: "line",
                     label: "TB Trạm 1",
                     data: avg_data_chart1_4,
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    borderDash: [5, 5],
                     hidden: true,
+                    cubicInterpolationMode: 'monotone',
                 },
                 { //4
-                    type: "scatter",
+                    type: "line",
                     label: "TB Trạm 2",
                     data: avg_data_chart2_4,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    borderDash: [5, 5],
                     hidden: true,
+                    cubicInterpolationMode: 'monotone',
                 },
                 { //5
-                    type: "scatter",
+                    type: "line",
                     label: "TB Trạm 3",
                     data: avg_data_chart3_4,
                     backgroundColor: 'rgb(255, 159, 64)',
                     borderColor: 'rgb(255, 159, 64)',
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    borderDash: [5, 5],
                     hidden: true,
+                    cubicInterpolationMode: 'monotone',
                 },
             ],
         },
         options: {
             scales: {
                 x: {
-                    min: x_length - 30,
-                    max: x_length,
+                    min: x_length_4 - 20,
+                    max: x_length_4,
                 },
                 y: {
                     beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Độ cao (cm)',
+                        font: {
+                            // family: 'Times',
+                            size: 17,
+                            weight: 'bold',
+                            // color: '#000'
+
+                        },
+                    },
                 },
             },
             plugins: {
                 legend: {
                     position: 'right',
                     labels: {
-                        padding: 30,
+                        padding: 15,
                         font: {
-                            size: 17
-                        }
+                            size: 14,
+                        },
                     }
-                }
+                },
+
             }
 
         },
@@ -178,5 +199,31 @@ function toggleData(value) {
         myChart.show(value);
     }
 };
+
+function nextData(start, end) {
+    const x_length_4 = array_time_chart4.length;
+    const startScale = myChart.options.scales.x.min + start;
+    const endScale = myChart.options.scales.x.max + end;
+    // console.log(startScale + start);
+
+    // possition by defaut if
+    myChart.options.scales.x.min = startScale;
+    myChart.options.scales.x.max = endScale;
+    document.getElementById('previous').disabled = false;
+    document.getElementById('next').disabled = false;
+
+    if (endScale > x_length_4) {
+        myChart.options.scales.x.min = x_length_4 - 20;
+        myChart.options.scales.x.max = x_length_4 - 1;
+        document.getElementById('next').disabled = true;
+    };
+
+    if (startScale < 0) {
+        myChart.options.scales.x.min = 0;
+        myChart.options.scales.x.max = 19;
+        document.getElementById('previous').disabled = true;
+    };
+    myChart.update();
+}
 
 setTimeout(showChart, 200);

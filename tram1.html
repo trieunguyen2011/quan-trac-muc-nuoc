@@ -18,7 +18,7 @@
         
         body {
             height: 3000px;
-            width: 1500px;
+            width: 1800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -28,7 +28,7 @@
         }
         
         .chart-title {
-            font-size: 30px;
+            font-size: 25px;
         }
         
         .chart-line {
@@ -85,8 +85,8 @@
         </div>
 
         <div class="button-box">
-            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-10, -10)"><i class="ti-control-backward"></i></button>
-            <button class="next-btn btn-left-2" id="next" onclick="nextData(10, 10)"><i class="ti-control-forward"></i></button>
+            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-20, -20)"><i class="ti-control-backward"></i></button>
+            <button class="next-btn btn-left-2" id="next" onclick="nextData(20, 20)"><i class="ti-control-forward"></i></button>
             <button onclick="toggleData(0)">Trạm 1</button>
             <button onclick="toggleData(1)">Trung bình</button>
         </div>
@@ -159,24 +159,43 @@
                             data: y_data_chart1,
                             backgroundColor: 'rgb(54, 162, 235)',
                             borderColor: 'rgb(54, 162, 235)',
-                            borderWidth: 1,
+                            borderWidth: 2,
+                            cubicInterpolationMode: 'monotone',
                         }, { //1
                             type: "line",
                             label: "Trung bình",
                             data: avg_data_chart1,
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
-                            borderWidth: 1
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            cubicInterpolationMode: 'monotone',
                         }],
                     },
                     options: {
                         scales: {
                             x: {
-                                min: x_length - 10,
+                                min: x_length - 20,
                                 max: x_length,
+                                // title: {
+                                //     display: true,
+                                //     text: 'Thời gian'
+                                // }
                             },
                             y: {
                                 beginAtZero: true,
+                                // max: 200,
+                                title: {
+                                    display: true,
+                                    text: 'Độ cao (cm)',
+                                    font: {
+                                        // family: 'Times',
+                                        size: 17,
+                                        weight: 'bold',
+                                        // color: '#000'
+
+                                    },
+                                }
                             },
                         },
                     },
@@ -200,7 +219,7 @@
                 const x_length = array_time_chart1.length;
                 const startScale = myChart.options.scales.x.min + start;
                 const endScale = myChart.options.scales.x.max + end;
-                console.log(startScale + start);
+                // console.log(startScale + start);
 
                 // possition by defaut if
                 myChart.options.scales.x.min = startScale;
@@ -209,14 +228,14 @@
                 document.getElementById('next').disabled = false;
 
                 if (endScale > x_length) {
-                    myChart.options.scales.x.min = x_length - 10;
+                    myChart.options.scales.x.min = x_length - 20;
                     myChart.options.scales.x.max = x_length - 1;
                     document.getElementById('next').disabled = true;
                 };
 
                 if (startScale < 0) {
                     myChart.options.scales.x.min = 0;
-                    myChart.options.scales.x.max = 9;
+                    myChart.options.scales.x.max = 19;
                     document.getElementById('previous').disabled = true;
                 };
                 myChart.update();

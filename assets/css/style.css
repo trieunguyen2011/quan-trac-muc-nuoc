@@ -63,7 +63,7 @@ body {
     font-style: italic;
     float: right;
     margin-top: -28px;
-    margin-right: 205px;
+    margin-right: 220px;
 }
 
 #display_time {
@@ -71,8 +71,8 @@ body {
     font-size: 24px;
     font-weight: 550;
     font-style: italic;
-    margin-top: -27px;
-    margin-right: -295px;
+    margin-top: -26.7px;
+    margin-right: -310px;
 }
 
 .header-line {
@@ -171,7 +171,7 @@ body {
 
 button {
     padding: 5px 10px;
-    margin: 5px;
+    margin: 5px 10px 5px 10px;
     background-color: grey;
     color: white;
     border-radius: 5px;
@@ -180,6 +180,19 @@ button {
 
 button:active {
     transform: translateY(3px);
+}
+
+button:disabled {
+    background-color: white;
+    color: grey;
+}
+
+.next-btn {
+    padding: 7px 16px 3px 13px;
+}
+
+.btn-left-2 {
+    margin-right: 700px;
 }
 
 .content-title {

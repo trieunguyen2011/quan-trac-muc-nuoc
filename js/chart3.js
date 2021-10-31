@@ -43,7 +43,8 @@ docClient.query(params_chart3, function(err, data) {
                     data: y_data_chart3,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
                 }, ],
             },
             options: {
