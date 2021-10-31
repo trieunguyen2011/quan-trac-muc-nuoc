@@ -85,8 +85,8 @@
         </div>
 
         <div class="button-box">
-            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-20, -20)"><i class="ti-control-backward"></i></button>
-            <button class="next-btn btn-left-2" id="next" onclick="nextData(20, 20)"><i class="ti-control-forward"></i></button>
+            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
+            <button class="next-btn btn-left-2" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
             <button onclick="toggleData(0)">Trạm 1</button>
             <button onclick="toggleData(1)">Trung bình</button>
         </div>
@@ -136,7 +136,9 @@
                     month = month_name[time_stamp_chart1.getMonth()];
                     year = time_stamp_chart1.getFullYear();
 
-                    full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
+                    // full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
+                    full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month;
+
                     array_time_chart1.push(full_time);
                 }
 
@@ -175,7 +177,7 @@
                     options: {
                         scales: {
                             x: {
-                                min: x_length - 20,
+                                min: x_length - 24,
                                 max: x_length,
                                 // title: {
                                 //     display: true,
@@ -184,7 +186,7 @@
                             },
                             y: {
                                 beginAtZero: true,
-                                // max: 200,
+                                // max: 240,
                                 title: {
                                     display: true,
                                     text: 'Độ cao (cm)',
@@ -228,14 +230,14 @@
                 document.getElementById('next').disabled = false;
 
                 if (endScale > x_length) {
-                    myChart.options.scales.x.min = x_length - 20;
+                    myChart.options.scales.x.min = x_length - 24;
                     myChart.options.scales.x.max = x_length - 1;
                     document.getElementById('next').disabled = true;
                 };
 
                 if (startScale < 0) {
                     myChart.options.scales.x.min = 0;
-                    myChart.options.scales.x.max = 19;
+                    myChart.options.scales.x.max = 23;
                     document.getElementById('previous').disabled = true;
                 };
                 myChart.update();
