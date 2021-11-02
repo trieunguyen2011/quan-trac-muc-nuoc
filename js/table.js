@@ -1,12 +1,12 @@
 function fn_change() {
     var x = document.getElementById("list-tram").value;
 
-    AWS.config.update({
-        region: "ap-northeast-1",
-        endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
-        accessKeyId: "AKIAXKZISWAEZWPSCIVL",
-        secretAccessKey: "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",
-    });
+    // AWS.config.update({
+    //     region: "ap-northeast-1",
+    //     endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
+    //     accessKeyId: "AKIAXKZISWAEZWPSCIVL",
+    //     secretAccessKey: "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",
+    // });
 
     // TRẠM 1----------------------------------------------------------------------------------
     if (x == "tram1") {
@@ -23,6 +23,12 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart1, function(err, data) {
+            // Tọa độ
+            lat_1 = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_1 = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do_1 = lat_1 + ', ' + lng_1;
+            document.getElementById("toa-do").innerHTML = toa_do_1;
+
             // Hiện tại
             hien_tai_1 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 
@@ -120,6 +126,12 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart2, function(err, data) {
+            // Tọa độ
+            lat_2 = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_2 = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do_2 = lat_2 + ', ' + lng_2;
+            document.getElementById("toa-do").innerHTML = toa_do_2;
+
             // Hiện tại
             hien_tai_2 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 
@@ -220,6 +232,12 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart3, function(err, data) {
+            // Tọa độ
+            lat_3 = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_3 = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do_3 = lat_3 + ', ' + lng_3;
+            document.getElementById("toa-do").innerHTML = toa_do_3;
+
             // Hiện tại
             hien_tai_3 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 

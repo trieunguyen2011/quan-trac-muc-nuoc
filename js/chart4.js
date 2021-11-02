@@ -153,6 +153,7 @@ function showChart() {
             ],
         },
         options: {
+            responsive: true,
             scales: {
                 x: {
                     min: x_length_4 - 20,

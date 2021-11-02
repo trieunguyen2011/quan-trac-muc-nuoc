@@ -70,7 +70,7 @@
             <p class="chart-title">Tổng hợp</p>
             <div class="chart-4-line"></div>
             <div>
-                <canvas id="chart-4" height="500px"></canvas>
+                <canvas id="chart-4" height="400px"></canvas>
                 <script src="./js/chart4.js"></script>
                 <div class="button-box">
                     <button class="next-btn btn-left-1" id="previous" onclick="nextData(-20, -20)"><i class="ti-control-backward"></i></button>
@@ -105,35 +105,112 @@
                     <option value="tram3">Trạm 3</option>
                 </select>
                 <div>
-                    <div class="row-le font-22">
-                        <p class="text-bold">Tọa độ</p>
-                        <p class="table-line"></p>
-                        <p id="toa_do">...</p>
+                    <!-- <div class="toa-do-box font-15">
+                        <p class="text-bold">Tọa độ:</p>
+                        <p class="margin-left-5px" id="toa-do">...</p>
+                    </div> -->
+
+                    <div class="table-distance">
+                        <table style="width:100%" class="12h-table">
+                            <tr>
+                                <th style="width:45%;text-align: center" colspan="2">Tọa độ</th>
+                                <td style="width:25%" colspan="2">
+                                    <p id="toa-do"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width:45%;text-align: center" colspan="2">Hiện tại</th>
+                                <td style="width:25%">
+                                    <p id="hien-tai"></p>
+                                </td>
+                                <td style="width:30%">
+                                    <p id="time-hien-tai"></p>
+                                </td>
+                            </tr>
+
+                            <!-- 12h giờ -->
+                            <tr>
+                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">12 GIỜ</th>
+                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
+                                <td style="background-color: #fff; width:25%">
+                                    <p id="min"></p>
+                                </td>
+                                <td style="background-color: #fff; width:30%">
+                                    <p id="time-min"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Cao nhất</th>
+                                <td style="background-color: #fff">
+                                    <p id="max"></p>
+                                </td>
+                                <td style="background-color: #fff">
+                                    <p id="time-max"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Trung bình</th>
+                                <td style="background-color: #fff" colspan="2">
+                                    <p id="average"></p>
+                                </td>
+                            </tr>
+
+                            <!-- 1 ngày -->
+                            <tr>
+                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">1 NGÀY</th>
+                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
+                                <td style="background-color: #fff; width:25%">
+                                    <p id="min"></p>
+                                </td>
+                                <td style="background-color: #fff; width:30%">
+                                    <p id="time-min"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Cao nhất</th>
+                                <td style="background-color: #fff">
+                                    <p id="max"></p>
+                                </td>
+                                <td style="background-color: #fff">
+                                    <p id="time-max"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Trung bình</th>
+                                <td style="background-color: #fff" colspan="2">
+                                    <p id="average"></p>
+                                </td>
+                            </tr>
+
+                            <!-- 3 ngày -->
+                            <tr>
+                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">3 NGÀY</th>
+                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
+                                <td style="background-color: #fff; width:25%">
+                                    <p id="min"></p>
+                                </td>
+                                <td style="background-color: #fff; width:30%">
+                                    <p id="time-min"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Cao nhất</th>
+                                <td style="background-color: #fff">
+                                    <p id="max"></p>
+                                </td>
+                                <td style="background-color: #fff">
+                                    <p id="time-max"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Trung bình</th>
+                                <td style="background-color: #fff" colspan="2">
+                                    <p id="average"></p>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="row-chan font-22">
-                        <p class="text-bold">Mực nước hiện tại</p>
-                        <p class="table-line"></p>
-                        <p id="hien-tai">...</p>
-                        <p id="time-hien-tai">...</p>
-                    </div>
-                    <div class="row-le font-22">
-                        <p class="text-bold">Mực nước cao nhất</p>
-                        <p class="table-line"></p>
-                        <p id="max">...</p>
-                        <p id="time-max">...</p>
-                    </div>
-                    <div class="row-chan font-22">
-                        <p class="text-bold">Mực nước thấp nhất</p>
-                        <p class="table-line"></p>
-                        <p id="min">...</p>
-                        <p id="time-min">...</p>
-                    </div>
-                    <div class="row-le font-22">
-                        <p class="text-bold">Mực nước trung bình</p>
-                        <p class="table-line"></p>
-                        <p id="average">...</p>
-                        <p id="time-average">...</p>
-                    </div>
+
                 </div>
 
                 <script src="./js/table.js"></script>
@@ -143,6 +220,7 @@
         <div id="footer">
             <img class="footer-img" src="https://upload.wikimedia.org/wikipedia/vi/thumb/6/6c/Logo_Dai_hoc_Can_Tho.svg/1024px-Logo_Dai_hoc_Can_Tho.svg.png" alt="">
             <div class="info">
+                <p class="footer-header">Trường ĐH Cần Thơ - Khoa Công Nghệ - Bộ môn Tự động hóa</p>
                 <p class="footer-content">LVTN - Hệ thống quan trắc mực nước tại các trạm bơm xả nước thải trên địa bàn TP. Bạc Liêu dựa trên nền tảng AWS IoT Core</p>
                 <div class="footer-sub">
                     <p>Giảng viên hướng dẫn: TS. Nguyễn Văn Khanh</p>
@@ -167,3 +245,26 @@
 
 
 </html>
+<!-- <div class="row-chan font-15">
+                        <p class="text-bold">Mực nước hiện tại:</p>
+                        <p class="margin-left-5px" id="hien-tai">...</p>
+                        <p class="time-data" id="time-hien-tai">...</p>
+                    </div> -->
+<!-- <div class="row-le font-15">
+    <p class="text-bold">Mực nước cao nhất</p>
+    <p class="table-line"></p>
+    <p id="max">...</p>
+    <p class="time-data" id="time-max">...</p>
+</div>
+<div class="row-chan font-15">
+    <p class="text-bold">Mực nước thấp nhất</p>
+    <p class="table-line"></p>
+    <p id="min">...</p>
+    <p class="time-data" id="time-min">...</p>
+</div>
+<div class="row-le font-15">
+    <p class="text-bold">Mực nước trung bình</p>
+    <p class="table-line"></p>
+    <p id="average">...</p>
+    <p class="time-data" id="time-average">...</p>
+</div> -->
