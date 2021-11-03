@@ -1,18 +1,16 @@
 function fn_change() {
     var x = document.getElementById("list-tram").value;
 
-    // AWS.config.update({
-    //     region: "ap-northeast-1",
-    //     endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
-    //     accessKeyId: "AKIAXKZISWAEZWPSCIVL",
-    //     secretAccessKey: "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",
-    // });
+    var array_distance_12h = new Array();
+    var array_distance_1day = new Array();
+    var array_distance_3day = new Array();
+
+    var array_time_12h = new Array();
+    var array_time_1day = new Array();
+    var array_time_3day = new Array();
 
     // TRẠM 1----------------------------------------------------------------------------------
     if (x == "tram1") {
-        var array_avg_chart1 = new Array();
-        // var array_distance_min_chart1 = new Array();
-
         var params_chart1 = {
             TableName: "water_level",
             KeyConditionExpression: "device_id = :a",
@@ -24,98 +22,152 @@ function fn_change() {
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart1, function(err, data) {
             // Tọa độ
-            lat_1 = data.Items[data.Items.length - 1].device_data.Latitude;
-            lng_1 = data.Items[data.Items.length - 1].device_data.Longitude;
-            toa_do_1 = lat_1 + ', ' + lng_1;
-            document.getElementById("toa-do").innerHTML = toa_do_1;
+            lat_data = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_data = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do = lat_data + ', ' + lng_data;
+            document.getElementById("toa-do").innerHTML = toa_do;
 
             // Hiện tại
-            hien_tai_1 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
+            hien_tai = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 
-            sample_time_data_chart1 = JSON.parse(data.Items[data.Items.length - 1].sample_time);
-            time_stamp_chart1 = new Date(sample_time_data_chart1);
-            min_chart1 = time_stamp_chart1.getMinutes();
-            hour_chart1 = time_stamp_chart1.getHours();
+            sample_time_data = JSON.parse(data.Items[data.Items.length - 1].sample_time);
+            time_stamp = new Date(sample_time_data);
+            min = time_stamp.getMinutes();
+            hour = time_stamp.getHours();
             const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            date_chart1 = time_stamp_chart1.getDate();
-            month_chart1 = month_name[time_stamp_chart1.getMonth()];
-            year_chart1 = time_stamp_chart1.getFullYear();
-            time_hien_tai_1 = hour_chart1 + ":" + min_chart1 + ', ' + date_chart1 + "/" + month_chart1 + "/" + year_chart1;
+            date = time_stamp.getDate();
+            month = month_name[time_stamp.getMonth()];
+            year = time_stamp.getFullYear();
+            time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai_1 + " cm";
-            document.getElementById("time-hien-tai").innerHTML = time_hien_tai_1;
+            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
-            // Lớn nhẩt
-            max_chart1 = 0;
+            // 12 GiỜ-----------------------------------------------------------------------
             for (let i = 0; i < data.Items.length; i++) {
-                distance_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart1.push(distance_chart1);
+                distance = JSON.parse(data.Items[i].device_data.Distance);
+                array_distance_12h.push(distance);
+                array_distance_1day.push(distance);
+                array_distance_3day.push(distance);
 
-                sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart1 = new Date(sample_time_data_chart1);
-                min_chart1 = time_stamp_chart1.getMinutes();
-                hour_chart1 = time_stamp_chart1.getHours();
+                sample_time_data = JSON.parse(data.Items[i].sample_time);
+                time_stamp = new Date(sample_time_data);
+                min = time_stamp.getMinutes();
+                hour = time_stamp.getHours();
                 const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart1 = time_stamp_chart1.getDate();
-                month_chart1 = month_name[time_stamp_chart1.getMonth()];
-                year_chart1 = time_stamp_chart1.getFullYear();
-                full_time_chart1 = hour_chart1 + ":" + min_chart1 + ', ' + date_chart1 + "/" + month_chart1 + "/" + year_chart1;
+                date = time_stamp.getDate();
+                month = month_name[time_stamp.getMonth()];
+                year = time_stamp.getFullYear();
+                full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
+                array_time_12h.push(full_time);
+                array_time_1day.push(full_time);
+                array_time_3day.push(full_time);
 
-                if (distance_chart1 > max_chart1) {
-                    max_chart1 = distance_chart1;
-                    time_max_chart1 = full_time_chart1;
+                if (array_distance_12h.length > 10) {
+                    array_distance_12h.shift();
+                    array_time_12h.shift();
+                }
+
+                if (array_distance_1day.length > 20) {
+                    array_distance_1day.shift();
+                    array_time_1day.shift();
+                }
+
+                if (array_distance_3day.length > 30) {
+                    array_distance_3day.shift();
+                    array_time_3day.shift();
                 }
             }
-
-            document.getElementById("max").innerHTML = max_chart1 + " cm";
-            document.getElementById("time-max").innerHTML = time_max_chart1;
-
+            // Lớn nhẩt
+            max_12h = 0;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] > max_12h) {
+                    max_12h = array_distance_12h[i];
+                    time_max_12h = array_time_12h[i];
+                }
+            }
+            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
-            min_distance_chart1 = max_chart1;
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart1.push(distance_chart1);
-
-                sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart1 = new Date(sample_time_data_chart1);
-                min_chart1 = time_stamp_chart1.getMinutes();
-                hour_chart1 = time_stamp_chart1.getHours();
-                const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart1 = time_stamp_chart1.getDate();
-                month_chart1 = month_name[time_stamp_chart1.getMonth()];
-                year_chart1 = time_stamp_chart1.getFullYear();
-                full_time_chart1 = hour_chart1 + ":" + min_chart1 + ', ' + date_chart1 + "/" + month_chart1 + "/" + year_chart1;
-                // array_full_time_chart1.push(full_time_chart1);
-
-                if (distance_chart1 < min_distance_chart1) {
-                    min_distance_chart1 = distance_chart1;
-                    time_min_chart1 = full_time_chart1;
+            min_12h = max_12h;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] < min_12h) {
+                    min_12h = array_distance_12h[i];
+                    time_min_12h = array_time_12h[i];
                 }
             }
+            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
-            document.getElementById("min").innerHTML = min_distance_chart1 + " cm";
-            document.getElementById("time-min").innerHTML = time_min_chart1;
+            // Trung bình   
+            avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
+            avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            // ------------------------------------------------------------------------------------------
 
-
-            // Trung bình
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                array_avg_chart1.push(distance_data_chart1);
+            // 1 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_1day = 0;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] > max_1day) {
+                    max_1day = array_distance_1day[i];
+                    time_max_1day = array_time_1day[i];
+                }
             }
-            avg_chart1 = array_avg_chart1 = array_avg_chart1.reduce((a, b) => a + b, 0) / array_avg_chart1.length;
-            // console.log(avg_chart1)
-            avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
-            // console.log(avg_chart1_new)
-            document.getElementById("average").innerHTML = avg_chart1_final + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("time-max-1day").innerHTML = time_max_1day;
+
+            // Nhỏ nhất
+            min_1day = max_1day;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] < min_1day) {
+                    min_1day = array_distance_1day[i];
+                    time_min_1day = array_time_1day[i];
+                }
+            }
+            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("time-min-1day").innerHTML = time_min_1day;
+
+            // Trung bình   
+            avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
+            avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            // ------------------------------------------------------------------------------------------
+
+            // 3 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_3day = 0;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] > max_3day) {
+                    max_3day = array_distance_3day[i];
+                    time_max_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("time-max-3day").innerHTML = time_max_3day;
+
+            // Nhỏ nhất
+            min_3day = max_3day;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] < min_3day) {
+                    min_3day = array_distance_3day[i];
+                    time_min_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("time-min-3day").innerHTML = time_min_3day;
+
+            // Trung bình   
+            avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
+            avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
         })
 
 
         // TRẠM 2----------------------------------------------------------------------------------
     } else if (x == "tram2") {
-        var array_avg_chart2 = new Array();
-
         var params_chart2 = {
             TableName: "water_level",
             KeyConditionExpression: "device_id = :a",
@@ -127,101 +179,151 @@ function fn_change() {
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart2, function(err, data) {
             // Tọa độ
-            lat_2 = data.Items[data.Items.length - 1].device_data.Latitude;
-            lng_2 = data.Items[data.Items.length - 1].device_data.Longitude;
-            toa_do_2 = lat_2 + ', ' + lng_2;
-            document.getElementById("toa-do").innerHTML = toa_do_2;
+            lat_data = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_data = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do = lat_data + ', ' + lng_data;
+            document.getElementById("toa-do").innerHTML = toa_do;
 
             // Hiện tại
-            hien_tai_2 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
+            hien_tai = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 
-            sample_time_data_chart2 = JSON.parse(data.Items[data.Items.length - 1].sample_time);
-            time_stamp_chart2 = new Date(sample_time_data_chart2);
-            min_chart2 = time_stamp_chart2.getMinutes();
-            hour_chart2 = time_stamp_chart2.getHours();
+            sample_time_data = JSON.parse(data.Items[data.Items.length - 1].sample_time);
+            time_stamp = new Date(sample_time_data);
+            min = time_stamp.getMinutes();
+            hour = time_stamp.getHours();
             const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            date_chart2 = time_stamp_chart2.getDate();
-            month_chart2 = month_name[time_stamp_chart2.getMonth()];
-            year_chart2 = time_stamp_chart2.getFullYear();
-            time_hien_tai_2 = hour_chart2 + ":" + min_chart2 + ', ' + date_chart2 + "/" + month_chart2 + "/" + year_chart2;
+            date = time_stamp.getDate();
+            month = month_name[time_stamp.getMonth()];
+            year = time_stamp.getFullYear();
+            time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai_2 + " cm";
-            document.getElementById("time-hien-tai").innerHTML = time_hien_tai_2;
+            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
-
-            // Lớn nhẩt
-            max_chart2 = 0;
+            // 12 GiỜ-----------------------------------------------------------------------
             for (let i = 0; i < data.Items.length; i++) {
-                distance_chart2 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart2.push(distance_chart2);
+                distance = JSON.parse(data.Items[i].device_data.Distance);
+                array_distance_12h.push(distance);
+                array_distance_1day.push(distance);
+                array_distance_3day.push(distance);
 
-                sample_time_data_chart2 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart2 = new Date(sample_time_data_chart2);
-                min_chart2 = time_stamp_chart2.getMinutes();
-                hour_chart2 = time_stamp_chart2.getHours();
+                sample_time_data = JSON.parse(data.Items[i].sample_time);
+                time_stamp = new Date(sample_time_data);
+                min = time_stamp.getMinutes();
+                hour = time_stamp.getHours();
                 const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart2 = time_stamp_chart2.getDate();
-                month_chart2 = month_name[time_stamp_chart2.getMonth()];
-                year_chart2 = time_stamp_chart2.getFullYear();
-                full_time_chart2 = hour_chart2 + ":" + min_chart2 + ', ' + date_chart2 + "/" + month_chart2 + "/" + year_chart2;
-                // array_full_time_chart2.push(full_time_chart2);
+                date = time_stamp.getDate();
+                month = month_name[time_stamp.getMonth()];
+                year = time_stamp.getFullYear();
+                full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
+                array_time_12h.push(full_time);
+                array_time_1day.push(full_time);
+                array_time_3day.push(full_time);
 
-                if (distance_chart2 > max_chart2) {
-                    max_chart2 = distance_chart2;
-                    time_max_chart2 = full_time_chart2;
+                if (array_distance_12h.length > 10) {
+                    array_distance_12h.shift();
+                    array_time_12h.shift();
+                }
+
+                if (array_distance_1day.length > 20) {
+                    array_distance_1day.shift();
+                    array_time_1day.shift();
+                }
+
+                if (array_distance_3day.length > 30) {
+                    array_distance_3day.shift();
+                    array_time_3day.shift();
                 }
             }
-
-            document.getElementById("max").innerHTML = max_chart2 + " cm";
-            document.getElementById("time-max").innerHTML = time_max_chart2;
-
+            // Lớn nhẩt
+            max_12h = 0;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] > max_12h) {
+                    max_12h = array_distance_12h[i];
+                    time_max_12h = array_time_12h[i];
+                }
+            }
+            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
-            min_distance_chart2 = max_chart2;
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_chart2 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart2.push(distance_chart2);
-
-                sample_time_data_chart2 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart2 = new Date(sample_time_data_chart2);
-                min_chart2 = time_stamp_chart2.getMinutes();
-                hour_chart2 = time_stamp_chart2.getHours();
-                const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart2 = time_stamp_chart2.getDate();
-                month_chart2 = month_name[time_stamp_chart2.getMonth()];
-                year_chart2 = time_stamp_chart2.getFullYear();
-                full_time_chart2 = hour_chart2 + ":" + min_chart2 + ', ' + date_chart2 + "/" + month_chart2 + "/" + year_chart2;
-                // array_full_time_chart2.push(full_time_chart2);
-
-                if (distance_chart2 < min_distance_chart2) {
-                    min_distance_chart2 = distance_chart2;
-                    time_min_chart2 = full_time_chart2;
+            min_12h = max_12h;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] < min_12h) {
+                    min_12h = array_distance_12h[i];
+                    time_min_12h = array_time_12h[i];
                 }
             }
+            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
-            document.getElementById("min").innerHTML = min_distance_chart2 + " cm";
-            document.getElementById("time-min").innerHTML = time_min_chart2;
+            // Trung bình   
+            avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
+            avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            // ------------------------------------------------------------------------------------------
 
-
-            // Trung bình
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_data_chart2 = JSON.parse(data.Items[i].device_data.Distance);
-                array_avg_chart2.push(distance_data_chart2);
+            // 1 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_1day = 0;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] > max_1day) {
+                    max_1day = array_distance_1day[i];
+                    time_max_1day = array_time_1day[i];
+                }
             }
-            avg_chart2 = array_avg_chart2 = array_avg_chart2.reduce((a, b) => a + b, 0) / array_avg_chart2.length;
-            // console.log(avg_chart2)
-            avg_chart2_final = Math.round(avg_chart2 * 100) / 100; // Làm tròn
-            // console.log(avg_chart2_new)
-            document.getElementById("average").innerHTML = avg_chart2_final + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("time-max-1day").innerHTML = time_max_1day;
 
+            // Nhỏ nhất
+            min_1day = max_1day;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] < min_1day) {
+                    min_1day = array_distance_1day[i];
+                    time_min_1day = array_time_1day[i];
+                }
+            }
+            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("time-min-1day").innerHTML = time_min_1day;
+
+            // Trung bình   
+            avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
+            avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            // ------------------------------------------------------------------------------------------
+
+            // 3 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_3day = 0;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] > max_3day) {
+                    max_3day = array_distance_3day[i];
+                    time_max_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("time-max-3day").innerHTML = time_max_3day;
+
+            // Nhỏ nhất
+            min_3day = max_3day;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] < min_3day) {
+                    min_3day = array_distance_3day[i];
+                    time_min_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("time-min-3day").innerHTML = time_min_3day;
+
+            // Trung bình   
+            avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
+            avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
         })
-
 
         //TRẠM 3------------------------------------------------------------------------------------
     } else if (x == "tram3") {
-        var array_avg_chart3 = new Array();
-
         var params_chart3 = {
             TableName: "water_level",
             KeyConditionExpression: "device_id = :a",
@@ -233,95 +335,147 @@ function fn_change() {
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart3, function(err, data) {
             // Tọa độ
-            lat_3 = data.Items[data.Items.length - 1].device_data.Latitude;
-            lng_3 = data.Items[data.Items.length - 1].device_data.Longitude;
-            toa_do_3 = lat_3 + ', ' + lng_3;
-            document.getElementById("toa-do").innerHTML = toa_do_3;
+            lat_data = data.Items[data.Items.length - 1].device_data.Latitude;
+            lng_data = data.Items[data.Items.length - 1].device_data.Longitude;
+            toa_do = lat_data + ', ' + lng_data;
+            document.getElementById("toa-do").innerHTML = toa_do;
 
             // Hiện tại
-            hien_tai_3 = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
+            hien_tai = JSON.parse(data.Items[data.Items.length - 1].device_data.Distance);
 
-            sample_time_data_chart3 = JSON.parse(data.Items[data.Items.length - 1].sample_time);
-            time_stamp_chart3 = new Date(sample_time_data_chart3);
-            min_chart3 = time_stamp_chart3.getMinutes();
-            hour_chart3 = time_stamp_chart3.getHours();
+            sample_time_data = JSON.parse(data.Items[data.Items.length - 1].sample_time);
+            time_stamp = new Date(sample_time_data);
+            min = time_stamp.getMinutes();
+            hour = time_stamp.getHours();
             const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            date_chart3 = time_stamp_chart3.getDate();
-            month_chart3 = month_name[time_stamp_chart3.getMonth()];
-            year_chart3 = time_stamp_chart3.getFullYear();
-            time_hien_tai_3 = hour_chart3 + ":" + min_chart3 + ', ' + date_chart3 + "/" + month_chart3 + "/" + year_chart3;
+            date = time_stamp.getDate();
+            month = month_name[time_stamp.getMonth()];
+            year = time_stamp.getFullYear();
+            time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai_3 + " cm";
-            document.getElementById("time-hien-tai").innerHTML = time_hien_tai_3;
+            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
-
-            // Lớn nhẩt
-            max_chart3 = 0;
+            // 12 GiỜ-----------------------------------------------------------------------
             for (let i = 0; i < data.Items.length; i++) {
-                distance_chart3 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart3.push(distance_chart3);
+                distance = JSON.parse(data.Items[i].device_data.Distance);
+                array_distance_12h.push(distance);
+                array_distance_1day.push(distance);
+                array_distance_3day.push(distance);
 
-                sample_time_data_chart3 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart3 = new Date(sample_time_data_chart3);
-                min_chart3 = time_stamp_chart3.getMinutes();
-                hour_chart3 = time_stamp_chart3.getHours();
+                sample_time_data = JSON.parse(data.Items[i].sample_time);
+                time_stamp = new Date(sample_time_data);
+                min = time_stamp.getMinutes();
+                hour = time_stamp.getHours();
                 const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart3 = time_stamp_chart3.getDate();
-                month_chart3 = month_name[time_stamp_chart3.getMonth()];
-                year_chart3 = time_stamp_chart3.getFullYear();
-                full_time_chart3 = hour_chart3 + ":" + min_chart3 + ', ' + date_chart3 + "/" + month_chart3 + "/" + year_chart3;
-                // array_full_time_chart3.push(full_time_chart3);
+                date = time_stamp.getDate();
+                month = month_name[time_stamp.getMonth()];
+                year = time_stamp.getFullYear();
+                full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
+                array_time_12h.push(full_time);
+                array_time_1day.push(full_time);
+                array_time_3day.push(full_time);
 
-                if (distance_chart3 > max_chart3) {
-                    max_chart3 = distance_chart3;
-                    time_max_chart3 = full_time_chart3;
+                if (array_distance_12h.length > 10) {
+                    array_distance_12h.shift();
+                    array_time_12h.shift();
+                }
+
+                if (array_distance_1day.length > 20) {
+                    array_distance_1day.shift();
+                    array_time_1day.shift();
+                }
+
+                if (array_distance_3day.length > 30) {
+                    array_distance_3day.shift();
+                    array_time_3day.shift();
                 }
             }
-
-            document.getElementById("max").innerHTML = max_chart3 + " cm";
-            document.getElementById("time-max").innerHTML = time_max_chart3;
-
+            // Lớn nhẩt
+            max_12h = 0;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] > max_12h) {
+                    max_12h = array_distance_12h[i];
+                    time_max_12h = array_time_12h[i];
+                }
+            }
+            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
-            min_distance_chart3 = max_chart3;
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_chart3 = JSON.parse(data.Items[i].device_data.Distance);
-                // array_distance_chart3.push(distance_chart3);
-
-                sample_time_data_chart3 = JSON.parse(data.Items[i].sample_time);
-                time_stamp_chart3 = new Date(sample_time_data_chart3);
-                min_chart3 = time_stamp_chart3.getMinutes();
-                hour_chart3 = time_stamp_chart3.getHours();
-                const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                date_chart3 = time_stamp_chart3.getDate();
-                month_chart3 = month_name[time_stamp_chart3.getMonth()];
-                year_chart3 = time_stamp_chart3.getFullYear();
-                full_time_chart3 = hour_chart3 + ":" + min_chart3 + ', ' + date_chart3 + "/" + month_chart3 + "/" + year_chart3;
-                // array_full_time_chart3.push(full_time_chart3);
-
-                if (distance_chart3 < min_distance_chart3) {
-                    min_distance_chart3 = distance_chart3;
-                    time_min_chart3 = full_time_chart3;
+            min_12h = max_12h;
+            for (let i = 0; i < array_distance_12h.length; i++) {
+                if (array_distance_12h[i] < min_12h) {
+                    min_12h = array_distance_12h[i];
+                    time_min_12h = array_time_12h[i];
                 }
             }
+            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
-            document.getElementById("min").innerHTML = min_distance_chart3 + " cm";
-            document.getElementById("time-min").innerHTML = time_min_chart3;
+            // Trung bình   
+            avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
+            avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            // ------------------------------------------------------------------------------------------
 
-
-            // Trung bình
-            for (let i = 0; i < data.Items.length; i++) {
-                distance_data_chart3 = JSON.parse(data.Items[i].device_data.Distance);
-                array_avg_chart3.push(distance_data_chart3);
+            // 1 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_1day = 0;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] > max_1day) {
+                    max_1day = array_distance_1day[i];
+                    time_max_1day = array_time_1day[i];
+                }
             }
-            avg_chart3 = array_avg_chart3 = array_avg_chart3.reduce((a, b) => a + b, 0) / array_avg_chart3.length;
-            // console.log(avg_chart3)
-            avg_chart3_final = Math.round(avg_chart3 * 100) / 100; // Làm tròn
-            // console.log(avg_chart3_new)
-            document.getElementById("average").innerHTML = avg_chart3_final + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("time-max-1day").innerHTML = time_max_1day;
 
+            // Nhỏ nhất
+            min_1day = max_1day;
+            for (let i = 0; i < array_distance_1day.length; i++) {
+                if (array_distance_1day[i] < min_1day) {
+                    min_1day = array_distance_1day[i];
+                    time_min_1day = array_time_1day[i];
+                }
+            }
+            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("time-min-1day").innerHTML = time_min_1day;
+
+            // Trung bình   
+            avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
+            avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            // ------------------------------------------------------------------------------------------
+
+            // 3 NGÀY------------------------------------------------------------------------------------
+            // Lớn nhẩt
+            max_3day = 0;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] > max_3day) {
+                    max_3day = array_distance_3day[i];
+                    time_max_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("time-max-3day").innerHTML = time_max_3day;
+
+            // Nhỏ nhất
+            min_3day = max_3day;
+            for (let i = 0; i < array_distance_3day.length; i++) {
+                if (array_distance_3day[i] < min_3day) {
+                    min_3day = array_distance_3day[i];
+                    time_min_3day = array_time_3day[i];
+                }
+            }
+            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("time-min-3day").innerHTML = time_min_3day;
+
+            // Trung bình   
+            avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
+            avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
         })
-
     }
 }
