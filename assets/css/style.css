@@ -28,7 +28,7 @@ html {
 /*End class chung*/
 
 body {
-    height: 1760px;
+    height: 1770px;
     width: 1300px;
     margin-left: auto;
     margin-right: auto;
@@ -64,16 +64,34 @@ body {
     font-style: italic;
     float: right;
     margin-top: -28px;
-    margin-right: 200px;
+    margin-right: 230px;
+}
+
+.btn-reload {
+    float: right;
+    width: 30px;
+    height: 30px;
+    color: black;
+    font-size: 21px;
+    background: white;
+    margin-right: -309px;
+    margin-top: -26px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-reload:hover {
+    color: rgb(151, 146, 146);
+    font-size: 22px;
 }
 
 #display_time {
     float: right;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 550;
     font-style: italic;
     margin-top: -26.7px;
-    margin-right: -275px;
+    margin-right: -270px;
 }
 
 .header-line {
@@ -104,6 +122,7 @@ body {
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
     padding: 10px;
+    padding-top: 5px;
 }
 
 .chart-title {
@@ -116,8 +135,8 @@ body {
     color: black;
     font-size: 22px;
     text-decoration: none;
-    margin-top: -38px;
-    margin-right: -7px;
+    margin-top: -34px;
+    margin-right: -6px;
     padding: 5px 5px 0 4.5px;
     border-radius: 5px;
 }
@@ -169,7 +188,7 @@ body {
     align-items: center;
 }
 
-button {
+.btn-chart4 {
     font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
     padding: 2px 15px 5px 15px;
@@ -180,8 +199,9 @@ button {
     cursor: pointer;
 }
 
+a:active,
 button:active {
-    transform: translateY(3px);
+    transform: translateY(2px);
 }
 
 button:disabled {
@@ -205,8 +225,12 @@ button:disabled {
 }
 
 .map-title {
-    margin-right: 615px;
-    margin-left: 10px;
+    margin-right: 610px;
+}
+
+.ti-map-alt,
+.ti-view-list-alt {
+    margin: 5px 8px 0 10px;
 }
 
 #content {
@@ -362,14 +386,21 @@ th {
 .contact-header {
     font-weight: 600;
     margin-bottom: 20px;
+    margin-top: -19px;
 }
 
 .ti-email,
 .ti-mobile {
     float: left;
-    margin-top: 1px;
-    margin-right: 10px;
+    margin-top: 1.5px;
+    margin-right: 5px;
     font-size: 18px;
+}
+
+.ti-info-alt {
+    font-size: 18px;
+    display: flex;
+    padding-left: 98px;
 }
 
 .contact-mail,

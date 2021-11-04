@@ -24,13 +24,15 @@
             <p class="header-sub">Địa điểm: TP Bạc Liêu</p>
             <p class="header-date">Cập nhật:</p>
             <p id="display_time"></p>
+            <button class="btn-reload" onClick="window.location.reload()"><i class="ti-reload"></i></button>
         </div>
         <!-- End Header -->
 
         <!-- Begin Chart -->
         <div id="mini-chart">
             <div class="chart-box">
-                <p class="chart-title">Trạm 1</p>
+                <p class="chart-title">
+                    <i class="ti-stats-up"></i> Trạm 1</p>
                 <div class="icon-full-screen">
                     <a href="tram1.html"><i class="ti-fullscreen"></i></a>
                 </div>
@@ -42,7 +44,8 @@
             </div>
 
             <div class="chart-box" style="margin: 0 20px">
-                <p class="chart-title">Trạm 2</p>
+                <p class="chart-title">
+                    <i class="ti-stats-up"></i> Trạm 2</p>
                 <div class="icon-full-screen">
                     <a href="tram2.html"><i class="ti-fullscreen"></i></a>
                 </div>
@@ -55,7 +58,8 @@
             </div>
 
             <div class="chart-box">
-                <p class="chart-title">Trạm 3</p>
+                <p class="chart-title">
+                    <i class="ti-stats-up"></i> Trạm 3</p>
                 <div class="icon-full-screen">
                     <a href="tram3.html"><i class="ti-fullscreen"></i></a>
                 </div>
@@ -68,25 +72,28 @@
         </div>
 
         <div class="chart-4-box">
-            <p class="chart-title">Tổng hợp</p>
+            <p class="chart-title">
+                <i class="ti-stats-up"></i> Tổng hợp</p>
             <div class="chart-4-line"></div>
             <div>
                 <canvas id="chart-4" height="400px"></canvas>
                 <script src="./js/chart4.js"></script>
                 <div class="button-box">
-                    <button class="next-btn btn-left-1" id="previous" onclick="nextData(-20, -20)"><i class="ti-control-backward"></i></button>
-                    <button class="next-btn btn-left-2" id="next" onclick="nextData(20, 20)"><i class="ti-control-forward"></i></button>
-                    <button onclick="toggleData(3)">TB Trạm 1</button>
-                    <button onclick="toggleData(4)">TB Trạm 2</button>
-                    <button onclick="toggleData(5)">TB Trạm 3</button>
+                    <button class="btn-chart4 next-btn btn-left-1" id="previous" onclick="nextData(-20, -20)"><i class="ti-control-backward"></i></button>
+                    <button class="btn-chart4 next-btn btn-left-2" id="next" onclick="nextData(20, 20)"><i class="ti-control-forward"></i></button>
+                    <button class="btn-chart4" onclick="toggleData(3)">TB Trạm 1</button>
+                    <button class="btn-chart4" onclick="toggleData(4)">TB Trạm 2</button>
+                    <button class="btn-chart4" onclick="toggleData(5)">TB Trạm 3</button>
                 </div>
             </div>
         </div>
         <!-- End Chart -->
 
         <div class="content-title">
-            <p class="map-title">Vị trí các trạm đo</p>
-            <p class="table-title">Bảng thống kê</p>
+            <i class="ti-map-alt"></i>
+            <p class="map-title">Vị trí trạm đo</p>
+            <i class="ti-view-list-alt"></i>
+            <p class="table-title">Thống kê</p>
         </div>
         <div id="content">
             <!-- Begin Map -->
@@ -230,14 +237,15 @@
             </div>
 
             <div class="contact">
+                <i class="ti-info-alt"></i>
                 <p class="contact-header">Thông tin liên hệ</p>
                 <div class="contact-mail">
                     <i class="ti-email"></i>
-                    <p>nntrieu201199@gmail.com</p>
+                    <p>Email: nntrieu201199@gmail.com</p>
                 </div>
                 <div class="contact-phone">
                     <i class="ti-mobile"></i>
-                    <p>(+84) 947 460 807</p>
+                    <p>SĐT: (+84) 947 460 807</p>
                 </div>
             </div>
         </div>

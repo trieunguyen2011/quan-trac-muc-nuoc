@@ -16,9 +16,6 @@ docClient.query(params_chart2, function(err, data) {
         for (let i = 0; i < data.Items.length; i++) {
             distance_data_chart2 = JSON.parse(data.Items[i].device_data.Distance);
             array_distance_chart2.push(distance_data_chart2);
-            if (array_distance_chart2.length > 10) {
-                array_distance_chart2.shift();
-            }
         }
         for (let i = 0; i < data.Items.length; i++) {
             sample_time_data_chart2 = JSON.parse(data.Items[i].sample_time);
@@ -27,12 +24,11 @@ docClient.query(params_chart2, function(err, data) {
             hour_chart2 = time_stamp_chart2.getHours();
             time_chart2 = hour_chart2 + ":" + min_chart2;
             array_time_chart2.push(time_chart2);
-            if (array_time_chart2.length > 10) {
-                array_time_chart2.shift();
-            }
         }
         const x_data_chart2 = array_time_chart2;
         const y_data_chart2 = array_distance_chart2;
+        x_length_2 = x_data_chart2.length;
+
         const ctx = document.getElementById("chart-2").getContext("2d");
         const myChart = new Chart(ctx, {
             type: "line",
@@ -54,6 +50,10 @@ docClient.query(params_chart2, function(err, data) {
                     },
                 },
                 scales: {
+                    x: {
+                        min: x_length_2 - 20,
+                        max: x_length_2,
+                    },
                     y: {
                         beginAtZero: true,
                     },

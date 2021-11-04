@@ -25,9 +25,6 @@ docClient.query(params_chart1, function(err, data) {
         for (let i = 0; i < data.Items.length; i++) {
             distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
             array_distance_chart1.push(distance_data_chart1);
-            if (array_distance_chart1.length > 10) {
-                array_distance_chart1.shift();
-            }
         }
         for (let i = 0; i < data.Items.length; i++) {
             sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
@@ -43,22 +40,16 @@ docClient.query(params_chart1, function(err, data) {
             full_time_update = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
             time_chart1 = hour_chart1 + ":" + min_chart1;
             array_time_chart1.push(time_chart1);
-            if (array_time_chart1.length > 10) {
-                array_time_chart1.shift();
-            }
             array_time_update.push(full_time_update);
-            if (array_time_update.length > 10) {
-                array_time_update.shift();
-            }
         }
-        display_time = array_time_update[9];
+        display_time = array_time_update[array_time_update.length - 1];
         document.getElementById("display_time").innerHTML = display_time;
-
 
 
         // Biểu đồ
         const x_data_chart1 = array_time_chart1;
         const y_data_chart1 = array_distance_chart1;
+        x_length_1 = x_data_chart1.length;
 
         const ctx = document.getElementById("chart-1").getContext("2d");
         const myChart = new Chart(ctx, {
@@ -81,6 +72,10 @@ docClient.query(params_chart1, function(err, data) {
                     },
                 },
                 scales: {
+                    x: {
+                        min: x_length_1 - 20,
+                        max: x_length_1,
+                    },
                     y: {
                         beginAtZero: true,
                     },
