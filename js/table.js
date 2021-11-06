@@ -1,6 +1,5 @@
 function fn_change() {
     var x = document.getElementById("list-tram").value;
-
     var array_distance_12h = new Array();
     var array_distance_1day = new Array();
     var array_distance_3day = new Array();

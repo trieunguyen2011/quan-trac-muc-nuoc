@@ -11,6 +11,8 @@
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/vi/thumb/6/6c/Logo_Dai_hoc_Can_Tho.svg/1024px-Logo_Dai_hoc_Can_Tho.svg.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
 
     <style>
         html {
@@ -19,12 +21,12 @@
         
         body {
             height: 3000px;
-            width: 1800px;
+            width: 1700px;
             margin-left: auto;
             margin-right: auto;
         }
         
-        .chart-box {
+        .main {
             margin: 20px;
         }
         
@@ -39,6 +41,13 @@
             background: #ccc;
         }
         
+        .chart-box {
+            border-radius: 5px;
+            border: solid 2px grey;
+            padding: 10px;
+            padding-top: 30px;
+        }
+        
         .button-box {
             width: 100%;
             display: flex;
@@ -47,7 +56,8 @@
         }
         
         button {
-            padding: 5px 10px;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            padding: 2px 15px 5px 15px;
             margin: 5px;
             background-color: grey;
             color: white;
@@ -56,7 +66,7 @@
         }
         
         .next-btn {
-            padding: 7px 16px 3px 13px;
+            padding: 3px 15px;
         }
         
         .btn-left-2 {
@@ -71,32 +81,74 @@
             background-color: white;
             color: grey;
         }
+        
+        #change_chart {
+            float: right;
+            border-radius: .25rem;
+            cursor: pointer;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 200px;
+            height: 40px;
+            font-size: 20px;
+            padding: 0 0 3px 10px;
+            margin-top: -55px;
+        }
+        
+        #change_chart:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
     </style>
 
 </head>
 
 <body>
     <div class="main">
-        <div class="chart-box">
+        <div>
             <h1 class="chart-title">Trạm 1</h1>
+            <div class="select-box">
+                <select id="change_chart">
+                    <option value="live">Live</option>
+                    <option value="1-ngay">1 ngày</option>
+                    <option value="3-ngay">3 ngày</option>
+                    <option value="7-ngay">7 ngày</option>
+                </select>
+            </div>
             <div class="chart-line"></div>
-            <div>
+            <div class="chart-box">
                 <canvas id="chart-1" height="100x"></canvas>
+
+                <div class="button-box">
+                    <button class="next-btn btn-left-1" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
+                    <button class="next-btn btn-left-2" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
+                    <button onclick="toggleData(0)">Trạm 1</button>
+                    <button onclick="toggleData(1)">Trung bình</button>
+                </div>
             </div>
         </div>
 
-        <div class="button-box">
-            <button class="next-btn btn-left-1" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
-            <button class="next-btn btn-left-2" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
-            <button onclick="toggleData(0)">Trạm 1</button>
-            <button onclick="toggleData(1)">Trung bình</button>
-        </div>
+
 
         <script>
             var myChart;
-            var array_distance_chart1 = new Array();
-            var array_time_chart1 = new Array();
-            var array_avg_chart1 = new Array();
+            var array_distance_live = new Array();
+            var array_time_live = new Array();
+            var array_avg_live = new Array();
+
+            var array_distance_1ngay = new Array();
+            var array_time_1ngay = new Array();
+            var array_avg_1ngay = new Array();
+
+            var array_distance_3ngay = new Array();
+            var array_time_3ngay = new Array();
+            var array_avg_3ngay = new Array();
+
+            var array_distance_7ngay = new Array();
+            var array_time_7ngay = new Array();
+            var array_avg_7ngay = new Array();
 
 
             AWS.config.update({
@@ -118,61 +170,95 @@
             docClient.query(params_chart1, function(err, data) {
 
                 for (let i = 0; i < data.Items.length; i++) {
-                    distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
-                    array_distance_chart1.push(distance_data_chart1);
+                    distance_data = JSON.parse(data.Items[i].device_data.Distance);
+                    array_distance_live.push(distance_data);
+                    array_distance_1ngay.push(distance_data);
+                    array_distance_3ngay.push(distance_data);
+                    array_distance_7ngay.push(distance_data);
 
-                    avg_chart1 = array_distance_chart1.reduce((a, b) => a + b, 0) / array_distance_chart1.length;
-                    avg_chart1_final = Math.round(avg_chart1 * 100) / 100; // Làm tròn
-                    array_avg_chart1.push(avg_chart1_final);
+                    avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
+                    avg_final = Math.round(avg * 100) / 100; // Làm tròn
+                    array_avg_live.push(avg_final);
+                    array_avg_1ngay.push(avg_final);
+                    array_avg_3ngay.push(avg_final);
+                    array_avg_7ngay.push(avg_final);
+
+                    if (array_distance_1ngay.length > 10) {
+                        array_distance_1ngay.shift();
+                        array_avg_1ngay.shift();
+                    }
+                    if (array_distance_3ngay.length > 30) {
+                        array_distance_3ngay.shift();
+                        array_avg_3ngay.shift();
+                    }
+                    if (array_distance_7ngay.length > 70) {
+                        array_distance_7ngay.shift();
+                        array_avg_7ngay.shift();
+                    }
                 }
-                // console.log(array_avg_chart1)
                 for (let i = 0; i < data.Items.length; i++) {
-                    sample_time_data_chart1 = JSON.parse(data.Items[i].sample_time);
-                    const time_stamp_chart1 = new Date(sample_time_data_chart1);
-                    min_chart1 = time_stamp_chart1.getMinutes();
-                    hour_chart1 = time_stamp_chart1.getHours();
+                    sample_time_data = JSON.parse(data.Items[i].sample_time);
+                    const time_stamp = new Date(sample_time_data);
+                    min = time_stamp.getMinutes();
+                    hour = time_stamp.getHours();
 
                     const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                    date = time_stamp_chart1.getDate();
-                    month = month_name[time_stamp_chart1.getMonth()];
-                    year = time_stamp_chart1.getFullYear();
+                    date = time_stamp.getDate();
+                    month = month_name[time_stamp.getMonth()];
+                    year = time_stamp.getFullYear();
 
-                    // full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
-                    full_time = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month;
+                    // full_time = hour + ":" + min + ' ' + date + "/" + month + "/" + year;
+                    full_time = hour + ":" + min + ', ' + date + "/" + month;
+                    array_time_live.push(full_time);
+                    // array_time_live.push(time_stamp);
 
-                    array_time_chart1.push(full_time);
+                    array_time_1ngay.push(time_stamp);
+                    array_time_3ngay.push(time_stamp);
+                    array_time_7ngay.push(time_stamp);
+
+                    if (array_time_1ngay.length > 10) {
+                        array_time_1ngay.shift();
+                    }
+                    if (array_time_3ngay.length > 30) {
+                        array_time_3ngay.shift();
+                    }
+                    if (array_time_7ngay.length > 70) {
+                        array_time_7ngay.shift();
+                    }
                 }
-
+                // console.log(new Date(array_time_live[2]))
             });
 
             function showChart() {
                 // Biểu đồ
-                const x_data_chart1 = array_time_chart1;
-                const y_data_chart1 = array_distance_chart1;
-                const avg_data_chart1 = array_avg_chart1;
-                const x_length = array_time_chart1.length;
+                const x_data = array_time_live;
+                const y_data = array_distance_live;
+                const avg_data = array_avg_live;
+                const x_length = array_time_live.length;
 
                 const ctx = document.getElementById("chart-1").getContext("2d");
                 myChart = new Chart(ctx, {
                     data: {
-                        labels: x_data_chart1,
+                        labels: x_data,
                         datasets: [{ //0
                             type: "line",
                             label: "Trạm 1",
-                            data: y_data_chart1,
+                            data: y_data,
                             backgroundColor: 'rgb(54, 162, 235)',
                             borderColor: 'rgb(54, 162, 235)',
                             borderWidth: 2,
                             cubicInterpolationMode: 'monotone',
+                            // pointRadius: 0 // xóa dot
                         }, { //1
                             type: "line",
                             label: "Trung bình",
-                            data: avg_data_chart1,
+                            data: avg_data,
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
                             borderWidth: 2,
                             borderDash: [5, 5],
                             cubicInterpolationMode: 'monotone',
+                            // pointRadius: 0 // xóa dot
                         }],
                     },
                     options: {
@@ -180,10 +266,14 @@
                             x: {
                                 min: x_length - 24,
                                 max: x_length,
-                                // title: {
-                                //     display: true,
-                                //     text: 'Thời gian'
-                                // }
+
+                                // min: 'disable',
+                                // max: 'disable',
+
+                                // type: 'time',
+                                // time: {
+                                //     unit: 'hour',
+                                // },
                             },
                             y: {
                                 beginAtZero: true,
@@ -201,6 +291,9 @@
                                 }
                             },
                         },
+                        onHover: (event, chartElement) => {
+                            event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                        },
                     },
                 })
             }
@@ -217,14 +310,32 @@
                 }
             };
 
-
+            // Next - Previous data
             function nextData(start, end) {
-                const x_length = array_time_chart1.length;
+                const x_length = array_time_live.length;
                 const startScale = myChart.options.scales.x.min + start;
                 const endScale = myChart.options.scales.x.max + end;
-                // console.log(startScale + start);
 
                 // possition by defaut if
+                // a = document.getElementById('change_chart').value;
+                // console.log(a)
+                // if (a == 'live') {
+                //     document.getElementById('next').enable = true;
+                //     document.getElementById('previous').enable = true;
+                // }
+                // if (a == '1-ngay') {
+                //     document.getElementById('next').disabled = true;
+                //     document.getElementById('previous').disabled = true;
+                // }
+                // if (a == '3-ngay') {
+                //     document.getElementById('next').disabled = true;
+                //     document.getElementById('previous').disabled = true;
+                // }
+                // if (a == '7-ngay') {
+                //     document.getElementById('next').disabled = true;
+                //     document.getElementById('previous').disabled = true;
+                // }
+
                 myChart.options.scales.x.min = startScale;
                 myChart.options.scales.x.max = endScale;
                 document.getElementById('previous').disabled = false;
@@ -243,12 +354,93 @@
                 };
                 myChart.update();
             }
-
             setTimeout(showChart, 200);
+
+
+            // Change chart
+            change_chart.addEventListener('change', change_data);
+
+            function change_data() {
+                live_y = array_distance_live;
+                live_x = array_time_live;
+                live_avg = array_avg_live
+                live_x_length = array_time_live.length;
+
+                one_day_x = array_time_1ngay;
+                one_day_y = array_distance_1ngay;
+                one_day_avg = array_avg_1ngay;
+                one_day_x_length = array_time_1ngay.length;
+
+                three_day_x = array_time_3ngay;
+                three_day_y = array_distance_3ngay;
+                three_day_avg = array_avg_3ngay;
+                three_day_x_length = array_time_3ngay.length;
+
+                seven_day_x = array_time_7ngay;
+                seven_day_y = array_distance_7ngay;
+                seven_day_avg = array_avg_7ngay;
+                seven_day_x_length = array_time_7ngay.length;
+
+                var x_scale_live = {
+                    min: live_x_length - 24,
+                    max: live_x_length,
+                };
+
+                var x_scale_hour = {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                    },
+                };
+
+                a = document.getElementById('change_chart').value;
+                console.log(a)
+                if (a == 'live') {
+                    myChart.data.datasets[0].data = live_y;
+                    myChart.data.datasets[1].data = live_avg;
+                    myChart.data.labels = live_x;
+                    myChart.options.scales.x = x_scale_live
+                        //     myChart.options.scales.x.min = live_x_length - 24;
+                        // myChart.options.scales.x.max = live_x_length
+                }
+                if (a == '1-ngay') {
+                    myChart.data.datasets[0].data = one_day_y;
+                    myChart.data.datasets[1].data = one_day_avg;
+                    myChart.data.labels = one_day_x;
+                    myChart.options.scales.x = x_scale_hour;
+                    // myChart.options.scales.x.min = 0;
+                    // myChart.options.scales.x.max = one_day_x.lenght
+                }
+                if (a == '3-ngay') {
+                    myChart.data.datasets[0].data = three_day_y;
+                    myChart.data.datasets[1].data = three_day_avg;
+                    myChart.data.labels = three_day_x;
+                    myChart.options.scales.x = x_scale_hour;
+                    // myChart.options.scales.x.min = 0;
+                    // myChart.options.scales.x.max = three_day_x.lenght
+                }
+                if (a == '7-ngay') {
+                    myChart.data.datasets[0].data = seven_day_y;
+                    myChart.data.datasets[1].data = seven_day_avg;
+                    myChart.data.labels = seven_day_x;
+                    myChart.options.scales.x = x_scale_hour;
+                    // myChart.options.scales.x.min = 0;
+                    // myChart.options.scales.x.max = seven_day_x.lenght
+                }
+                myChart.update();
+
+            }
         </script>
 </body>
 
 </html>
+
+
+
+
+
+
+
 
 
 
