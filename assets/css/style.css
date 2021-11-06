@@ -78,11 +78,13 @@ body {
     margin-top: -26px;
     cursor: pointer;
     border: none;
+    border-radius: 3px;
+    line-height: 1.6px;
+    padding-bottom: 2px;
 }
 
 .btn-reload:hover {
-    color: rgb(151, 146, 146);
-    font-size: 22px;
+    background-color: rgb(231, 226, 226);
 }
 
 #display_time {
@@ -135,15 +137,16 @@ body {
     color: black;
     font-size: 22px;
     text-decoration: none;
-    margin-top: -34px;
-    margin-right: -6px;
-    padding: 5px 5px 0 4.5px;
-    border-radius: 5px;
+    margin-top: -32px;
+    margin-right: -7px;
+    padding: 5px 5px 0 5px;
+    border-radius: 3px;
+    height: 32px;
+    line-height: 1.6px;
 }
 
 .icon-full-screen a:hover {
-    color: rgb(151, 146, 146);
-    font-size: 23px;
+    background-color: rgb(231, 226, 226);
 }
 
 #chart-1 {
