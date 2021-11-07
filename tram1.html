@@ -185,15 +185,15 @@
                     array_avg_3ngay.push(avg_final);
                     array_avg_7ngay.push(avg_final);
 
-                    if (array_distance_1ngay.length > 10) {
+                    if (array_distance_1ngay.length > 50) {
                         array_distance_1ngay.shift();
                         array_avg_1ngay.shift();
                     }
-                    if (array_distance_3ngay.length > 30) {
+                    if (array_distance_3ngay.length > 100) {
                         array_distance_3ngay.shift();
                         array_avg_3ngay.shift();
                     }
-                    if (array_distance_7ngay.length > 70) {
+                    if (array_distance_7ngay.length > 300) {
                         array_distance_7ngay.shift();
                         array_avg_7ngay.shift();
                     }
