@@ -92,6 +92,8 @@
             font-size: 20px;
             padding: 0 0 3px 10px;
             margin-top: -55px;
+            color: white;
+            background-color: grey;
         }
         
         #change_chart:focus {
@@ -393,6 +395,13 @@
                     },
                 };
 
+                var x_scale_day = {
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                    },
+                };
+
                 a = document.getElementById('change_chart').value;
                 console.log(a)
                 if (a == 'live') {
@@ -415,7 +424,7 @@
                     myChart.data.datasets[0].data = three_day_y;
                     myChart.data.datasets[1].data = three_day_avg;
                     myChart.data.labels = three_day_x;
-                    myChart.options.scales.x = x_scale_hour;
+                    myChart.options.scales.x = x_scale_day;
                     // myChart.options.scales.x.min = 0;
                     // myChart.options.scales.x.max = three_day_x.lenght
                 }
@@ -423,7 +432,7 @@
                     myChart.data.datasets[0].data = seven_day_y;
                     myChart.data.datasets[1].data = seven_day_avg;
                     myChart.data.labels = seven_day_x;
-                    myChart.options.scales.x = x_scale_hour;
+                    myChart.options.scales.x = x_scale_day;
                     // myChart.options.scales.x.min = 0;
                     // myChart.options.scales.x.max = seven_day_x.lenght
                 }
