@@ -158,6 +158,9 @@ function showChart() {
                 x: {
                     min: x_length_4 - 20,
                     max: x_length_4,
+                    ticks: {
+                        color: 'black'
+                    },
                 },
                 y: {
                     beginAtZero: true,
@@ -168,9 +171,11 @@ function showChart() {
                             // family: 'Times',
                             size: 17,
                             weight: 'bold',
-                            // color: '#000'
-
                         },
+                        color: 'black'
+                    },
+                    ticks: {
+                        color: 'black'
                     },
                 },
             },

@@ -75,10 +75,17 @@ docClient.query(params_chart1, function(err, data) {
                     x: {
                         min: x_length_1 - 20,
                         max: x_length_1,
+                        ticks: {
+                            color: 'black'
+                        },
                     },
                     y: {
                         beginAtZero: true,
+                        ticks: {
+                            color: 'black'
+                        },
                     },
+
                 },
             },
         });

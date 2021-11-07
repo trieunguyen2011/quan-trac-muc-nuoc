@@ -54,9 +54,15 @@ docClient.query(params_chart3, function(err, data) {
                     x: {
                         min: x_length_3 - 20,
                         max: x_length_3,
+                        ticks: {
+                            color: 'black'
+                        },
                     },
                     y: {
                         beginAtZero: true,
+                        ticks: {
+                            color: 'black'
+                        },
                     },
                 },
             },

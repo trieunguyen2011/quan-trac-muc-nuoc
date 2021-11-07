@@ -266,6 +266,9 @@
                     options: {
                         scales: {
                             x: {
+                                ticks: {
+                                    color: 'black'
+                                },
                                 min: x_length - 24,
                                 max: x_length,
 
@@ -287,10 +290,12 @@
                                         // family: 'Times',
                                         size: 17,
                                         weight: 'bold',
-                                        // color: '#000'
-
                                     },
-                                }
+                                    color: 'black'
+                                },
+                                ticks: {
+                                    color: 'black'
+                                },
                             },
                         },
                         onHover: (event, chartElement) => {
@@ -386,6 +391,9 @@
                 var x_scale_live = {
                     min: live_x_length - 24,
                     max: live_x_length,
+                    ticks: {
+                        color: 'black'
+                    },
                 };
 
                 var x_scale_hour = {
@@ -393,12 +401,18 @@
                     time: {
                         unit: 'hour',
                     },
+                    ticks: {
+                        color: 'black'
+                    },
                 };
 
                 var x_scale_day = {
                     type: 'time',
                     time: {
                         unit: 'day',
+                    },
+                    ticks: {
+                        color: 'black'
                     },
                 };
 
