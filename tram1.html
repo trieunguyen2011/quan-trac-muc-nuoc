@@ -58,7 +58,7 @@
         button {
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             padding: 2px 15px 5px 15px;
-            margin: 5px;
+            margin: 10px;
             background-color: grey;
             color: white;
             border-radius: 5px;
@@ -67,10 +67,6 @@
         
         .next-btn {
             padding: 3px 15px;
-        }
-        
-        .btn-left-2 {
-            margin-right: 1000px;
         }
         
         button:active {
@@ -124,8 +120,9 @@
                 <canvas id="chart-1" height="100x"></canvas>
 
                 <div class="button-box">
-                    <button class="next-btn btn-left-1" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
-                    <button class="next-btn btn-left-2" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
+                    <button class="next-btn" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
+                    <button class="next-btn" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
+                    <button style="margin-right: 800px;" onclick="resetData()">Reset</button>
                     <button onclick="toggleData(0)">Trạm 1</button>
                     <button onclick="toggleData(1)">Trung bình</button>
                 </div>
@@ -451,7 +448,26 @@
                     // myChart.options.scales.x.max = seven_day_x.lenght
                 }
                 myChart.update();
+            }
 
+            // RESET CHART
+            function resetData() {
+                live_y = array_distance_live;
+                live_x = array_time_live;
+                live_avg = array_avg_live
+                live_x_length = array_time_live.length;
+                var x_scale_live = {
+                    min: live_x_length - 24,
+                    max: live_x_length,
+                    ticks: {
+                        color: 'black'
+                    },
+                };
+                myChart.data.datasets[0].data = live_y;
+                myChart.data.datasets[1].data = live_avg;
+                myChart.data.labels = live_x;
+                myChart.options.scales.x = x_scale_live
+                myChart.update();
             }
         </script>
 </body>
