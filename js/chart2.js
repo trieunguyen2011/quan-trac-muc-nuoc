@@ -22,6 +22,9 @@ docClient.query(params_chart2, function(err, data) {
             const time_stamp_chart2 = new Date(sample_time_data_chart2);
             min_chart2 = time_stamp_chart2.getMinutes();
             hour_chart2 = time_stamp_chart2.getHours();
+            if (min_chart2 < 10) {
+                min_chart2 = '0' + min_chart2;
+            }
             time_chart2 = hour_chart2 + ":" + min_chart2;
             array_time_chart2.push(time_chart2);
         }

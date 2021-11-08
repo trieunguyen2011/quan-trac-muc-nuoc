@@ -46,8 +46,23 @@ docClient.query(params_chart1_4, function(err, data) {
         const time_stamp_chart = new Date(sample_time_data_chart);
         min_chart = time_stamp_chart.getMinutes();
         hour_chart = time_stamp_chart.getHours();
-        time_chart = hour_chart + ":" + min_chart;
-        array_time_chart4.push(time_chart);
+
+        const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        date = time_stamp_chart.getDate();
+        month = month_name[time_stamp_chart.getMonth()];
+        year = time_stamp_chart.getFullYear();
+
+        if (min_chart < 10) {
+            min_chart = '0' + min_chart;
+        }
+        if (date < 10) {
+            date = '0' + date;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        full_time_chart = hour_chart + ":" + min_chart + ', ' + date + "/" + month;
+        array_time_chart4.push(full_time_chart);
     }
 
 

@@ -209,10 +209,18 @@
                     month = month_name[time_stamp.getMonth()];
                     year = time_stamp.getFullYear();
 
+                    if (min < 10) {
+                        min = '0' + min;
+                    }
+                    if (date < 10) {
+                        date = '0' + date;
+                    }
+                    if (month < 10) {
+                        month = '0' + month;
+                    }
                     // full_time = hour + ":" + min + ' ' + date + "/" + month + "/" + year;
                     full_time = hour + ":" + min + ', ' + date + "/" + month;
                     array_time_live.push(full_time);
-                    // array_time_live.push(time_stamp);
 
                     array_time_1ngay.push(time_stamp);
                     array_time_3ngay.push(time_stamp);
@@ -271,14 +279,6 @@
                                 },
                                 min: x_length - 24,
                                 max: x_length,
-
-                                // min: 'disable',
-                                // max: 'disable',
-
-                                // type: 'time',
-                                // time: {
-                                //     unit: 'hour',
-                                // },
                             },
                             y: {
                                 beginAtZero: true,

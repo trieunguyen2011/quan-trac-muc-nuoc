@@ -37,6 +37,15 @@ function fn_change() {
             date = time_stamp.getDate();
             month = month_name[time_stamp.getMonth()];
             year = time_stamp.getFullYear();
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
             document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
@@ -58,6 +67,15 @@ function fn_change() {
                 date = time_stamp.getDate();
                 month = month_name[time_stamp.getMonth()];
                 year = time_stamp.getFullYear();
+                if (min < 10) {
+                    min = '0' + min;
+                }
+                if (date < 10) {
+                    date = '0' + date;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
                 full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
                 array_time_12h.push(full_time);
                 array_time_1day.push(full_time);
@@ -194,6 +212,15 @@ function fn_change() {
             date = time_stamp.getDate();
             month = month_name[time_stamp.getMonth()];
             year = time_stamp.getFullYear();
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
             document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
@@ -215,6 +242,15 @@ function fn_change() {
                 date = time_stamp.getDate();
                 month = month_name[time_stamp.getMonth()];
                 year = time_stamp.getFullYear();
+                if (min < 10) {
+                    min = '0' + min;
+                }
+                if (date < 10) {
+                    date = '0' + date;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
                 full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
                 array_time_12h.push(full_time);
                 array_time_1day.push(full_time);
@@ -350,6 +386,15 @@ function fn_change() {
             date = time_stamp.getDate();
             month = month_name[time_stamp.getMonth()];
             year = time_stamp.getFullYear();
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
             document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
@@ -371,6 +416,15 @@ function fn_change() {
                 date = time_stamp.getDate();
                 month = month_name[time_stamp.getMonth()];
                 year = time_stamp.getFullYear();
+                if (min < 10) {
+                    min = '0' + min;
+                }
+                if (date < 10) {
+                    date = '0' + date;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
                 full_time = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
                 array_time_12h.push(full_time);
                 array_time_1day.push(full_time);

@@ -37,6 +37,16 @@ docClient.query(params_chart1, function(err, data) {
             month = month_name[time_stamp_chart1.getMonth()];
             year = time_stamp_chart1.getFullYear();
 
+            if (min_chart1 < 10) {
+                min_chart1 = '0' + min_chart1;
+            }
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+
             full_time_update = hour_chart1 + ":" + min_chart1 + ', ' + date + "/" + month + "/" + year;
             time_chart1 = hour_chart1 + ":" + min_chart1;
             array_time_chart1.push(time_chart1);
