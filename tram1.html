@@ -182,15 +182,15 @@
                     array_avg_3ngay.push(avg_final);
                     array_avg_7ngay.push(avg_final);
 
-                    if (array_distance_1ngay.length > 100) {
+                    if (array_distance_1ngay.length > 200) {
                         array_distance_1ngay.shift();
                         array_avg_1ngay.shift();
                     }
-                    if (array_distance_3ngay.length > 300) {
+                    if (array_distance_3ngay.length > 500) {
                         array_distance_3ngay.shift();
                         array_avg_3ngay.shift();
                     }
-                    if (array_distance_7ngay.length > 700) {
+                    if (array_distance_7ngay.length > 1000) {
                         array_distance_7ngay.shift();
                         array_avg_7ngay.shift();
                     }
@@ -223,17 +223,16 @@
                     array_time_3ngay.push(time_stamp);
                     array_time_7ngay.push(time_stamp);
 
-                    if (array_time_1ngay.length > 100) {
+                    if (array_time_1ngay.length > 200) {
                         array_time_1ngay.shift();
                     }
-                    if (array_time_3ngay.length > 300) {
+                    if (array_time_3ngay.length > 500) {
                         array_time_3ngay.shift();
                     }
-                    if (array_time_7ngay.length > 700) {
+                    if (array_time_7ngay.length > 1000) {
                         array_time_7ngay.shift();
                     }
                 }
-                // console.log(new Date(array_time_live[2]))
             });
 
             function showChart() {

@@ -92,14 +92,14 @@ docClient.query(params_chart3_4, function(err, data) {
 
 
 function showChart() {
-    const x_data_chart_4 = array_time_chart4;
-    const y_data_chart1_4 = array_distance_chart1_4;
-    const y_data_chart2_4 = array_distance_chart2_4;
-    const y_data_chart3_4 = array_distance_chart3_4;
-    const avg_data_chart1_4 = array_avg_chart1_4;
-    const avg_data_chart2_4 = array_avg_chart2_4;
-    const avg_data_chart3_4 = array_avg_chart3_4;
-    const x_length_4 = array_time_chart4.length;
+    x_data_chart_4 = array_time_chart4;
+    y_data_chart1_4 = array_distance_chart1_4;
+    y_data_chart2_4 = array_distance_chart2_4;
+    y_data_chart3_4 = array_distance_chart3_4;
+    avg_data_chart1_4 = array_avg_chart1_4;
+    avg_data_chart2_4 = array_avg_chart2_4;
+    avg_data_chart3_4 = array_avg_chart3_4;
+    x_length_4 = array_time_chart4.length;
 
     const ctx = document.getElementById("chart-4").getContext("2d");
     myChart = new Chart(ctx, {
@@ -171,7 +171,7 @@ function showChart() {
             responsive: true,
             scales: {
                 x: {
-                    min: x_length_4 - 20,
+                    min: x_length_4 - 24,
                     max: x_length_4,
                     ticks: {
                         color: 'black'
@@ -222,7 +222,7 @@ function toggleData(value) {
 };
 
 function nextData(start, end) {
-    const x_length_4 = array_time_chart4.length;
+    x_length_4 = array_time_chart4.length;
     const startScale = myChart.options.scales.x.min + start;
     const endScale = myChart.options.scales.x.max + end;
     // console.log(startScale + start);
@@ -234,17 +234,34 @@ function nextData(start, end) {
     document.getElementById('next').disabled = false;
 
     if (endScale > x_length_4) {
-        myChart.options.scales.x.min = x_length_4 - 20;
+        myChart.options.scales.x.min = x_length_4 - 24;
         myChart.options.scales.x.max = x_length_4 - 1;
         document.getElementById('next').disabled = true;
     };
 
     if (startScale < 0) {
         myChart.options.scales.x.min = 0;
-        myChart.options.scales.x.max = 19;
+        myChart.options.scales.x.max = 23;
         document.getElementById('previous').disabled = true;
     };
     myChart.update();
 }
+
+// RESET CHART
+function resetData() {
+    x_length_4 = array_time_chart4.length;
+    var x_scale_live = {
+        min: x_length_4 - 24,
+        max: x_length_4,
+        ticks: {
+            color: 'black'
+        },
+    };
+    // myChart.data.datasets[0].data = live_y;
+    // myChart.data.datasets[1].data = live_avg;
+    // myChart.data.labels = live_x;
+    myChart.options.scales.x = x_scale_live
+    myChart.update();
+};
 
 setTimeout(showChart, 200);
