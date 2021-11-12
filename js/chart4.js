@@ -171,7 +171,7 @@ function showChart() {
             responsive: true,
             scales: {
                 x: {
-                    min: x_length_4 - 24,
+                    min: x_length_4 - 51,
                     max: x_length_4,
                     ticks: {
                         color: 'black'
@@ -198,7 +198,7 @@ function showChart() {
                 legend: {
                     position: 'right',
                     labels: {
-                        padding: 15,
+                        padding: 20,
                         font: {
                             size: 14,
                         },
@@ -234,14 +234,14 @@ function nextData(start, end) {
     document.getElementById('next').disabled = false;
 
     if (endScale > x_length_4) {
-        myChart.options.scales.x.min = x_length_4 - 24;
+        myChart.options.scales.x.min = x_length_4 - 51;
         myChart.options.scales.x.max = x_length_4 - 1;
         document.getElementById('next').disabled = true;
     };
 
     if (startScale < 0) {
         myChart.options.scales.x.min = 0;
-        myChart.options.scales.x.max = 23;
+        myChart.options.scales.x.max = 50;
         document.getElementById('previous').disabled = true;
     };
     myChart.update();
@@ -251,7 +251,7 @@ function nextData(start, end) {
 function resetData() {
     x_length_4 = array_time_chart4.length;
     var x_scale_live = {
-        min: x_length_4 - 24,
+        min: x_length_4 - 51,
         max: x_length_4,
         ticks: {
             color: 'black'
