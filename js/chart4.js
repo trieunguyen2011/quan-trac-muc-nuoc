@@ -202,11 +202,17 @@ function showChart() {
                         font: {
                             size: 14,
                         },
-                    }
+                    },
                 },
-
-            }
-
+            },
+            // layout: {
+            //     padding: {
+            //         left: 0,
+            //         right: 0,
+            //         bottom: 0,
+            //         top: 0
+            //     }
+            // }
         },
     });
 }
