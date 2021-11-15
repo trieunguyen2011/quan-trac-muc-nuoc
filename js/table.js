@@ -48,7 +48,7 @@ function fn_change() {
             }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("hien-tai").innerHTML = hien_tai + " m";
             document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
@@ -104,7 +104,7 @@ function fn_change() {
                     time_max_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("max-12h").innerHTML = max_12h + " m";
             document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
@@ -115,13 +115,13 @@ function fn_change() {
                     time_min_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("min-12h").innerHTML = min_12h + " m";
             document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
             // Trung bình   
             avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
             avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
-            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 1 NGÀY------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ function fn_change() {
                     time_max_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " m";
             document.getElementById("time-max-1day").innerHTML = time_max_1day;
 
             // Nhỏ nhất
@@ -144,13 +144,13 @@ function fn_change() {
                     time_min_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("min-1day").innerHTML = min_1day + " m";
             document.getElementById("time-min-1day").innerHTML = time_min_1day;
 
             // Trung bình   
             avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
             avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
-            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 3 NGÀY------------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ function fn_change() {
                     time_max_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("max-3day").innerHTML = max_3day + " m";
             document.getElementById("time-max-3day").innerHTML = time_max_3day;
 
             // Nhỏ nhất
@@ -173,13 +173,13 @@ function fn_change() {
                     time_min_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("min-3day").innerHTML = min_3day + " m";
             document.getElementById("time-min-3day").innerHTML = time_min_3day;
 
             // Trung bình   
             avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
             avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
-            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
         })
 
 
@@ -223,7 +223,7 @@ function fn_change() {
             }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("hien-tai").innerHTML = hien_tai + " m";
             document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
@@ -279,7 +279,7 @@ function fn_change() {
                     time_max_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("max-12h").innerHTML = max_12h + " m";
             document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
@@ -290,13 +290,13 @@ function fn_change() {
                     time_min_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("min-12h").innerHTML = min_12h + " m";
             document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
             // Trung bình   
             avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
             avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
-            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 1 NGÀY------------------------------------------------------------------------------------
@@ -308,7 +308,7 @@ function fn_change() {
                     time_max_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " m";
             document.getElementById("time-max-1day").innerHTML = time_max_1day;
 
             // Nhỏ nhất
@@ -319,13 +319,13 @@ function fn_change() {
                     time_min_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("min-1day").innerHTML = min_1day + " m";
             document.getElementById("time-min-1day").innerHTML = time_min_1day;
 
             // Trung bình   
             avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
             avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
-            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 3 NGÀY------------------------------------------------------------------------------------
@@ -337,7 +337,7 @@ function fn_change() {
                     time_max_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("max-3day").innerHTML = max_3day + " m";
             document.getElementById("time-max-3day").innerHTML = time_max_3day;
 
             // Nhỏ nhất
@@ -348,13 +348,13 @@ function fn_change() {
                     time_min_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("min-3day").innerHTML = min_3day + " m";
             document.getElementById("time-min-3day").innerHTML = time_min_3day;
 
             // Trung bình   
             avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
             avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
-            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
         })
 
         //TRẠM 3------------------------------------------------------------------------------------
@@ -397,7 +397,7 @@ function fn_change() {
             }
             time_hien_tai = hour + ":" + min + ', ' + date + "/" + month + "/" + year;
 
-            document.getElementById("hien-tai").innerHTML = hien_tai + " cm";
+            document.getElementById("hien-tai").innerHTML = hien_tai + " m";
             document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
 
@@ -453,7 +453,7 @@ function fn_change() {
                     time_max_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("max-12h").innerHTML = max_12h + " cm";
+            document.getElementById("max-12h").innerHTML = max_12h + " m";
             document.getElementById("time-max-12h").innerHTML = time_max_12h;
 
             // Nhỏ nhất
@@ -464,13 +464,13 @@ function fn_change() {
                     time_min_12h = array_time_12h[i];
                 }
             }
-            document.getElementById("min-12h").innerHTML = min_12h + " cm";
+            document.getElementById("min-12h").innerHTML = min_12h + " m";
             document.getElementById("time-min-12h").innerHTML = time_min_12h;
 
             // Trung bình   
             avg_12h = array_distance_12h = array_distance_12h.reduce((a, b) => a + b, 0) / array_distance_12h.length;
             avg_12h_final = Math.round(avg_12h * 100) / 100; // Làm tròn
-            document.getElementById("average-12h").innerHTML = avg_12h_final + " cm";
+            document.getElementById("average-12h").innerHTML = avg_12h_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 1 NGÀY------------------------------------------------------------------------------------
@@ -482,7 +482,7 @@ function fn_change() {
                     time_max_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("max-1day").innerHTML = max_1day + " cm";
+            document.getElementById("max-1day").innerHTML = max_1day + " m";
             document.getElementById("time-max-1day").innerHTML = time_max_1day;
 
             // Nhỏ nhất
@@ -493,13 +493,13 @@ function fn_change() {
                     time_min_1day = array_time_1day[i];
                 }
             }
-            document.getElementById("min-1day").innerHTML = min_1day + " cm";
+            document.getElementById("min-1day").innerHTML = min_1day + " m";
             document.getElementById("time-min-1day").innerHTML = time_min_1day;
 
             // Trung bình   
             avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
             avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
-            document.getElementById("average-1day").innerHTML = avg_1day_final + " cm";
+            document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
             // ------------------------------------------------------------------------------------------
 
             // 3 NGÀY------------------------------------------------------------------------------------
@@ -511,7 +511,7 @@ function fn_change() {
                     time_max_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("max-3day").innerHTML = max_3day + " cm";
+            document.getElementById("max-3day").innerHTML = max_3day + " m";
             document.getElementById("time-max-3day").innerHTML = time_max_3day;
 
             // Nhỏ nhất
@@ -522,13 +522,13 @@ function fn_change() {
                     time_min_3day = array_time_3day[i];
                 }
             }
-            document.getElementById("min-3day").innerHTML = min_3day + " cm";
+            document.getElementById("min-3day").innerHTML = min_3day + " m";
             document.getElementById("time-min-3day").innerHTML = time_min_3day;
 
             // Trung bình   
             avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
             avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
-            document.getElementById("average-3day").innerHTML = avg_3day_final + " cm";
+            document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
         })
     }
 }

@@ -181,7 +181,7 @@ function showChart() {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Độ cao (cm)',
+                        text: 'Độ cao (m)',
                         font: {
                             // family: 'Times',
                             size: 17,
