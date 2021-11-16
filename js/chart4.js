@@ -101,10 +101,12 @@ function showChart() {
     avg_data_chart3_4 = array_avg_chart3_4;
     x_length_4 = array_time_chart4.length;
 
+    const x_labels_4 = x_data_chart_4.map(label => label.split(' '));
+
     const ctx = document.getElementById("chart-4").getContext("2d");
     myChart = new Chart(ctx, {
         data: {
-            labels: x_data_chart_4,
+            labels: x_labels_4,
             datasets: [{ //0
                     type: "line",
                     label: "Trạm 1",
@@ -202,7 +204,9 @@ function showChart() {
                         font: {
                             size: 14,
                         },
+                        color: 'black'
                     },
+
                 },
             },
             // layout: {
@@ -253,9 +257,12 @@ function nextData(start, end) {
     myChart.update();
 }
 
+
 // RESET CHART
 function resetData() {
     x_length_4 = array_time_chart4.length;
+    x_data_chart_4 = array_time_chart4;
+    const x_labels_4 = x_data_chart_4.map(label => label.split(' '));
     var x_scale_live = {
         min: x_length_4 - 51,
         max: x_length_4,
@@ -265,7 +272,7 @@ function resetData() {
     };
     // myChart.data.datasets[0].data = live_y;
     // myChart.data.datasets[1].data = live_avg;
-    // myChart.data.labels = live_x;
+    myChart.data.labels = x_labels_4;
     myChart.options.scales.x = x_scale_live
     myChart.update();
 };

@@ -217,7 +217,7 @@
                         month = '0' + month;
                     }
                     // full_time = hour + ":" + min + ' ' + date + "/" + month + "/" + year;
-                    full_time = hour + ":" + min + ', ' + date + "/" + month;
+                    full_time = hour + ":" + min + ' ' + date + "/" + month;
                     array_time_live.push(full_time);
 
                     array_time_1ngay.push(time_stamp);
@@ -242,6 +242,7 @@
                 const y_data = array_distance_live;
                 const avg_data = array_avg_live;
                 const x_length = array_time_live.length;
+                const x_labels = x_data.map(label => label.split(' '));
 
                 var bgColor = {
                     id: 'bgColor',
@@ -256,10 +257,11 @@
                         ctx.restore();
                     },
                 }
+
                 const ctx = document.getElementById("myChart").getContext("2d");
                 myChart = new Chart(ctx, {
                     data: {
-                        labels: x_data,
+                        labels: x_labels,
                         datasets: [{ //0
                             type: "line",
                             label: "Trạm 1",
@@ -310,6 +312,16 @@
                         },
                         onHover: (event, chartElement) => {
                             event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 14,
+                                    },
+                                    color: 'black'
+                                },
+                            },
                         },
                     },
                     plugins: [bgColor]
@@ -470,6 +482,8 @@
                 live_x = array_time_live;
                 live_avg = array_avg_live
                 live_x_length = array_time_live.length;
+                const x_labels = live_x.map(label => label.split(' '));
+
                 var x_scale_live = {
                     min: live_x_length - 24,
                     max: live_x_length,
@@ -479,7 +493,7 @@
                 };
                 myChart.data.datasets[0].data = live_y;
                 myChart.data.datasets[1].data = live_avg;
-                myChart.data.labels = live_x;
+                myChart.data.labels = x_labels;
                 myChart.options.scales.x = x_scale_live
                 myChart.update();
             }
