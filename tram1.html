@@ -395,6 +395,7 @@
                 live_x = array_time_live;
                 live_avg = array_avg_live
                 live_x_length = array_time_live.length;
+                const x_labels = live_x.map(label => label.split(' '));
 
                 one_day_x = array_time_1ngay;
                 one_day_y = array_distance_1ngay;
@@ -444,7 +445,7 @@
                 if (a == 'live') {
                     myChart.data.datasets[0].data = live_y;
                     myChart.data.datasets[1].data = live_avg;
-                    myChart.data.labels = live_x;
+                    myChart.data.labels = x_labels;
                     myChart.options.scales.x = x_scale_live
                         //     myChart.options.scales.x.min = live_x_length - 24;
                         // myChart.options.scales.x.max = live_x_length

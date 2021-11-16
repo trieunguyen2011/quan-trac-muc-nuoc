@@ -61,7 +61,7 @@ docClient.query(params_chart1_4, function(err, data) {
         if (month < 10) {
             month = '0' + month;
         }
-        full_time_chart = hour_chart + ":" + min_chart + ', ' + date + "/" + month;
+        full_time_chart = hour_chart + ":" + min_chart + ' ' + date + "/" + month;
         array_time_chart4.push(full_time_chart);
     }
 
