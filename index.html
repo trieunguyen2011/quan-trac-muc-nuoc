@@ -81,7 +81,7 @@
                 <div class="button-box">
                     <button class="btn-chart4 next-btn" id="previous" onclick="nextData(-51, -51)"><i class="ti-control-backward"></i></button>
                     <button class="btn-chart4 next-btn" id="next" onclick="nextData(51, 51)"><i class="ti-control-forward"></i></button>
-                    <button class="btn-chart4" style="margin-right: 600px;" onclick="resetData()">Reset</button>
+                    <button class="btn-chart4" style="margin-right: 600px; margin-left: 15px;" onclick="resetData()">Reset</button>
                     <button class="btn-chart4" onclick="toggleData(3)">TB Trạm 1</button>
                     <button class="btn-chart4" onclick="toggleData(4)">TB Trạm 2</button>
                     <button class="btn-chart4" onclick="toggleData(5)">TB Trạm 3</button>
@@ -108,17 +108,12 @@
             <!-- Begin Table -->
             <div class="table-box">
                 <select class="form-control" onchange="fn_change()" id="list-tram">
-                    <option value="" selected disabled>Chọn trạm...</option>
+                    <option value="" selected disabled>Chọn trạm đo...</option>
                     <option value="tram1">Trạm 1</option>
                     <option value="tram2">Trạm 2</option>
                     <option value="tram3">Trạm 3</option>
                 </select>
                 <div>
-                    <!-- <div class="toa-do-box font-15">
-                        <p class="text-bold">Tọa độ:</p>
-                        <p class="margin-left-5px" id="toa-do">...</p>
-                    </div> -->
-
                     <div class="table-distance">
                         <table style="width:100%" class="12h-table">
                             <tr>
@@ -137,56 +132,29 @@
                                 </td>
                             </tr>
 
-                            <!-- 12h giờ -->
-                            <tr>
-                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">12 GIỜ</th>
-                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
-                                <td style="background-color: #fff; width:25%">
-                                    <p id="min-12h"></p>
-                                </td>
-                                <td style="background-color: #fff; width:30%">
-                                    <p id="time-min-12h"></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th style="background-color: #fff">Cao nhất</th>
-                                <td style="background-color: #fff">
-                                    <p id="max-12h"></p>
-                                </td>
-                                <td style="background-color: #fff">
-                                    <p id="time-max-12h"></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th style="background-color: #fff">Trung bình</th>
-                                <td style="background-color: #fff" colspan="2">
-                                    <p id="average-12h"></p>
-                                </td>
-                            </tr>
-
                             <!-- 1 ngày -->
                             <tr>
-                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">1 NGÀY</th>
-                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
-                                <td style="background-color: #fff; width:25%">
+                                <th style="background-color: rgba(231, 226, 226, 0.5); text-align: center; width:20%" rowspan="3">1 NGÀY</th>
+                                <th style="background-color: rgba(231, 226, 226, 0.5); width:25%">Thấp nhất</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5); width:25%">
                                     <p id="min-1day"></p>
                                 </td>
-                                <td style="background-color: #fff; width:30%">
+                                <td style="background-color: rgba(231, 226, 226, 0.5); width:30%">
                                     <p id="time-min-1day"></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th style="background-color: #fff">Cao nhất</th>
-                                <td style="background-color: #fff">
+                                <th style="background-color: rgba(231, 226, 226, 0.5)">Cao nhất</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5)">
                                     <p id="max-1day"></p>
                                 </td>
-                                <td style="background-color: #fff">
+                                <td style="background-color: rgba(231, 226, 226, 0.5)">
                                     <p id="time-max-1day"></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th style="background-color: #fff">Trung bình</th>
-                                <td style="background-color: #fff" colspan="2">
+                                <th style="background-color: rgba(231, 226, 226, 0.5)">Trung bình</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5)" colspan="2">
                                     <p id="average-1day"></p>
                                 </td>
                             </tr>
@@ -215,6 +183,60 @@
                                 <th style="background-color: #fff">Trung bình</th>
                                 <td style="background-color: #fff" colspan="2">
                                     <p id="average-3day"></p>
+                                </td>
+                            </tr>
+
+                            <!-- 7 ngày -->
+                            <tr>
+                                <th style="background-color: rgba(231, 226, 226, 0.5); text-align: center; width:20%" rowspan="3">7 NGÀY</th>
+                                <th style="background-color: rgba(231, 226, 226, 0.5); width:25%">Thấp nhất</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5); width:25%">
+                                    <p id="min-7day"></p>
+                                </td>
+                                <td style="background-color: rgba(231, 226, 226, 0.5); width:30%">
+                                    <p id="time-min-7day"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: rgba(231, 226, 226, 0.5)">Cao nhất</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5)">
+                                    <p id="max-7day"></p>
+                                </td>
+                                <td style="background-color: rgba(231, 226, 226, 0.5)">
+                                    <p id="time-max-7day"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: rgba(231, 226, 226, 0.5)">Trung bình</th>
+                                <td style="background-color: rgba(231, 226, 226, 0.5)" colspan="2">
+                                    <p id="average-7day"></p>
+                                </td>
+                            </tr>
+
+                            <!-- 15 ngày -->
+                            <tr>
+                                <th style="background-color: #fff; text-align: center; width:20%" rowspan="3">15 NGÀY</th>
+                                <th style="background-color: #fff; width:25%">Thấp nhất</th>
+                                <td style="background-color: #fff; width:25%">
+                                    <p id="min-15day"></p>
+                                </td>
+                                <td style="background-color: #fff; width:30%">
+                                    <p id="time-min-15day"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Cao nhất</th>
+                                <td style="background-color: #fff">
+                                    <p id="max-15day"></p>
+                                </td>
+                                <td style="background-color: #fff">
+                                    <p id="time-max-15day"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #fff">Trung bình</th>
+                                <td style="background-color: #fff" colspan="2">
+                                    <p id="average-15day"></p>
                                 </td>
                             </tr>
                         </table>

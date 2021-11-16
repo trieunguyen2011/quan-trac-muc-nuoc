@@ -28,12 +28,11 @@ html {
 /*End class chung*/
 
 body {
-    height: 1770px;
+    height: 1780px;
     width: 1300px;
     margin-left: auto;
     margin-right: auto;
     background: #f8fafb;
-    /* background: url(/assets/img/dien_gio/diengiobaclieu.jpg) top center / contain repeat; */
 }
 
 #header {
@@ -195,7 +194,7 @@ body {
     font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
     padding: 2px 15px 5px 15px;
-    margin: 5px 10px 5px 10px;
+    margin: 10px 5px 5px 5px;
     background-color: grey;
     color: white;
     border-radius: 5px;
@@ -213,7 +212,7 @@ button:disabled {
 }
 
 .next-btn {
-    padding: 3px 15px;
+    padding: 3.5px 15px;
 }
 
 .content-title {
@@ -256,7 +255,7 @@ button:disabled {
 }
 
 .table-box {
-    height: 533px;
+    height: 547px;
     margin-left: 20px;
     width: 40%;
     background: white;
@@ -316,7 +315,7 @@ th,
 td {
     border: 1px solid #ccc;
     border-collapse: collapse;
-    padding: 10px 0 10px 8px;
+    padding: 6px 0 6px 8px;
 }
 
 th {
