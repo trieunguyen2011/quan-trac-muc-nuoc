@@ -130,7 +130,7 @@ function fn_change() {
 
             // Trung bình   
             avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
-            avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+            avg_1day_final = Math.round(avg_1day * 1000) / 1000; // Làm tròn
             document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -159,7 +159,7 @@ function fn_change() {
 
             // Trung bình   
             avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
-            avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+            avg_3day_final = Math.round(avg_3day * 1000) / 1000; // Làm tròn
             document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -188,7 +188,7 @@ function fn_change() {
 
             // Trung bình   
             avg_7day = array_distance_7day = array_distance_7day.reduce((a, b) => a + b, 0) / array_distance_7day.length;
-            avg_7day_final = Math.round(avg_7day * 100) / 100; // Làm tròn
+            avg_7day_final = Math.round(avg_7day * 1000) / 1000; // Làm tròn
             document.getElementById("average-7day").innerHTML = avg_7day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -218,7 +218,7 @@ function fn_change() {
 
             // Trung bình   
             avg_15day = array_distance_15day = array_distance_15day.reduce((a, b) => a + b, 0) / array_distance_15day.length;
-            avg_15day_final = Math.round(avg_15day * 100) / 100; // Làm tròn
+            avg_15day_final = Math.round(avg_15day * 1000) / 1000; // Làm tròn
             document.getElementById("average-15day").innerHTML = avg_15day_final + " m";
         });
         // ----------------------------------------------------------------------------------------
@@ -345,7 +345,7 @@ function fn_change() {
 
             // Trung bình   
             avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
-            avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+            avg_1day_final = Math.round(avg_1day * 1000) / 1000; // Làm tròn
             document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -374,7 +374,7 @@ function fn_change() {
 
             // Trung bình   
             avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
-            avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+            avg_3day_final = Math.round(avg_3day * 1000) / 1000; // Làm tròn
             document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -403,7 +403,7 @@ function fn_change() {
 
             // Trung bình   
             avg_7day = array_distance_7day = array_distance_7day.reduce((a, b) => a + b, 0) / array_distance_7day.length;
-            avg_7day_final = Math.round(avg_7day * 100) / 100; // Làm tròn
+            avg_7day_final = Math.round(avg_7day * 1000) / 1000; // Làm tròn
             document.getElementById("average-7day").innerHTML = avg_7day_final + " m";
             // ------------------------------------------------------------------------------------------
 
@@ -433,7 +433,7 @@ function fn_change() {
 
             // Trung bình   
             avg_15day = array_distance_15day = array_distance_15day.reduce((a, b) => a + b, 0) / array_distance_15day.length;
-            avg_15day_final = Math.round(avg_15day * 100) / 100; // Làm tròn
+            avg_15day_final = Math.round(avg_15day * 1000) / 1000; // Làm tròn
             document.getElementById("average-15day").innerHTML = avg_15day_final + " m";
         });
         // ----------------------------------------------------------------------------------------
@@ -559,7 +559,7 @@ function fn_change() {
 
                 // Trung bình   
                 avg_1day = array_distance_1day = array_distance_1day.reduce((a, b) => a + b, 0) / array_distance_1day.length;
-                avg_1day_final = Math.round(avg_1day * 100) / 100; // Làm tròn
+                avg_1day_final = Math.round(avg_1day * 1000) / 1000; // Làm tròn
                 document.getElementById("average-1day").innerHTML = avg_1day_final + " m";
                 // ------------------------------------------------------------------------------------------
 
@@ -588,7 +588,7 @@ function fn_change() {
 
                 // Trung bình   
                 avg_3day = array_distance_3day = array_distance_3day.reduce((a, b) => a + b, 0) / array_distance_3day.length;
-                avg_3day_final = Math.round(avg_3day * 100) / 100; // Làm tròn
+                avg_3day_final = Math.round(avg_3day * 1000) / 1000; // Làm tròn
                 document.getElementById("average-3day").innerHTML = avg_3day_final + " m";
                 // ------------------------------------------------------------------------------------------
 
@@ -617,7 +617,7 @@ function fn_change() {
 
                 // Trung bình   
                 avg_7day = array_distance_7day = array_distance_7day.reduce((a, b) => a + b, 0) / array_distance_7day.length;
-                avg_7day_final = Math.round(avg_7day * 100) / 100; // Làm tròn
+                avg_7day_final = Math.round(avg_7day * 1000) / 1000; // Làm tròn
                 document.getElementById("average-7day").innerHTML = avg_7day_final + " m";
                 // ------------------------------------------------------------------------------------------
 
@@ -647,7 +647,7 @@ function fn_change() {
 
                 // Trung bình   
                 avg_15day = array_distance_15day = array_distance_15day.reduce((a, b) => a + b, 0) / array_distance_15day.length;
-                avg_15day_final = Math.round(avg_15day * 100) / 100; // Làm tròn
+                avg_15day_final = Math.round(avg_15day * 1000) / 1000; // Làm tròn
                 document.getElementById("average-15day").innerHTML = avg_15day_final + " m";
             })
             // ----------------------------------------------------------------------------------------
