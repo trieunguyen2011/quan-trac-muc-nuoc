@@ -86,22 +86,22 @@ function fn_change() {
                 array_time_15day.push(full_time);
 
 
-                if (array_distance_1day.length > 50) {
+                if (array_distance_1day.length > 96) {
                     array_distance_1day.shift();
                     array_time_1day.shift();
                 }
 
-                if (array_distance_3day.length > 100) {
+                if (array_distance_3day.length > 288) {
                     array_distance_3day.shift();
                     array_time_3day.shift();
                 }
 
-                if (array_distance_7day.length > 200) {
+                if (array_distance_7day.length > 672) {
                     array_distance_7day.shift();
                     array_time_7day.shift();
                 }
 
-                if (array_distance_15day.length > 300) {
+                if (array_distance_15day.length > 1440) {
                     array_distance_15day.shift();
                     array_time_15day.shift();
                 }
@@ -301,22 +301,22 @@ function fn_change() {
                 array_time_15day.push(full_time);
 
 
-                if (array_distance_1day.length > 50) {
+                if (array_distance_1day.length > 96) {
                     array_distance_1day.shift();
                     array_time_1day.shift();
                 }
 
-                if (array_distance_3day.length > 100) {
+                if (array_distance_3day.length > 288) {
                     array_distance_3day.shift();
                     array_time_3day.shift();
                 }
 
-                if (array_distance_7day.length > 200) {
+                if (array_distance_7day.length > 672) {
                     array_distance_7day.shift();
                     array_time_7day.shift();
                 }
 
-                if (array_distance_15day.length > 300) {
+                if (array_distance_15day.length > 1440) {
                     array_distance_15day.shift();
                     array_time_15day.shift();
                 }
@@ -449,7 +449,6 @@ function fn_change() {
             },
         };
 
-
         var docClient = new AWS.DynamoDB.DocumentClient();
         docClient.query(params_chart3, function(err, data) {
                 // Tọa độ
@@ -516,22 +515,22 @@ function fn_change() {
                     array_time_15day.push(full_time);
 
 
-                    if (array_distance_1day.length > 50) {
+                    if (array_distance_1day.length > 96) {
                         array_distance_1day.shift();
                         array_time_1day.shift();
                     }
 
-                    if (array_distance_3day.length > 100) {
+                    if (array_distance_3day.length > 288) {
                         array_distance_3day.shift();
                         array_time_3day.shift();
                     }
 
-                    if (array_distance_7day.length > 200) {
+                    if (array_distance_7day.length > 672) {
                         array_distance_7day.shift();
                         array_time_7day.shift();
                     }
 
-                    if (array_distance_15day.length > 300) {
+                    if (array_distance_15day.length > 1440) {
                         array_distance_15day.shift();
                         array_time_15day.shift();
                     }
