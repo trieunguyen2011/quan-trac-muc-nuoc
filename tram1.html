@@ -82,6 +82,11 @@
             background-color: rgb(110, 110, 110);
         }
         
+        button:disabled:hover {
+            background-color: white;
+            color: grey;
+        }
+        
         #change_chart {
             float: right;
             border-radius: .25rem;
@@ -328,7 +333,7 @@
                             backgroundColor: 'white',
                             borderColor: 'red',
                             borderWidth: 3,
-                            borderDash: [10, 8],
+                            borderDash: [10, 8.3],
                             cubicInterpolationMode: 'monotone',
                             pointRadius: 0 // xóa dot
                         }],

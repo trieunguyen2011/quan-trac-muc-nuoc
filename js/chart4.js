@@ -141,7 +141,7 @@ function showChart() {
                     backgroundColor: 'white',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 2,
-                    borderDash: [10, 8],
+                    borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
                     pointRadius: 0 // xóa dot
@@ -153,7 +153,7 @@ function showChart() {
                     backgroundColor: 'white',
                     borderColor: 'rgb(54, 162, 235)',
                     borderWidth: 2,
-                    borderDash: [10, 8],
+                    borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
                     pointRadius: 0 // xóa dot
@@ -165,7 +165,7 @@ function showChart() {
                     backgroundColor: 'white',
                     borderColor: 'rgb(255, 159, 64)',
                     borderWidth: 2,
-                    borderDash: [10, 8],
+                    borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
                     pointRadius: 0 // xóa dot
@@ -198,6 +198,9 @@ function showChart() {
                         color: 'black'
                     },
                 },
+            },
+            onHover: (event, chartElement) => {
+                event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
             },
             plugins: {
                 legend: {

@@ -42,7 +42,7 @@ docClient.query(params_chart2, function(err, data) {
                     data: y_data_chart2,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 1,
+                    borderWidth: 1.5,
                     cubicInterpolationMode: 'monotone',
                 }, ],
             },
@@ -54,7 +54,7 @@ docClient.query(params_chart2, function(err, data) {
                 },
                 scales: {
                     x: {
-                        min: x_length_2 - 20,
+                        min: x_length_2 - 24,
                         max: x_length_2,
                         ticks: {
                             color: 'black'
@@ -66,6 +66,9 @@ docClient.query(params_chart2, function(err, data) {
                             color: 'black'
                         },
                     },
+                },
+                onHover: (event, chartElement) => {
+                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
                 },
             },
         });
