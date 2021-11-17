@@ -215,6 +215,10 @@ button:disabled {
     padding: 3.5px 15px;
 }
 
+button:hover {
+    background-color: rgb(110, 110, 110);
+}
+
 .content-title {
     margin-top: 30px;
     display: flex;

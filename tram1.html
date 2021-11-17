@@ -66,7 +66,7 @@
         }
         
         .next-btn {
-            padding: 3px 15px;
+            padding: 3.5px 15px;
         }
         
         button:active {
@@ -76,6 +76,10 @@
         button:disabled {
             background-color: white;
             color: grey;
+        }
+        
+        button:hover {
+            background-color: rgb(110, 110, 110);
         }
         
         #change_chart {
@@ -92,12 +96,21 @@
             background-color: grey;
         }
         
+        #change_chart:hover {
+            background-color: rgb(110, 110, 110);
+        }
+        
         #change_chart:focus {
             color: #495057;
             background-color: #fff;
             border-color: #80bdff;
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
+        
+        .filter-box {
+            font-weight: 600;
+            margin-left: 15px;
         }
     </style>
 
@@ -113,6 +126,7 @@
                     <option value="1-ngay">1 ngày</option>
                     <option value="3-ngay">3 ngày</option>
                     <option value="7-ngay">7 ngày</option>
+                    <option value="15-ngay">15 ngày</option>
                 </select>
             </div>
             <div class="chart-line"></div>
@@ -123,7 +137,11 @@
                     <button class="next-btn" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
                     <button class="next-btn" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
                     <button style="margin-left: 20px" onclick="resetData()">Reset</button>
-                    <button style="margin-right: 800px" onclick="downloadPDF()">PDF<i style="margin: 0 -5px 0 5px; font-size: 14px;" class="ti-download"></i></button>
+                    <button onclick="downloadPDF()">PDF<i style="margin: 0 -5px 0 5px; font-size: 14px;" class="ti-download"></i></button>
+                    <div class="filter-box">
+                        Start: <input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> End: <input id="end" type="date" min="" max="" value="">
+                        <button style="margin-right: 500px; margin-left: 5px;" onclick="filterDate()">Filter</button>
+                    </div>
                     <button onclick="toggleData(0)">Trạm 1</button>
                     <button onclick="toggleData(1)">Trung bình</button>
                 </div>
@@ -134,6 +152,10 @@
 
         <script>
             var myChart;
+            var array_distance_filter = new Array();
+            var array_time_filter = new Array();
+            var array_date_filter = new Array();
+
             var array_distance_live = new Array();
             var array_time_live = new Array();
             var array_avg_live = new Array();
@@ -149,6 +171,10 @@
             var array_distance_7ngay = new Array();
             var array_time_7ngay = new Array();
             var array_avg_7ngay = new Array();
+
+            var array_distance_15ngay = new Array();
+            var array_time_15ngay = new Array();
+            var array_avg_15ngay = new Array();
 
 
             AWS.config.update({
@@ -175,6 +201,8 @@
                     array_distance_1ngay.push(distance_data);
                     array_distance_3ngay.push(distance_data);
                     array_distance_7ngay.push(distance_data);
+                    array_distance_15ngay.push(distance_data);
+                    array_distance_filter.push(distance_data);
 
                     avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
                     avg_final = Math.round(avg * 100) / 100; // Làm tròn
@@ -182,6 +210,7 @@
                     array_avg_1ngay.push(avg_final);
                     array_avg_3ngay.push(avg_final);
                     array_avg_7ngay.push(avg_final);
+                    array_avg_15ngay.push(avg_final);
 
                     if (array_distance_1ngay.length > 96) {
                         array_distance_1ngay.shift();
@@ -194,6 +223,10 @@
                     if (array_distance_7ngay.length > 672) {
                         array_distance_7ngay.shift();
                         array_avg_7ngay.shift();
+                    }
+                    if (array_distance_15ngay.length > 1440) {
+                        array_distance_15ngay.shift();
+                        array_avg_15ngay.shift();
                     }
                 }
                 for (let i = 0; i < data.Items.length; i++) {
@@ -216,24 +249,41 @@
                     if (month < 10) {
                         month = '0' + month;
                     }
-                    // full_time = hour + ":" + min + ' ' + date + "/" + month + "/" + year;
                     full_time = hour + ":" + min + ' ' + date + "/" + month;
-                    array_time_live.push(full_time);
 
+                    date_end = year + '-' + month + '-' + date;
+                    date_start = year + '-' + month + '-' + (date - 1);
+                    array_date_filter.push(date_end)
+
+                    array_time_live.push(full_time)
+                    array_time_filter.push(time_stamp);
                     array_time_1ngay.push(time_stamp);
                     array_time_3ngay.push(time_stamp);
                     array_time_7ngay.push(time_stamp);
+                    array_time_15ngay.push(time_stamp);
 
-                    if (array_time_1ngay.length > 200) {
+                    if (array_time_1ngay.length > 96) {
                         array_time_1ngay.shift();
                     }
-                    if (array_time_3ngay.length > 500) {
+                    if (array_time_3ngay.length > 288) {
                         array_time_3ngay.shift();
                     }
-                    if (array_time_7ngay.length > 1000) {
+                    if (array_time_7ngay.length > 672) {
                         array_time_7ngay.shift();
                     }
+                    if (array_time_15ngay.length > 1440) {
+                        array_time_15ngay.shift();
+                    }
                 }
+                min_start = array_date_filter[0];
+
+                document.getElementById('start').value = date_start;
+                document.getElementById('start').min = min_start;
+                document.getElementById('start').max = date_start;
+
+                document.getElementById('end').max = date_end;
+                document.getElementById('end').min = min_start;
+                document.getElementById('end').value = date_end;
             });
 
             function showChart() {
@@ -268,17 +318,17 @@
                             data: y_data,
                             backgroundColor: 'rgb(54, 162, 235)',
                             borderColor: 'rgb(54, 162, 235)',
-                            borderWidth: 2,
+                            borderWidth: 3,
                             cubicInterpolationMode: 'monotone',
                             pointRadius: 0 // xóa dot
                         }, { //1
                             type: "line",
                             label: "Trung bình",
                             data: avg_data,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
+                            backgroundColor: 'white',
+                            borderColor: 'red',
+                            borderWidth: 3,
+                            borderDash: [10, 8],
                             cubicInterpolationMode: 'monotone',
                             pointRadius: 0 // xóa dot
                         }],
@@ -319,7 +369,9 @@
                                     font: {
                                         size: 14,
                                     },
-                                    color: 'black'
+                                    color: 'black',
+                                    boxWidth: 50,
+                                    boxHeight: 1.5
                                 },
                             },
                         },
@@ -412,6 +464,11 @@
                 seven_day_avg = array_avg_7ngay;
                 seven_day_x_length = array_time_7ngay.length;
 
+                fifteen_day_x = array_time_15ngay;
+                fifteen_day_y = array_distance_15ngay;
+                fifteen_day_avg = array_avg_15ngay;
+                fifteen_day_x_length = array_time_15ngay.length;
+
                 var x_scale_live = {
                     min: live_x_length - 24,
                     max: live_x_length,
@@ -441,14 +498,13 @@
                 };
 
                 a = document.getElementById('change_chart').value;
-                console.log(a)
                 if (a == 'live') {
                     myChart.data.datasets[0].data = live_y;
                     myChart.data.datasets[1].data = live_avg;
                     myChart.data.labels = x_labels;
-                    myChart.options.scales.x = x_scale_live
-                        //     myChart.options.scales.x.min = live_x_length - 24;
-                        // myChart.options.scales.x.max = live_x_length
+                    myChart.options.scales.x = x_scale_live;
+                    //     myChart.options.scales.x.min = live_x_length - 24;
+                    // myChart.options.scales.x.max = live_x_length
                 }
                 if (a == '1-ngay') {
                     myChart.data.datasets[0].data = one_day_y;
@@ -473,6 +529,14 @@
                     myChart.options.scales.x = x_scale_day;
                     // myChart.options.scales.x.min = 0;
                     // myChart.options.scales.x.max = seven_day_x.lenght
+                }
+                if (a == '15-ngay') {
+                    myChart.data.datasets[0].data = fifteen_day_y;
+                    myChart.data.datasets[1].data = fifteen_day_avg;
+                    myChart.data.labels = fifteen_day_x;
+                    myChart.options.scales.x = x_scale_day;
+                    // myChart.options.scales.x.min = 0;
+                    // myChart.options.scales.x.max = fifteen_day_x.lenght
                 }
                 myChart.update();
             }
@@ -508,6 +572,42 @@
                 pdf.setFontSize(20);
                 pdf.addImage(canvasImage, 'JPEG', 10, 40, 280, 100);
                 pdf.save('water_level_data.pdf');
+            }
+
+            //Fillter date
+            function filterDate() {
+                const time_filter = array_time_filter;
+                const data_filter = array_distance_filter;
+
+                var x_scale_filter = {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                    },
+                    ticks: {
+                        color: 'black'
+                    },
+                };
+
+                const start1 = new Date(document.getElementById('start').value);
+                const start = start1.setHours(0, 0, 0, 0);
+                const end1 = new Date(document.getElementById('end').value);
+                const end = end1.setHours(0, 0, 0, 0);
+
+                const filterDates = array_time_filter.filter(date => date >= start && date <= end)
+
+                myChart.data.labels = filterDates;
+                myChart.options.scales.x = x_scale_filter;
+
+                //working on the data
+                const startArray = array_time_filter.indexOf(filterDates[0])
+                const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
+
+                const copydatafilter = [...data_filter]
+                copydatafilter.splice(endArray + 1, filterDates.length);
+                copydatafilter.splice(0, startArray);
+                myChart.data.datasets[0].data = copydatafilter;
+                myChart.update();
             }
         </script>
 </body>
