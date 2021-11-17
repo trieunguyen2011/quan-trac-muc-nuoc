@@ -45,7 +45,7 @@
             border-radius: 5px;
             border: solid 2px grey;
             padding: 10px;
-            padding-top: 30px;
+            padding-top: 20px;
         }
         
         .button-box {
@@ -251,9 +251,9 @@
                     }
                     full_time = hour + ":" + min + ' ' + date + "/" + month;
 
-                    date_end = year + '-' + month + '-' + date;
-                    date_start = year + '-' + month + '-' + (date - 1);
-                    array_date_filter.push(date_end)
+                    date_start = year + '-' + month + '-' + date;
+                    date_end = year + '-' + month + '-' + (date + 1);
+                    array_date_filter.push(date_start)
 
                     array_time_live.push(full_time)
                     array_time_filter.push(time_stamp);
