@@ -127,7 +127,7 @@
             <h1 class="chart-title">Trạm 1</h1>
             <div class="select-box">
                 <select id="change_chart">
-                    <option value="live">Live</option>
+                    <option id="live-id" value="live">Live</option>
                     <option value="1-ngay">1 ngày</option>
                     <option value="3-ngay">3 ngày</option>
                     <option value="7-ngay">7 ngày</option>
@@ -170,19 +170,22 @@
             var array_distance_1ngay = new Array();
             var array_time_1ngay = new Array();
             var array_avg_1ngay = new Array();
+            var array_avg_1ngay_0 = new Array();
 
             var array_distance_3ngay = new Array();
             var array_time_3ngay = new Array();
             var array_avg_3ngay = new Array();
+            var array_avg_3ngay_0 = new Array();
 
             var array_distance_7ngay = new Array();
             var array_time_7ngay = new Array();
             var array_avg_7ngay = new Array();
+            var array_avg_7ngay_0 = new Array();
 
             var array_distance_15ngay = new Array();
             var array_time_15ngay = new Array();
             var array_avg_15ngay = new Array();
-
+            var array_avg_15ngay_0 = new Array();
 
             AWS.config.update({
                 region: "ap-northeast-1",
@@ -214,28 +217,59 @@
                     avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
                     avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
                     array_avg_live.push(avg_final);
-                    array_avg_1ngay.push(avg_final);
-                    array_avg_3ngay.push(avg_final);
-                    array_avg_7ngay.push(avg_final);
-                    array_avg_15ngay.push(avg_final);
 
                     if (array_distance_1ngay.length > 96) {
                         array_distance_1ngay.shift();
-                        array_avg_1ngay.shift();
                     }
                     if (array_distance_3ngay.length > 288) {
                         array_distance_3ngay.shift();
-                        array_avg_3ngay.shift();
                     }
                     if (array_distance_7ngay.length > 672) {
                         array_distance_7ngay.shift();
-                        array_avg_7ngay.shift();
                     }
                     if (array_distance_15ngay.length > 1440) {
                         array_distance_15ngay.shift();
-                        array_avg_15ngay.shift();
                     }
                 }
+
+                // AVERGAGE
+                for (let i = 0; i < array_distance_1ngay.length; i++) {
+                    avg_data_1 = array_distance_1ngay[i];
+                    array_avg_1ngay_0.push(avg_data_1);
+
+                    avg_1ngay = array_avg_1ngay_0.reduce((a, b) => a + b, 0) / array_avg_1ngay_0.length;
+                    avg_1ngay_final = Math.round(avg_1ngay * 1000) / 1000; // Làm tròn
+                    array_avg_1ngay.push(avg_1ngay_final);
+                }
+
+                for (let i = 0; i < array_distance_3ngay.length; i++) {
+                    avg_data_3 = array_distance_3ngay[i];
+                    array_avg_3ngay_0.push(avg_data_3);
+
+                    avg_3ngay = array_avg_3ngay_0.reduce((a, b) => a + b, 0) / array_avg_3ngay_0.length;
+                    avg_3ngay_final = Math.round(avg_3ngay * 1000) / 1000; // Làm tròn
+                    array_avg_3ngay.push(avg_3ngay_final);
+                }
+
+                for (let i = 0; i < array_distance_7ngay.length; i++) {
+                    avg_data_7 = array_distance_7ngay[i];
+                    array_avg_7ngay_0.push(avg_data_7);
+
+                    avg_7ngay = array_avg_7ngay_0.reduce((a, b) => a + b, 0) / array_avg_7ngay_0.length;
+                    avg_7ngay_final = Math.round(avg_7ngay * 1000) / 1000; // Làm tròn
+                    array_avg_7ngay.push(avg_7ngay_final);
+                }
+
+                for (let i = 0; i < array_distance_15ngay.length; i++) {
+                    avg_data_15 = array_distance_15ngay[i];
+                    array_avg_15ngay_0.push(avg_data_15);
+
+                    avg_15ngay = array_avg_15ngay_0.reduce((a, b) => a + b, 0) / array_avg_15ngay_0.length;
+                    avg_15ngay_final = Math.round(avg_15ngay * 1000) / 1000; // Làm tròn
+                    array_avg_15ngay.push(avg_15ngay_final);
+                }
+                // -----------------------------------------------------------------------------
+
                 for (let i = 0; i < data.Items.length; i++) {
                     sample_time_data = JSON.parse(data.Items[i].sample_time);
                     const time_stamp = new Date(sample_time_data);
