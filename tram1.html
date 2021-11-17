@@ -159,6 +159,8 @@
             var myChart;
             var array_distance_filter = new Array();
             var array_time_filter = new Array();
+            var array_avg_filter = new Array();
+            var array_avg_filter_0 = new Array();
             var array_date_filter = new Array();
 
             var array_distance_live = new Array();
@@ -210,7 +212,7 @@
                     array_distance_filter.push(distance_data);
 
                     avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
-                    avg_final = Math.round(avg * 100) / 100; // Làm tròn
+                    avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
                     array_avg_live.push(avg_final);
                     array_avg_1ngay.push(avg_final);
                     array_avg_3ngay.push(avg_final);
@@ -611,8 +613,25 @@
                 const copydatafilter = [...data_filter]
                 copydatafilter.splice(endArray + 1, filterDates.length);
                 copydatafilter.splice(0, startArray);
+
+                for (let i = 0; i < copydatafilter.length; i++) {
+                    avg_data_0 = copydatafilter[i];
+                    array_avg_filter_0.push(avg_data_0);
+
+                    avg_filter = array_avg_filter_0.reduce((a, b) => a + b, 0) / array_avg_filter_0.length;
+                    avg_filter_final = Math.round(avg_filter * 1000) / 1000; // Làm tròn
+                    array_avg_filter.push(avg_filter_final);
+                }
+
                 myChart.data.datasets[0].data = copydatafilter;
+                myChart.data.datasets[1].data = array_avg_filter;
                 myChart.update();
+
+                length_clear_0 = array_avg_filter_0.length;
+                length_clear_1 = array_avg_filter.length;
+
+                array_avg_filter_0.splice(0, length_clear_0)
+                array_avg_filter.splice(0, length_clear_1)
             }
         </script>
 </body>
