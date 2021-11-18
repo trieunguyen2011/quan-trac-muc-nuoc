@@ -168,13 +168,13 @@ body {
     margin-right: 15px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
-    padding: 10px;
+    padding: 10px 5px;
 }
 
 .chart-4-line {
     width: 1280px;
     margin-left: 20px;
-    margin: 10px 0;
+    margin: 10px 5px;
     height: 1px;
     background: #ccc;
 }
@@ -222,6 +222,33 @@ button:disabled:hover {
 
 button:hover {
     background-color: rgb(110, 110, 110);
+}
+
+#change_chart {
+    float: right;
+    border-radius: .25rem;
+    cursor: pointer;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    width: 140px;
+    height: 35px;
+    font-size: 18px;
+    padding: 0 0 3px 10px;
+    margin-top: -32px;
+    margin-right: 5px;
+    color: white;
+    background-color: grey;
+}
+
+#change_chart:hover {
+    background-color: rgb(110, 110, 110);
+}
+
+#change_chart:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
 }
 
 .content-title {

@@ -485,38 +485,16 @@
                 };
                 myChart.update();
             }
-            setTimeout(showChart, 200);
+            setTimeout(showChart, 500);
 
 
             // Change chart
             change_chart.addEventListener('change', change_data);
 
             function change_data() {
-                live_y = array_distance_live;
                 live_x = array_time_live;
-                live_avg = array_avg_live
                 live_x_length = array_time_live.length;
                 const x_labels = live_x.map(label => label.split(' '));
-
-                one_day_x = array_time_1ngay;
-                one_day_y = array_distance_1ngay;
-                one_day_avg = array_avg_1ngay;
-                one_day_x_length = array_time_1ngay.length;
-
-                three_day_x = array_time_3ngay;
-                three_day_y = array_distance_3ngay;
-                three_day_avg = array_avg_3ngay;
-                three_day_x_length = array_time_3ngay.length;
-
-                seven_day_x = array_time_7ngay;
-                seven_day_y = array_distance_7ngay;
-                seven_day_avg = array_avg_7ngay;
-                seven_day_x_length = array_time_7ngay.length;
-
-                fifteen_day_x = array_time_15ngay;
-                fifteen_day_y = array_distance_15ngay;
-                fifteen_day_avg = array_avg_15ngay;
-                fifteen_day_x_length = array_time_15ngay.length;
 
                 var x_scale_live = {
                     min: live_x_length - 24,
@@ -546,55 +524,43 @@
                     },
                 };
 
-                a = document.getElementById('change_chart').value;
-                if (a == 'live') {
-                    myChart.data.datasets[0].data = live_y;
-                    myChart.data.datasets[1].data = live_avg;
+                const change_value = document.getElementById('change_chart').value;
+                if (change_value == 'live') {
+                    myChart.data.datasets[0].data = array_distance_live;
+                    myChart.data.datasets[1].data = array_avg_live;
                     myChart.data.labels = x_labels;
                     myChart.options.scales.x = x_scale_live;
-                    //     myChart.options.scales.x.min = live_x_length - 24;
-                    // myChart.options.scales.x.max = live_x_length
                 }
-                if (a == '1-ngay') {
-                    myChart.data.datasets[0].data = one_day_y;
-                    myChart.data.datasets[1].data = one_day_avg;
-                    myChart.data.labels = one_day_x;
-                    myChart.options.scales.x = x_scale_hour;
-                    // myChart.options.scales.x.min = 0;
-                    // myChart.options.scales.x.max = one_day_x.lenght
+                if (change_value == '1-ngay') {
+                    myChart.data.datasets[0].data = array_distance_1ngay;
+                    myChart.data.datasets[1].data = array_avg_1ngay;
+                    myChart.data.labels = array_time_1ngay;
+                    myChart.options.scales.x = x_scale_hour
                 }
-                if (a == '3-ngay') {
-                    myChart.data.datasets[0].data = three_day_y;
-                    myChart.data.datasets[1].data = three_day_avg;
-                    myChart.data.labels = three_day_x;
+                if (change_value == '3-ngay') {
+                    myChart.data.datasets[0].data = array_distance_3ngay;
+                    myChart.data.datasets[1].data = array_avg_3ngay;
+                    myChart.data.labels = array_time_3ngay;
                     myChart.options.scales.x = x_scale_day;
-                    // myChart.options.scales.x.min = 0;
-                    // myChart.options.scales.x.max = three_day_x.lenght
                 }
-                if (a == '7-ngay') {
-                    myChart.data.datasets[0].data = seven_day_y;
-                    myChart.data.datasets[1].data = seven_day_avg;
-                    myChart.data.labels = seven_day_x;
+                if (change_value == '7-ngay') {
+                    myChart.data.datasets[0].data = array_distance_7ngay;
+                    myChart.data.datasets[1].data = array_avg_7ngay;
+                    myChart.data.labels = array_time_7ngay;
                     myChart.options.scales.x = x_scale_day;
-                    // myChart.options.scales.x.min = 0;
-                    // myChart.options.scales.x.max = seven_day_x.lenght
                 }
-                if (a == '15-ngay') {
-                    myChart.data.datasets[0].data = fifteen_day_y;
-                    myChart.data.datasets[1].data = fifteen_day_avg;
-                    myChart.data.labels = fifteen_day_x;
+                if (change_value == '15-ngay') {
+                    myChart.data.datasets[0].data = array_distance_15ngay;
+                    myChart.data.datasets[1].data = array_avg_15ngay;
+                    myChart.data.labels = array_time_15ngay;
                     myChart.options.scales.x = x_scale_day;
-                    // myChart.options.scales.x.min = 0;
-                    // myChart.options.scales.x.max = fifteen_day_x.lenght
                 }
                 myChart.update();
             }
 
             // RESET CHART
             function resetData() {
-                live_y = array_distance_live;
                 live_x = array_time_live;
-                live_avg = array_avg_live
                 live_x_length = array_time_live.length;
                 const x_labels = live_x.map(label => label.split(' '));
 
@@ -605,10 +571,10 @@
                         color: 'black'
                     },
                 };
-                myChart.data.datasets[0].data = live_y;
-                myChart.data.datasets[1].data = live_avg;
+                myChart.data.datasets[0].data = array_distance_live;
+                myChart.data.datasets[1].data = array_avg_live;
                 myChart.data.labels = x_labels;
-                myChart.options.scales.x = x_scale_live
+                myChart.options.scales.x = x_scale_live;
                 myChart.update();
             }
 
