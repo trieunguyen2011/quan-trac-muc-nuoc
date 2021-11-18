@@ -115,6 +115,9 @@ function showChart() {
                     borderColor: "red",
                     borderWidth: 2,
                     cubicInterpolationMode: 'monotone',
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                    // pointRadius: 0, // xóa dot
                 },
                 { //1
                     type: "line",
@@ -124,6 +127,9 @@ function showChart() {
                     borderColor: "blue",
                     borderWidth: 2,
                     cubicInterpolationMode: 'monotone',
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                    // pointRadius: 0, // xóa dot
                 },
                 { //2
                     type: "line",
@@ -133,6 +139,9 @@ function showChart() {
                     borderColor: "green",
                     borderWidth: 2,
                     cubicInterpolationMode: 'monotone',
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                    // pointRadius: 0, // xóa dot
                 },
                 { //3
                     type: "line",
@@ -144,7 +153,9 @@ function showChart() {
                     borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
-                    pointRadius: 0 // xóa dot
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
                 },
                 { //4
                     type: "line",
@@ -156,7 +167,9 @@ function showChart() {
                     borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
-                    pointRadius: 0 // xóa dot
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
                 },
                 { //5
                     type: "line",
@@ -168,7 +181,9 @@ function showChart() {
                     borderDash: [10, 8.3],
                     hidden: true,
                     cubicInterpolationMode: 'monotone',
-                    pointRadius: 0 // xóa dot
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
                 },
             ],
         },
@@ -216,6 +231,10 @@ function showChart() {
                     },
 
                 },
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
             },
             // layout: {
             //     padding: {

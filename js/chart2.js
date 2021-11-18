@@ -42,9 +42,12 @@ docClient.query(params_chart2, function(err, data) {
                     data: y_data_chart2,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 1.5,
+                    borderWidth: 2,
                     cubicInterpolationMode: 'monotone',
-                }, ],
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                }],
             },
             options: {
                 plugins: {
@@ -69,6 +72,10 @@ docClient.query(params_chart2, function(err, data) {
                 },
                 onHover: (event, chartElement) => {
                     event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
                 },
             },
         });
