@@ -593,10 +593,19 @@
                 const time_filter = array_time_filter;
                 const data_filter = array_distance_filter;
 
-                var x_scale_filter = {
+                var x_scale_filter_day = {
                     type: 'time',
                     time: {
                         unit: 'day',
+                    },
+                    ticks: {
+                        color: 'black'
+                    },
+                };
+                var x_scale_filter_hour = {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
                     },
                     ticks: {
                         color: 'black'
@@ -611,11 +620,14 @@
                 const filterDates = array_time_filter.filter(date => date >= start && date <= end)
 
                 myChart.data.labels = filterDates;
-                myChart.options.scales.x = x_scale_filter;
+
 
                 //working on the data
                 const startArray = array_time_filter.indexOf(filterDates[0])
                 const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
+
+                const time_start = array_time_filter[startArray].getDate();
+                const time_end = array_time_filter[endArray].getDate();
 
                 const copydatafilter = [...data_filter]
                 copydatafilter.splice(endArray + 1, filterDates.length);
@@ -628,6 +640,12 @@
                     avg_filter = array_avg_filter_0.reduce((a, b) => a + b, 0) / array_avg_filter_0.length;
                     avg_filter_final = Math.round(avg_filter * 1000) / 1000; // Làm tròn
                     array_avg_filter.push(avg_filter_final);
+                }
+                abc = time_end - time_start;
+                if (time_end - time_start > 1) {
+                    myChart.options.scales.x = x_scale_filter_day;
+                } else {
+                    myChart.options.scales.x = x_scale_filter_hour;
                 }
 
                 myChart.data.datasets[0].data = copydatafilter;
