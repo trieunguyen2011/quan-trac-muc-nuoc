@@ -495,7 +495,6 @@
                 live_x = array_time_live;
                 live_x_length = array_time_live.length;
                 const x_labels = live_x.map(label => label.split(' '));
-
                 var x_scale_live = {
                     min: live_x_length - 24,
                     max: live_x_length,
@@ -584,7 +583,7 @@
                 const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
 
                 let pdf = new jsPDF('landscape');
-                pdf.setFontSize(20);
+                pdf.setFontSize(15);
                 pdf.addImage(canvasImage, 'JPEG', 10, 40, 280, 100);
                 pdf.save('water_level_data.pdf');
             }
@@ -597,7 +596,7 @@
                 var x_scale_filter = {
                     type: 'time',
                     time: {
-                        unit: 'hour',
+                        unit: 'day',
                     },
                     ticks: {
                         color: 'black'
