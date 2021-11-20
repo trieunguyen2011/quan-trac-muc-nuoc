@@ -30,8 +30,30 @@
             margin: 20px;
         }
         
+        .title-box {
+            display: flex;
+        }
+        
         .chart-title {
             font-size: 25px;
+        }
+        
+        .title-box button {
+            height: 30px;
+            width: 30px;
+            margin: 20px 0 0 10px;
+            padding: 2px 2px 0 1px;
+            text-align: center;
+            color: black;
+            font-size: 21px;
+            background-color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .title-box button:hover {
+            background-color: rgb(231, 226, 226);
         }
         
         .chart-line {
@@ -55,7 +77,7 @@
             align-items: center;
         }
         
-        button {
+        .button-box button {
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             padding: 2px 15px 5px 15px;
             margin: 15px 5px 10px 5px;
@@ -124,7 +146,10 @@
 <body>
     <div class="main">
         <div>
-            <h1 class="chart-title">Trạm 1</h1>
+            <div class="title-box">
+                <h1 class="chart-title">Trạm 1</h1>
+                <button onclick="window.location.reload()"><i class="ti-reload"></i></button>
+            </div>
             <div class="select-box">
                 <select id="change_chart">
                     <option id="live-id" value="live">Live</option>
@@ -507,6 +532,7 @@
                     type: 'time',
                     time: {
                         unit: 'hour',
+                        stepSize: 2
                     },
                     ticks: {
                         color: 'black'
@@ -517,6 +543,7 @@
                     type: 'time',
                     time: {
                         unit: 'day',
+                        // stepSize: 1
                     },
                     ticks: {
                         color: 'black'
@@ -606,6 +633,7 @@
                     type: 'time',
                     time: {
                         unit: 'hour',
+                        stepSize: 2
                     },
                     ticks: {
                         color: 'black'
