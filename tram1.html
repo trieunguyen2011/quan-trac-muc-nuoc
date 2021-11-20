@@ -317,9 +317,8 @@
                     }
                     full_time = hour + ":" + min + ' ' + date + "/" + month;
 
-                    date_start = year + '-' + month + '-' + date;
-                    date_end = year + '-' + month + '-' + (date + 1);
-                    array_date_filter.push(date_start)
+                    date_filter = year + '-' + month + '-' + date;
+                    array_date_filter.push(date_filter)
 
                     array_time_live.push(full_time)
                     array_time_filter.push(time_stamp);
@@ -341,15 +340,15 @@
                         array_time_15ngay.shift();
                     }
                 }
-                min_start = array_date_filter[0];
+                min_filter = array_date_filter[0];
 
-                document.getElementById('start').value = date_start;
-                document.getElementById('start').min = min_start;
-                document.getElementById('start').max = date_start;
+                document.getElementById('start').value = date_filter;
+                document.getElementById('start').min = min_filter;
+                document.getElementById('start').max = date_filter;
 
-                document.getElementById('end').max = date_end;
-                document.getElementById('end').min = min_start;
-                document.getElementById('end').value = date_end;
+                document.getElementById('end').max = date_filter;
+                document.getElementById('end').min = min_filter;
+                document.getElementById('end').value = date_filter;
             });
 
             function showChart() {
@@ -643,7 +642,7 @@
                 const start1 = new Date(document.getElementById('start').value);
                 const start = start1.setHours(0, 0, 0, 0);
                 const end1 = new Date(document.getElementById('end').value);
-                const end = end1.setHours(0, 0, 0, 0);
+                const end = end1.setHours(23, 59, 59, 999);
 
                 const filterDates = array_time_filter.filter(date => date >= start && date <= end)
 
