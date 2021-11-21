@@ -353,7 +353,7 @@ function showChart() {
                     cubicInterpolationMode: 'monotone',
                     pointStyle: 'rect',
                     hoverRadius: 8,
-                    // pointRadius: 0, // xóa dot
+                    pointRadius: 0
                 },
                 { //1
                     type: "line",
@@ -365,7 +365,7 @@ function showChart() {
                     cubicInterpolationMode: 'monotone',
                     pointStyle: 'rect',
                     hoverRadius: 8,
-                    // pointRadius: 0, // xóa dot
+                    pointRadius: 0
                 },
                 { //2
                     type: "line",
@@ -377,7 +377,7 @@ function showChart() {
                     cubicInterpolationMode: 'monotone',
                     pointStyle: 'rect',
                     hoverRadius: 8,
-                    // pointRadius: 0, // xóa dot
+                    pointRadius: 0
                 },
                 { //3
                     type: "line",
