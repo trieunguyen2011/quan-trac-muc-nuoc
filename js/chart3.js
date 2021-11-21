@@ -39,7 +39,7 @@ docClient.query(params_chart3, function(err, data) {
             data: {
                 labels: x_data_chart3,
                 datasets: [{
-                    label: "Trạm 1",
+                    label: "Trạm 3",
                     data: y_data_chart3,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',

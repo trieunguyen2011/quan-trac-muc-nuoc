@@ -38,7 +38,7 @@ docClient.query(params_chart1, function(err, data) {
                 marker1 = new map4d.Marker({
                     // Form thông tin
                     title: "Trạm 1",
-                    snippet: "Độ cao hiện tại: 1,5m",
+                    // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
                         text: "Trạm 1",
