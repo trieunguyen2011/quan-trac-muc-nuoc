@@ -412,7 +412,7 @@ function showChart() {
                     label: "TB Trạm 3",
                     data: array_avg_live_3,
                     backgroundColor: 'white',
-                    borderColor: 'rgb(255, 159, 64)',
+                    borderColor: 'rgb(75, 192, 192)',
                     borderWidth: 3,
                     borderDash: [10, 8.3],
                     hidden: true,
