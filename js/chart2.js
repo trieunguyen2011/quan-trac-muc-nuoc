@@ -42,7 +42,7 @@ docClient.query(params_chart2, function(err, data) {
                     data: y_data_chart2,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
-                    borderWidth: 2,
+                    borderWidth: 2.5,
                     cubicInterpolationMode: 'monotone',
                     pointRadius: 0, // xóa dot
                     pointStyle: 'rect',

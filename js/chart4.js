@@ -555,6 +555,7 @@ function change_data() {
         type: 'time',
         time: {
             unit: 'hour',
+            stepSize: 2
         },
         ticks: {
             color: 'black'
