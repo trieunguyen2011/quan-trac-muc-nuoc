@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
     <script defer src="https://api.map4d.vn/sdk/map/js?version=1.6.0&key=	01bc4b3257cf82004bfe26cb6cb2c8f4&callback=initMap"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 
@@ -97,7 +98,12 @@
                             class="ti-control-backward"></i></button>
                     <button class="btn-chart4 next-btn" id="next" onclick="nextData(52, 52)"><i
                             class="ti-control-forward"></i></button>
-                    <button class="btn-chart4" style="margin-right: 600px; margin-left: 15px;" onclick="resetData()">Reset</button>
+                    <button class="btn-chart4" style="margin-right: 5px; margin-left: 15px;" onclick="resetData()">Reset</button>
+                    <button class="btn-chart4" onclick="downloadPDF()">PDF<i style="font-size: 14px;" class="ti-download"></i></button>
+                    <div class="filter-box">
+                        Start: <input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> End: <input id="end" type="date" min="" max="" value="">
+                        <button class="btn-chart4" style="margin-right: 70px; margin-left: 5px;" onclick="filterDate()">Filter</button>
+                    </div>
                     <button class="btn-chart4" onclick="toggleData(3)">TB Trạm 1</button>
                     <button class="btn-chart4" onclick="toggleData(4)">TB Trạm 2</button>
                     <button class="btn-chart4" onclick="toggleData(5)">TB Trạm 3</button>

@@ -224,6 +224,11 @@ button:hover {
     background-color: rgb(110, 110, 110);
 }
 
+.filter-box {
+    font-weight: 600;
+    margin-left: 10px;
+}
+
 #change_chart {
     float: right;
     border-radius: .25rem;
