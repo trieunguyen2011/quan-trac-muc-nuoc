@@ -1,4 +1,5 @@
 var myChart;
+var array_line_alert = new Array();
 
 //Live
 var array_distance_live_1 = new Array();
@@ -141,6 +142,8 @@ docClient.query(params_chart1_4, function(err, data) {
         if (array_distance_15ngay_1.length > 1440) {
             array_distance_15ngay_1.shift();
         }
+        alert_data = 0.1;
+        array_line_alert.push(alert_data);
     }
     // AVERGAGE
     for (let i = 0; i < array_distance_live_1.length; i++) {
@@ -508,7 +511,17 @@ function showChart() {
                     pointRadius: 0, // xóa dot
                     pointStyle: 'rect',
                     hoverRadius: 8,
-                },
+                }, { //6
+                    type: "line",
+                    label: "Alert",
+                    data: array_line_alert,
+                    backgroundColor: 'rgb(255, 159, 64)',
+                    borderColor: 'rgb(255, 159, 64)',
+                    borderWidth: 1,
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'none',
+                    hoverRadius: 0,
+                }
             ],
         },
         options: {
@@ -599,7 +612,7 @@ function nextData(start, end) {
     };
     myChart.update();
 }
-setTimeout(showChart, 800);
+setTimeout(showChart, 1000);
 
 // RESET CHART
 function resetData() {

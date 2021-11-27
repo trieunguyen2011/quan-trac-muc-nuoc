@@ -182,6 +182,8 @@
 
         <script>
             var myChart;
+            var array_line_alert = new Array();
+
             var array_distance_filter = new Array();
             var array_time_filter = new Array();
             var array_avg_filter = new Array();
@@ -191,6 +193,7 @@
             var array_distance_live = new Array();
             var array_time_live = new Array();
             var array_avg_live = new Array();
+            var array_avg_live_0 = new Array();
 
             var array_distance_1ngay = new Array();
             var array_time_1ngay = new Array();
@@ -239,10 +242,13 @@
                     array_distance_15ngay.push(distance_data);
                     array_distance_filter.push(distance_data);
 
-                    avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
-                    avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
-                    array_avg_live.push(avg_final);
+                    // avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
+                    // avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
+                    // array_avg_live.push(avg_final);
 
+                    if (array_distance_live.length > 480) {
+                        array_distance_live.shift();
+                    }
                     if (array_distance_1ngay.length > 96) {
                         array_distance_1ngay.shift();
                     }
@@ -255,9 +261,21 @@
                     if (array_distance_15ngay.length > 1440) {
                         array_distance_15ngay.shift();
                     }
+
+                    alert_data = 0.1;
+                    array_line_alert.push(alert_data);
                 }
 
                 // AVERGAGE
+                for (let i = 0; i < array_distance_live.length; i++) {
+                    avg_data_1 = array_distance_live[i];
+                    array_avg_live_0.push(avg_data_1);
+
+                    avg_live = array_avg_live_0.reduce((a, b) => a + b, 0) / array_avg_live_0.length;
+                    avg_live_final = Math.round(avg_live * 1000) / 1000; // Làm tròn
+                    array_avg_live.push(avg_live_final);
+                }
+
                 for (let i = 0; i < array_distance_1ngay.length; i++) {
                     avg_data_1 = array_distance_1ngay[i];
                     array_avg_1ngay_0.push(avg_data_1);
@@ -295,6 +313,7 @@
                 }
                 // -----------------------------------------------------------------------------
 
+                // TIME
                 for (let i = 0; i < data.Items.length; i++) {
                     sample_time_data = JSON.parse(data.Items[i].sample_time);
                     const time_stamp = new Date(sample_time_data);
@@ -327,6 +346,9 @@
                     array_time_7ngay.push(time_stamp);
                     array_time_15ngay.push(time_stamp);
 
+                    if (array_time_live.length > 480) {
+                        array_time_live.shift();
+                    }
                     if (array_time_1ngay.length > 96) {
                         array_time_1ngay.shift();
                     }
@@ -400,6 +422,16 @@
                             pointRadius: 0, // xóa dot
                             pointStyle: 'rect',
                             hoverRadius: 8,
+                        }, {
+                            type: "line",
+                            label: "Alert",
+                            data: array_line_alert,
+                            backgroundColor: 'rgb(255, 159, 64)',
+                            borderColor: 'rgb(255, 159, 64)',
+                            borderWidth: 1,
+                            pointRadius: 0, // xóa dot
+                            pointStyle: 'none',
+                            hoverRadius: 0,
                         }],
                     },
                     options: {
@@ -449,7 +481,7 @@
                             mode: 'index'
                         },
                     },
-                    plugins: [bgColor]
+                    plugins: [bgColor],
                 })
             }
 
