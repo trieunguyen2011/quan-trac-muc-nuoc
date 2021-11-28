@@ -566,8 +566,15 @@ function showChart() {
                         boxWidth: 50,
                         boxHeight: 1.5
                     },
-
                 },
+                tooltip: {
+                    filter: (tooltipItem) => {
+                        console.log(tooltipItem)
+                        if (tooltipItem.datasetIndex !== 6) {
+                            return tooltipItem
+                        }
+                    }
+                }
             },
             interaction: {
                 intersect: false,

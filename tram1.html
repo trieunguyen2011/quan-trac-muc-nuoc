@@ -476,6 +476,14 @@
                                     boxHeight: 1.5
                                 },
                             },
+                            tooltip: {
+                                filter: (tooltipItem) => {
+                                    console.log(tooltipItem)
+                                    if (tooltipItem.datasetIndex !== 2) {
+                                        return tooltipItem
+                                    }
+                                }
+                            }
                         },
                         interaction: {
                             intersect: false,
