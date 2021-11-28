@@ -569,7 +569,6 @@ function showChart() {
                 },
                 tooltip: {
                     filter: (tooltipItem) => {
-                        console.log(tooltipItem)
                         if (tooltipItem.datasetIndex !== 6) {
                             return tooltipItem
                         }
