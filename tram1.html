@@ -21,14 +21,15 @@
         }
         
         body {
-            height: 3000px;
-            width: 1700px;
+            /* height: 100%; */
+            width: 1800px;
             margin-left: auto;
             margin-right: auto;
+            margin-top: 0px;
         }
         
         .main {
-            margin: 20px;
+            margin: 0 20px;
         }
         
         .title-box {
@@ -59,37 +60,33 @@
         
         .chart-line {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             height: 1px;
             background: #ccc;
         }
         
         .chart-box {
             border-radius: 5px;
-            border: solid 2px grey;
-            padding: 10px;
-            padding-top: 20px;
+            border: solid 2px #e3e3e3;
+            padding: 15px 10px 0px 10px;
         }
         
-        .button-box {
+        .button-box-chart {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        .button-box button {
+        .filter-box button,
+        .button-box-chart button {
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             padding: 2px 15px 5px 15px;
-            margin: 15px 5px 10px 5px;
+            margin: 10px 5px;
             background-color: grey;
             color: white;
             border-radius: 5px;
             cursor: pointer;
-        }
-        
-        .next-btn {
-            padding: 3.5px 15px;
         }
         
         button:active {
@@ -115,11 +112,11 @@
             border-radius: .25rem;
             cursor: pointer;
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            width: 200px;
-            height: 40px;
-            font-size: 20px;
+            width: 180px;
+            height: 38px;
+            font-size: 19px;
             padding: 0 0 3px 10px;
-            margin-top: -55px;
+            margin-top: -50px;
             color: white;
             background-color: grey;
         }
@@ -137,8 +134,54 @@
         }
         
         .filter-box {
-            font-weight: 600;
-            margin-left: 15px;
+            height: 100%;
+            margin: 20px 0;
+            padding: 0 20px 20px 20px;
+            border-radius: 5px;
+            border: solid 2px #e3e3e3;
+            background-color: #f5f5f5;
+        }
+        
+        .table-box {
+            background-color: white;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .table-box table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            padding: 6px;
+            background-color: #ccc
+        }
+        
+        td {
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding: 3px;
+        }
+        
+        tr:nth-child(even):hover,
+        tr:hover {
+            background-color: rgb(221, 221, 221);
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        /* Scroll table */
+        
+        .fixTableHead {
+            overflow-y: auto;
+            height: 400px;
+        }
+        
+        .fixTableHead thead th {
+            position: sticky;
+            top: 0;
         }
     </style>
 
@@ -162,570 +205,682 @@
             </div>
             <div class="chart-line"></div>
             <div class="chart-box">
-                <canvas id="myChart" height="545px" width="1636px"></canvas>
+                <canvas id="myChart" height="477px" width="1736px"></canvas>
 
-                <div class="button-box">
-                    <button class="next-btn" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
-                    <button class="next-btn" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
-                    <button style="margin-left: 20px" onclick="resetData()">Reset</button>
-                    <button onclick="downloadPDF()">PDF<i style="margin: 0 -5px 0 5px; font-size: 14px;" class="ti-download"></i></button>
-                    <div class="filter-box">
-                        Start: <input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> End: <input id="end" type="date" min="" max="" value="">
-                        <button style="margin-right: 500px; margin-left: 5px;" onclick="filterDate()">Filter</button>
-                    </div>
+                <div class="button-box-chart">
+                    <button id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
+                    <button id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
+                    <button style="margin-left: 30px" onclick="resetData()">Reset</button>
+                    <button style="margin-right: 900px;" onclick="downloadPDF()">PDF<i style="margin: 0 -5px 0 5px; font-size: 14px;" class="ti-download"></i></button>
                     <button onclick="toggleData(0)">Trạm 1</button>
                     <button onclick="toggleData(1)">Trung bình</button>
                 </div>
             </div>
+            <div class="filter-box">
+                <label style="font-weight: 600;">Start: </label><input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> <label style="font-weight: 600;">End: </label><input id="end" type="date" min="" max="" value="">
+                <button style="margin-left: 10px;" onclick="filterDate_Chart()">Plot</button>
+                <button style="margin-left: 5px;" onclick="filterDate_Table()">Show Data</button>
+                <button style="float: right; margin: 10px 0;" onclick="downloadExcel()">Export to Excel</button>
+
+                <div class="table-box fixTableHead">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time (GMT+7)</th>
+                                <th>Distance (m)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body-table">
+                            <tr>
+                                <td>28/12/2021</td>
+                                <td>22:30</td>
+                                <td>0.456</td>
+                            </tr>
+                            <tr>
+                                <td>28/12/2021</td>
+                                <td>22:30</td>
+                                <td>0.456</td>
+                            </tr>
+                            <tr>
+                                <td>28/12/2021</td>
+                                <td>22:30</td>
+                                <td>0.456</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
-
-
-        <script>
-            var myChart;
-            var array_line_alert = new Array();
-
-            var array_distance_filter = new Array();
-            var array_time_filter = new Array();
-            var array_avg_filter = new Array();
-            var array_avg_filter_0 = new Array();
-            var array_date_filter = new Array();
-
-            var array_distance_live = new Array();
-            var array_time_live = new Array();
-            var array_avg_live = new Array();
-            var array_avg_live_0 = new Array();
-
-            var array_distance_1ngay = new Array();
-            var array_time_1ngay = new Array();
-            var array_avg_1ngay = new Array();
-            var array_avg_1ngay_0 = new Array();
-
-            var array_distance_3ngay = new Array();
-            var array_time_3ngay = new Array();
-            var array_avg_3ngay = new Array();
-            var array_avg_3ngay_0 = new Array();
-
-            var array_distance_7ngay = new Array();
-            var array_time_7ngay = new Array();
-            var array_avg_7ngay = new Array();
-            var array_avg_7ngay_0 = new Array();
-
-            var array_distance_15ngay = new Array();
-            var array_time_15ngay = new Array();
-            var array_avg_15ngay = new Array();
-            var array_avg_15ngay_0 = new Array();
-
-            AWS.config.update({
-                region: "ap-northeast-1",
-                endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
-                accessKeyId: "AKIAXKZISWAEZWPSCIVL",
-                secretAccessKey: "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",
-            });
-
-            var params_chart1 = {
-                TableName: "water_level",
-                KeyConditionExpression: "device_id = :a",
-                ExpressionAttributeValues: {
-                    ":a": 1,
-                },
-            };
-
-            var docClient = new AWS.DynamoDB.DocumentClient();
-            docClient.query(params_chart1, function(err, data) {
-
-                for (let i = 0; i < data.Items.length; i++) {
-                    distance_data = JSON.parse(data.Items[i].device_data.Distance);
-                    array_distance_live.push(distance_data);
-                    array_distance_1ngay.push(distance_data);
-                    array_distance_3ngay.push(distance_data);
-                    array_distance_7ngay.push(distance_data);
-                    array_distance_15ngay.push(distance_data);
-                    array_distance_filter.push(distance_data);
-
-                    // avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
-                    // avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
-                    // array_avg_live.push(avg_final);
-
-                    if (array_distance_live.length > 480) {
-                        array_distance_live.shift();
-                    }
-                    if (array_distance_1ngay.length > 96) {
-                        array_distance_1ngay.shift();
-                    }
-                    if (array_distance_3ngay.length > 288) {
-                        array_distance_3ngay.shift();
-                    }
-                    if (array_distance_7ngay.length > 672) {
-                        array_distance_7ngay.shift();
-                    }
-                    if (array_distance_15ngay.length > 1440) {
-                        array_distance_15ngay.shift();
-                    }
-
-                    alert_data = 0.1;
-                    array_line_alert.push(alert_data);
-                }
-
-                // AVERGAGE
-                for (let i = 0; i < array_distance_live.length; i++) {
-                    avg_data_1 = array_distance_live[i];
-                    array_avg_live_0.push(avg_data_1);
-
-                    avg_live = array_avg_live_0.reduce((a, b) => a + b, 0) / array_avg_live_0.length;
-                    avg_live_final = Math.round(avg_live * 1000) / 1000; // Làm tròn
-                    array_avg_live.push(avg_live_final);
-                }
-
-                for (let i = 0; i < array_distance_1ngay.length; i++) {
-                    avg_data_1 = array_distance_1ngay[i];
-                    array_avg_1ngay_0.push(avg_data_1);
-
-                    avg_1ngay = array_avg_1ngay_0.reduce((a, b) => a + b, 0) / array_avg_1ngay_0.length;
-                    avg_1ngay_final = Math.round(avg_1ngay * 1000) / 1000; // Làm tròn
-                    array_avg_1ngay.push(avg_1ngay_final);
-                }
-
-                for (let i = 0; i < array_distance_3ngay.length; i++) {
-                    avg_data_3 = array_distance_3ngay[i];
-                    array_avg_3ngay_0.push(avg_data_3);
-
-                    avg_3ngay = array_avg_3ngay_0.reduce((a, b) => a + b, 0) / array_avg_3ngay_0.length;
-                    avg_3ngay_final = Math.round(avg_3ngay * 1000) / 1000; // Làm tròn
-                    array_avg_3ngay.push(avg_3ngay_final);
-                }
-
-                for (let i = 0; i < array_distance_7ngay.length; i++) {
-                    avg_data_7 = array_distance_7ngay[i];
-                    array_avg_7ngay_0.push(avg_data_7);
-
-                    avg_7ngay = array_avg_7ngay_0.reduce((a, b) => a + b, 0) / array_avg_7ngay_0.length;
-                    avg_7ngay_final = Math.round(avg_7ngay * 1000) / 1000; // Làm tròn
-                    array_avg_7ngay.push(avg_7ngay_final);
-                }
-
-                for (let i = 0; i < array_distance_15ngay.length; i++) {
-                    avg_data_15 = array_distance_15ngay[i];
-                    array_avg_15ngay_0.push(avg_data_15);
-
-                    avg_15ngay = array_avg_15ngay_0.reduce((a, b) => a + b, 0) / array_avg_15ngay_0.length;
-                    avg_15ngay_final = Math.round(avg_15ngay * 1000) / 1000; // Làm tròn
-                    array_avg_15ngay.push(avg_15ngay_final);
-                }
-                // -----------------------------------------------------------------------------
-
-                // TIME
-                for (let i = 0; i < data.Items.length; i++) {
-                    sample_time_data = JSON.parse(data.Items[i].sample_time);
-                    const time_stamp = new Date(sample_time_data);
-                    min = time_stamp.getMinutes();
-                    hour = time_stamp.getHours();
-
-                    const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-                    date = time_stamp.getDate();
-                    month = month_name[time_stamp.getMonth()];
-                    year = time_stamp.getFullYear();
-
-                    if (min < 10) {
-                        min = '0' + min;
-                    }
-                    if (date < 10) {
-                        date = '0' + date;
-                    }
-                    if (month < 10) {
-                        month = '0' + month;
-                    }
-                    full_time = hour + ":" + min + ' ' + date + "/" + month;
-
-                    date_filter = year + '-' + month + '-' + date;
-                    array_date_filter.push(date_filter)
-
-                    array_time_live.push(full_time)
-                    array_time_filter.push(time_stamp);
-                    array_time_1ngay.push(time_stamp);
-                    array_time_3ngay.push(time_stamp);
-                    array_time_7ngay.push(time_stamp);
-                    array_time_15ngay.push(time_stamp);
-
-                    if (array_time_live.length > 480) {
-                        array_time_live.shift();
-                    }
-                    if (array_time_1ngay.length > 96) {
-                        array_time_1ngay.shift();
-                    }
-                    if (array_time_3ngay.length > 288) {
-                        array_time_3ngay.shift();
-                    }
-                    if (array_time_7ngay.length > 672) {
-                        array_time_7ngay.shift();
-                    }
-                    if (array_time_15ngay.length > 1440) {
-                        array_time_15ngay.shift();
-                    }
-                }
-                min_filter = array_date_filter[0];
-
-                document.getElementById('start').value = date_filter;
-                document.getElementById('start').min = min_filter;
-                document.getElementById('start').max = date_filter;
-
-                document.getElementById('end').max = date_filter;
-                document.getElementById('end').min = min_filter;
-                document.getElementById('end').value = date_filter;
-            });
-
-            function showChart() {
-                // Biểu đồ
-                const x_data = array_time_live;
-                const y_data = array_distance_live;
-                const avg_data = array_avg_live;
-                const x_length = array_time_live.length;
-                const x_labels = x_data.map(label => label.split(' '));
-
-                var bgColor = {
-                    id: 'bgColor',
-                    beforeDraw: (chart, options) => {
-                        const {
-                            ctx,
-                            width,
-                            height
-                        } = chart;
-                        ctx.fillStyle = 'white';
-                        ctx.fillRect(0, 0, width, height)
-                        ctx.restore();
-                    },
-                }
-
-                const ctx = document.getElementById("myChart").getContext("2d");
-                myChart = new Chart(ctx, {
-                    data: {
-                        labels: x_labels,
-                        datasets: [{ //0
-                            type: "line",
-                            label: "Trạm 1",
-                            data: y_data,
-                            backgroundColor: 'rgb(54, 162, 235)',
-                            borderColor: 'rgb(54, 162, 235)',
-                            borderWidth: 3,
-                            cubicInterpolationMode: 'monotone',
-                            pointRadius: 0, // xóa dot
-                            pointStyle: 'rect',
-                            hoverRadius: 8,
-                        }, { //1
-                            type: "line",
-                            label: "Trung bình",
-                            data: avg_data,
-                            backgroundColor: 'white',
-                            borderColor: 'red',
-                            borderWidth: 3,
-                            borderDash: [10, 8.3],
-                            cubicInterpolationMode: 'monotone',
-                            pointRadius: 0, // xóa dot
-                            pointStyle: 'rect',
-                            hoverRadius: 8,
-                        }, {
-                            type: "line",
-                            label: "Alert",
-                            data: array_line_alert,
-                            backgroundColor: 'rgb(255, 159, 64)',
-                            borderColor: 'rgb(255, 159, 64)',
-                            borderWidth: 1,
-                            pointRadius: 0, // xóa dot
-                            pointStyle: 'none',
-                            hoverRadius: 0,
-                        }],
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: 'black'
-                                },
-                                min: x_length - 24,
-                                max: x_length,
-                            },
-                            y: {
-                                beginAtZero: true,
-                                // max: 240,
-                                title: {
-                                    display: true,
-                                    text: 'Độ cao (m)',
-                                    font: {
-                                        // family: 'Times',
-                                        size: 17,
-                                        weight: 'bold',
-                                    },
-                                    color: 'black'
-                                },
-                                ticks: {
-                                    color: 'black'
-                                },
-                            },
-                        },
-                        onHover: (event, chartElement) => {
-                            event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    font: {
-                                        size: 14,
-                                    },
-                                    color: 'black',
-                                    boxWidth: 50,
-                                    boxHeight: 1.5
-                                },
-                            },
-                            tooltip: {
-                                filter: (tooltipItem) => {
-                                    if (tooltipItem.datasetIndex !== 2) {
-                                        return tooltipItem
-                                    }
-                                }
-                            }
-                        },
-                        interaction: {
-                            intersect: false,
-                            mode: 'index'
-                        },
-                    },
-                    plugins: [bgColor],
-                })
-            }
-
-
-            // Hiển thị biểu đồ
-            function toggleData(value) {
-                const showValue = myChart.isDatasetVisible(value);
-                if (showValue === true) {
-                    myChart.hide(value);
-                }
-                if (showValue === false) {
-                    myChart.show(value);
-                }
-            };
-
-            // Next - Previous data
-            function nextData(start, end) {
-                const x_length = array_time_live.length;
-                const startScale = myChart.options.scales.x.min + start;
-                const endScale = myChart.options.scales.x.max + end;
-
-                // possition by defaut if
-                // a = document.getElementById('change_chart').value;
-                // console.log(a)
-                // if (a == 'live') {
-                //     document.getElementById('next').enable = true;
-                //     document.getElementById('previous').enable = true;
-                // }
-                // if (a == '1-ngay') {
-                //     document.getElementById('next').disabled = true;
-                //     document.getElementById('previous').disabled = true;
-                // }
-                // if (a == '3-ngay') {
-                //     document.getElementById('next').disabled = true;
-                //     document.getElementById('previous').disabled = true;
-                // }
-                // if (a == '7-ngay') {
-                //     document.getElementById('next').disabled = true;
-                //     document.getElementById('previous').disabled = true;
-                // }
-
-                myChart.options.scales.x.min = startScale;
-                myChart.options.scales.x.max = endScale;
-                document.getElementById('previous').disabled = false;
-                document.getElementById('next').disabled = false;
-
-                if (endScale > x_length) {
-                    myChart.options.scales.x.min = x_length - 24;
-                    myChart.options.scales.x.max = x_length - 1;
-                    document.getElementById('next').disabled = true;
-                };
-
-                if (startScale < 0) {
-                    myChart.options.scales.x.min = 0;
-                    myChart.options.scales.x.max = 23;
-                    document.getElementById('previous').disabled = true;
-                };
-                myChart.update();
-            }
-            setTimeout(showChart, 500);
-
-
-            // Change chart
-            change_chart.addEventListener('change', change_data);
-
-            function change_data() {
-                live_x = array_time_live;
-                live_x_length = array_time_live.length;
-                const x_labels = live_x.map(label => label.split(' '));
-                var x_scale_live = {
-                    min: live_x_length - 24,
-                    max: live_x_length,
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-
-                var x_scale_hour = {
-                    type: 'time',
-                    time: {
-                        unit: 'hour',
-                        stepSize: 2
-                    },
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-
-                var x_scale_day = {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                        // stepSize: 1
-                    },
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-
-                const change_value = document.getElementById('change_chart').value;
-                if (change_value == 'live') {
-                    myChart.data.datasets[0].data = array_distance_live;
-                    myChart.data.datasets[1].data = array_avg_live;
-                    myChart.data.labels = x_labels;
-                    myChart.options.scales.x = x_scale_live;
-                }
-                if (change_value == '1-ngay') {
-                    myChart.data.datasets[0].data = array_distance_1ngay;
-                    myChart.data.datasets[1].data = array_avg_1ngay;
-                    myChart.data.labels = array_time_1ngay;
-                    myChart.options.scales.x = x_scale_hour
-                }
-                if (change_value == '3-ngay') {
-                    myChart.data.datasets[0].data = array_distance_3ngay;
-                    myChart.data.datasets[1].data = array_avg_3ngay;
-                    myChart.data.labels = array_time_3ngay;
-                    myChart.options.scales.x = x_scale_day;
-                }
-                if (change_value == '7-ngay') {
-                    myChart.data.datasets[0].data = array_distance_7ngay;
-                    myChart.data.datasets[1].data = array_avg_7ngay;
-                    myChart.data.labels = array_time_7ngay;
-                    myChart.options.scales.x = x_scale_day;
-                }
-                if (change_value == '15-ngay') {
-                    myChart.data.datasets[0].data = array_distance_15ngay;
-                    myChart.data.datasets[1].data = array_avg_15ngay;
-                    myChart.data.labels = array_time_15ngay;
-                    myChart.options.scales.x = x_scale_day;
-                }
-                myChart.update();
-            }
-
-            // RESET CHART
-            function resetData() {
-                live_x = array_time_live;
-                live_x_length = array_time_live.length;
-                const x_labels = live_x.map(label => label.split(' '));
-
-                var x_scale_live = {
-                    min: live_x_length - 24,
-                    max: live_x_length,
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-                myChart.data.datasets[0].data = array_distance_live;
-                myChart.data.datasets[1].data = array_avg_live;
-                myChart.data.labels = x_labels;
-                myChart.options.scales.x = x_scale_live;
-                myChart.update();
-            }
-
-            // PDF
-            function downloadPDF() {
-                const canvas = document.getElementById('myChart');
-                const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
-
-                let pdf = new jsPDF('landscape');
-                pdf.setFontSize(15);
-                pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 90);
-                pdf.save('water_level_data.pdf');
-            }
-
-            //Fillter date
-            function filterDate() {
-                // const time_filter = array_time_filter;
-                const data_filter = array_distance_filter;
-
-                var x_scale_filter_day = {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                    },
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-                var x_scale_filter_hour = {
-                    type: 'time',
-                    time: {
-                        unit: 'hour',
-                        stepSize: 2
-                    },
-                    ticks: {
-                        color: 'black'
-                    },
-                };
-
-                const start1 = new Date(document.getElementById('start').value);
-                const start = start1.setHours(0, 0, 0, 0);
-                const end1 = new Date(document.getElementById('end').value);
-                const end = end1.setHours(23, 59, 59, 999);
-
-                const filterDates = array_time_filter.filter(date => date >= start && date <= end)
-
-                myChart.data.labels = filterDates;
-
-
-                //working on the data
-                const startArray = array_time_filter.indexOf(filterDates[0])
-                const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
-
-                const time_start = array_time_filter[startArray].getDate();
-                const time_end = array_time_filter[endArray].getDate();
-
-                const copydatafilter = [...data_filter]
-                copydatafilter.splice(endArray + 1, filterDates.length);
-                copydatafilter.splice(0, startArray);
-
-                for (let i = 0; i < copydatafilter.length; i++) {
-                    avg_data_0 = copydatafilter[i];
-                    array_avg_filter_0.push(avg_data_0);
-
-                    avg_filter = array_avg_filter_0.reduce((a, b) => a + b, 0) / array_avg_filter_0.length;
-                    avg_filter_final = Math.round(avg_filter * 1000) / 1000; // Làm tròn
-                    array_avg_filter.push(avg_filter_final);
-                }
-                abc = time_end - time_start;
-                if (time_end - time_start > 1) {
-                    myChart.options.scales.x = x_scale_filter_day;
-                } else {
-                    myChart.options.scales.x = x_scale_filter_hour;
-                }
-
-                myChart.data.datasets[0].data = copydatafilter;
-                myChart.data.datasets[1].data = array_avg_filter;
-                myChart.update();
-
-                length_clear_0 = array_avg_filter_0.length;
-                length_clear_1 = array_avg_filter.length;
-
-                array_avg_filter_0.splice(0, length_clear_0)
-                array_avg_filter.splice(0, length_clear_1)
-            }
-        </script>
 </body>
 
 </html>
+
+<script>
+    var myChart;
+    var array_line_alert = new Array();
+
+    var array_distance_filter = new Array();
+    var array_time_filter = new Array();
+    var array_avg_filter = new Array();
+    var array_avg_filter_0 = new Array();
+    var array_date_filter = new Array();
+
+    var array_distance_live = new Array();
+    var array_time_live = new Array();
+    var array_avg_live = new Array();
+    var array_avg_live_0 = new Array();
+
+    var array_distance_1ngay = new Array();
+    var array_time_1ngay = new Array();
+    var array_avg_1ngay = new Array();
+    var array_avg_1ngay_0 = new Array();
+
+    var array_distance_3ngay = new Array();
+    var array_time_3ngay = new Array();
+    var array_avg_3ngay = new Array();
+    var array_avg_3ngay_0 = new Array();
+
+    var array_distance_7ngay = new Array();
+    var array_time_7ngay = new Array();
+    var array_avg_7ngay = new Array();
+    var array_avg_7ngay_0 = new Array();
+
+    var array_distance_15ngay = new Array();
+    var array_time_15ngay = new Array();
+    var array_avg_15ngay = new Array();
+    var array_avg_15ngay_0 = new Array();
+
+    AWS.config.update({
+        region: "ap-northeast-1",
+        endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
+        accessKeyId: "AKIAXKZISWAEZWPSCIVL",
+        secretAccessKey: "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",
+    });
+
+    var params_chart1 = {
+        TableName: "water_level",
+        KeyConditionExpression: "device_id = :a",
+        ExpressionAttributeValues: {
+            ":a": 1,
+        },
+    };
+
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    docClient.query(params_chart1, function(err, data) {
+
+        for (let i = 0; i < data.Items.length; i++) {
+            distance_data = JSON.parse(data.Items[i].device_data.Distance);
+            array_distance_live.push(distance_data);
+            array_distance_1ngay.push(distance_data);
+            array_distance_3ngay.push(distance_data);
+            array_distance_7ngay.push(distance_data);
+            array_distance_15ngay.push(distance_data);
+            array_distance_filter.push(distance_data);
+
+            // avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
+            // avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
+            // array_avg_live.push(avg_final);
+
+            if (array_distance_live.length > 480) {
+                array_distance_live.shift();
+            }
+            if (array_distance_1ngay.length > 96) {
+                array_distance_1ngay.shift();
+            }
+            if (array_distance_3ngay.length > 288) {
+                array_distance_3ngay.shift();
+            }
+            if (array_distance_7ngay.length > 672) {
+                array_distance_7ngay.shift();
+            }
+            if (array_distance_15ngay.length > 1440) {
+                array_distance_15ngay.shift();
+            }
+
+            alert_data = 0.1;
+            array_line_alert.push(alert_data);
+        }
+
+        // AVERGAGE
+        for (let i = 0; i < array_distance_live.length; i++) {
+            avg_data_1 = array_distance_live[i];
+            array_avg_live_0.push(avg_data_1);
+
+            avg_live = array_avg_live_0.reduce((a, b) => a + b, 0) / array_avg_live_0.length;
+            avg_live_final = Math.round(avg_live * 1000) / 1000; // Làm tròn
+            array_avg_live.push(avg_live_final);
+        }
+
+        for (let i = 0; i < array_distance_1ngay.length; i++) {
+            avg_data_1 = array_distance_1ngay[i];
+            array_avg_1ngay_0.push(avg_data_1);
+
+            avg_1ngay = array_avg_1ngay_0.reduce((a, b) => a + b, 0) / array_avg_1ngay_0.length;
+            avg_1ngay_final = Math.round(avg_1ngay * 1000) / 1000; // Làm tròn
+            array_avg_1ngay.push(avg_1ngay_final);
+        }
+
+        for (let i = 0; i < array_distance_3ngay.length; i++) {
+            avg_data_3 = array_distance_3ngay[i];
+            array_avg_3ngay_0.push(avg_data_3);
+
+            avg_3ngay = array_avg_3ngay_0.reduce((a, b) => a + b, 0) / array_avg_3ngay_0.length;
+            avg_3ngay_final = Math.round(avg_3ngay * 1000) / 1000; // Làm tròn
+            array_avg_3ngay.push(avg_3ngay_final);
+        }
+
+        for (let i = 0; i < array_distance_7ngay.length; i++) {
+            avg_data_7 = array_distance_7ngay[i];
+            array_avg_7ngay_0.push(avg_data_7);
+
+            avg_7ngay = array_avg_7ngay_0.reduce((a, b) => a + b, 0) / array_avg_7ngay_0.length;
+            avg_7ngay_final = Math.round(avg_7ngay * 1000) / 1000; // Làm tròn
+            array_avg_7ngay.push(avg_7ngay_final);
+        }
+
+        for (let i = 0; i < array_distance_15ngay.length; i++) {
+            avg_data_15 = array_distance_15ngay[i];
+            array_avg_15ngay_0.push(avg_data_15);
+
+            avg_15ngay = array_avg_15ngay_0.reduce((a, b) => a + b, 0) / array_avg_15ngay_0.length;
+            avg_15ngay_final = Math.round(avg_15ngay * 1000) / 1000; // Làm tròn
+            array_avg_15ngay.push(avg_15ngay_final);
+        }
+        // -----------------------------------------------------------------------------
+
+        // TIME
+        for (let i = 0; i < data.Items.length; i++) {
+            sample_time_data = JSON.parse(data.Items[i].sample_time);
+            const time_stamp = new Date(sample_time_data);
+            min = time_stamp.getMinutes();
+            hour = time_stamp.getHours();
+
+            const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            date = time_stamp.getDate();
+            month = month_name[time_stamp.getMonth()];
+            year = time_stamp.getFullYear();
+
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            full_time = hour + ":" + min + ' ' + date + "/" + month;
+
+            date_filter = year + '-' + month + '-' + date;
+            array_date_filter.push(date_filter)
+
+            array_time_live.push(full_time)
+            array_time_filter.push(time_stamp);
+            array_time_1ngay.push(time_stamp);
+            array_time_3ngay.push(time_stamp);
+            array_time_7ngay.push(time_stamp);
+            array_time_15ngay.push(time_stamp);
+
+            if (array_time_live.length > 480) {
+                array_time_live.shift();
+            }
+            if (array_time_1ngay.length > 96) {
+                array_time_1ngay.shift();
+            }
+            if (array_time_3ngay.length > 288) {
+                array_time_3ngay.shift();
+            }
+            if (array_time_7ngay.length > 672) {
+                array_time_7ngay.shift();
+            }
+            if (array_time_15ngay.length > 1440) {
+                array_time_15ngay.shift();
+            }
+        }
+        min_filter = array_date_filter[0];
+
+        document.getElementById('start').value = date_filter;
+        document.getElementById('start').min = min_filter;
+        document.getElementById('start').max = date_filter;
+
+        document.getElementById('end').max = date_filter;
+        document.getElementById('end').min = min_filter;
+        document.getElementById('end').value = date_filter;
+    });
+
+    function showChart() {
+        // Biểu đồ
+        const x_data = array_time_live;
+        const y_data = array_distance_live;
+        const avg_data = array_avg_live;
+        const x_length = array_time_live.length;
+        const x_labels = x_data.map(label => label.split(' '));
+
+        var bgColor = {
+            id: 'bgColor',
+            beforeDraw: (chart, options) => {
+                const {
+                    ctx,
+                    width,
+                    height
+                } = chart;
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, width, height)
+                ctx.restore();
+            },
+        }
+
+        const ctx = document.getElementById("myChart").getContext("2d");
+        myChart = new Chart(ctx, {
+            data: {
+                labels: x_labels,
+                datasets: [{ //0
+                    type: "line",
+                    label: "Trạm 1",
+                    data: y_data,
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 3,
+                    cubicInterpolationMode: 'monotone',
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                }, { //1
+                    type: "line",
+                    label: "Trung bình",
+                    data: avg_data,
+                    backgroundColor: 'white',
+                    borderColor: 'red',
+                    borderWidth: 3,
+                    borderDash: [10, 8.3],
+                    cubicInterpolationMode: 'monotone',
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'rect',
+                    hoverRadius: 8,
+                }, {
+                    type: "line",
+                    label: "Alert",
+                    data: array_line_alert,
+                    backgroundColor: 'rgb(255, 159, 64)',
+                    borderColor: 'rgb(255, 159, 64)',
+                    borderWidth: 1,
+                    pointRadius: 0, // xóa dot
+                    pointStyle: 'none',
+                    hoverRadius: 0,
+                }],
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'black'
+                        },
+                        min: x_length - 24,
+                        max: x_length,
+                    },
+                    y: {
+                        beginAtZero: true,
+                        // max: 240,
+                        title: {
+                            display: true,
+                            text: 'Độ cao (m)',
+                            font: {
+                                // family: 'Times',
+                                size: 17,
+                                weight: 'bold',
+                            },
+                            color: 'black'
+                        },
+                        ticks: {
+                            color: 'black'
+                        },
+                    },
+                },
+                onHover: (event, chartElement) => {
+                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14,
+                            },
+                            color: 'black',
+                            boxWidth: 50,
+                            boxHeight: 1.5
+                        },
+                    },
+                    tooltip: {
+                        filter: (tooltipItem) => {
+                            if (tooltipItem.datasetIndex !== 2) {
+                                return tooltipItem
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+            },
+            plugins: [bgColor],
+        })
+    }
+
+
+    // Hiển thị biểu đồ
+    function toggleData(value) {
+        const showValue = myChart.isDatasetVisible(value);
+        if (showValue === true) {
+            myChart.hide(value);
+        }
+        if (showValue === false) {
+            myChart.show(value);
+        }
+    };
+
+    // Next - Previous data
+    function nextData(start, end) {
+        const x_length = array_time_live.length;
+        const startScale = myChart.options.scales.x.min + start;
+        const endScale = myChart.options.scales.x.max + end;
+
+        // possition by defaut if
+        // a = document.getElementById('change_chart').value;
+        // console.log(a)
+        // if (a == 'live') {
+        //     document.getElementById('next').enable = true;
+        //     document.getElementById('previous').enable = true;
+        // }
+        // if (a == '1-ngay') {
+        //     document.getElementById('next').disabled = true;
+        //     document.getElementById('previous').disabled = true;
+        // }
+        // if (a == '3-ngay') {
+        //     document.getElementById('next').disabled = true;
+        //     document.getElementById('previous').disabled = true;
+        // }
+        // if (a == '7-ngay') {
+        //     document.getElementById('next').disabled = true;
+        //     document.getElementById('previous').disabled = true;
+        // }
+
+        myChart.options.scales.x.min = startScale;
+        myChart.options.scales.x.max = endScale;
+        document.getElementById('previous').disabled = false;
+        document.getElementById('next').disabled = false;
+
+        if (endScale > x_length) {
+            myChart.options.scales.x.min = x_length - 24;
+            myChart.options.scales.x.max = x_length - 1;
+            document.getElementById('next').disabled = true;
+        };
+
+        if (startScale < 0) {
+            myChart.options.scales.x.min = 0;
+            myChart.options.scales.x.max = 23;
+            document.getElementById('previous').disabled = true;
+        };
+        myChart.update();
+    }
+    setTimeout(showChart, 500);
+
+
+    // Change chart
+    change_chart.addEventListener('change', change_data);
+
+    function change_data() {
+        live_x = array_time_live;
+        live_x_length = array_time_live.length;
+        const x_labels = live_x.map(label => label.split(' '));
+        var x_scale_live = {
+            min: live_x_length - 24,
+            max: live_x_length,
+            ticks: {
+                color: 'black'
+            },
+        };
+
+        var x_scale_hour = {
+            type: 'time',
+            time: {
+                unit: 'hour',
+                stepSize: 2
+            },
+            ticks: {
+                color: 'black'
+            },
+        };
+
+        var x_scale_day = {
+            type: 'time',
+            time: {
+                unit: 'day',
+                // stepSize: 1
+            },
+            ticks: {
+                color: 'black'
+            },
+        };
+
+        const change_value = document.getElementById('change_chart').value;
+        if (change_value == 'live') {
+            myChart.data.datasets[0].data = array_distance_live;
+            myChart.data.datasets[1].data = array_avg_live;
+            myChart.data.labels = x_labels;
+            myChart.options.scales.x = x_scale_live;
+        }
+        if (change_value == '1-ngay') {
+            myChart.data.datasets[0].data = array_distance_1ngay;
+            myChart.data.datasets[1].data = array_avg_1ngay;
+            myChart.data.labels = array_time_1ngay;
+            myChart.options.scales.x = x_scale_hour
+        }
+        if (change_value == '3-ngay') {
+            myChart.data.datasets[0].data = array_distance_3ngay;
+            myChart.data.datasets[1].data = array_avg_3ngay;
+            myChart.data.labels = array_time_3ngay;
+            myChart.options.scales.x = x_scale_day;
+        }
+        if (change_value == '7-ngay') {
+            myChart.data.datasets[0].data = array_distance_7ngay;
+            myChart.data.datasets[1].data = array_avg_7ngay;
+            myChart.data.labels = array_time_7ngay;
+            myChart.options.scales.x = x_scale_day;
+        }
+        if (change_value == '15-ngay') {
+            myChart.data.datasets[0].data = array_distance_15ngay;
+            myChart.data.datasets[1].data = array_avg_15ngay;
+            myChart.data.labels = array_time_15ngay;
+            myChart.options.scales.x = x_scale_day;
+        }
+        myChart.update();
+    }
+
+    // RESET CHART
+    function resetData() {
+        live_x = array_time_live;
+        live_x_length = array_time_live.length;
+        const x_labels = live_x.map(label => label.split(' '));
+
+        var x_scale_live = {
+            min: live_x_length - 24,
+            max: live_x_length,
+            ticks: {
+                color: 'black'
+            },
+        };
+        myChart.data.datasets[0].data = array_distance_live;
+        myChart.data.datasets[1].data = array_avg_live;
+        myChart.data.labels = x_labels;
+        myChart.options.scales.x = x_scale_live;
+        myChart.update();
+    }
+    //------------------------------------------------------------------------------------------
+
+    // PDF--------------------------------------------------------------------------------------
+    function downloadPDF() {
+        const canvas = document.getElementById('myChart');
+        const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+
+        let pdf = new jsPDF('landscape');
+        pdf.setFontSize(15);
+        pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 80);
+        pdf.save('water_level_data.pdf');
+    }
+    //-------------------------------------------------------------------------------------------
+
+    //Fillter CHART------------------------------------------------------------------------------
+    function filterDate_Chart() {
+        // const time_filter = array_time_filter;
+        const data_filter = array_distance_filter;
+
+        var x_scale_filter_day = {
+            type: 'time',
+            time: {
+                unit: 'day',
+            },
+            ticks: {
+                color: 'black'
+            },
+        };
+        var x_scale_filter_hour = {
+            type: 'time',
+            time: {
+                unit: 'hour',
+                stepSize: 2
+            },
+            ticks: {
+                color: 'black'
+            },
+        };
+
+        const start1 = new Date(document.getElementById('start').value);
+        const start = start1.setHours(0, 0, 0, 0);
+        const end1 = new Date(document.getElementById('end').value);
+        const end = end1.setHours(23, 59, 59, 999);
+
+        const filterDates = array_time_filter.filter(date => date >= start && date <= end)
+
+        myChart.data.labels = filterDates;
+
+        //working on the data
+        const startArray = array_time_filter.indexOf(filterDates[0])
+        const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
+
+        const time_start = array_time_filter[startArray].getDate();
+        const time_end = array_time_filter[endArray].getDate();
+
+        const copydatafilter = [...data_filter]
+        copydatafilter.splice(endArray + 1, filterDates.length);
+        copydatafilter.splice(0, startArray);
+
+        for (let i = 0; i < copydatafilter.length; i++) {
+            avg_data_0 = copydatafilter[i];
+            array_avg_filter_0.push(avg_data_0);
+
+            avg_filter = array_avg_filter_0.reduce((a, b) => a + b, 0) / array_avg_filter_0.length;
+            avg_filter_final = Math.round(avg_filter * 1000) / 1000; // Làm tròn
+            array_avg_filter.push(avg_filter_final);
+        }
+        abc = time_end - time_start;
+        if (time_end - time_start > 1) {
+            myChart.options.scales.x = x_scale_filter_day;
+        } else {
+            myChart.options.scales.x = x_scale_filter_hour;
+        }
+
+        myChart.data.datasets[0].data = copydatafilter;
+        myChart.data.datasets[1].data = array_avg_filter;
+        myChart.update();
+
+        length_clear_0 = array_avg_filter_0.length;
+        length_clear_1 = array_avg_filter.length;
+
+        array_avg_filter_0.splice(0, length_clear_0)
+        array_avg_filter.splice(0, length_clear_1)
+    }
+    //-------------------------------------------------------------------------------------------
+
+    //Fillter TABLE------------------------------------------------------------------------------
+    function filterDate_Table() {
+        const data_filter_tb = array_distance_filter;
+
+        const start1 = new Date(document.getElementById('start').value);
+        const start = start1.setHours(0, 0, 0, 0);
+        const end1 = new Date(document.getElementById('end').value);
+        const end = end1.setHours(23, 59, 59, 999);
+
+        const filterDates = array_time_filter.filter(date => date >= start && date <= end)
+
+        var array_date_tb = new Array();
+        var array_time_tb = new Array();
+
+        for (let i = 0; i < filterDates.length; i++) {
+            time_filter_tb = filterDates[i]
+            min_tb = time_filter_tb.getMinutes();
+            hour_tb = time_filter_tb.getHours();
+            const month_name = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            date_tb = time_filter_tb.getDate();
+            month_tb = month_name[time_filter_tb.getMonth()];
+            year_tb = time_filter_tb.getFullYear();
+
+            if (min_tb < 10) {
+                min_tb = '0' + min_tb;
+            }
+            if (date_tb < 10) {
+                date_tb = '0' + date_tb;
+            }
+            if (month_tb < 10) {
+                month_tb = '0' + month_tb;
+            }
+            full_time_tb = hour_tb + ":" + min_tb;
+            full_date_tb = date_tb + "/" + month_tb + "/" + year_tb
+            array_date_tb.push(full_date_tb);
+            array_time_tb.push(full_time_tb);
+        }
+
+        //working on the data
+        const startArray = array_time_filter.indexOf(filterDates[0])
+        const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
+
+        const time_start = array_time_filter[startArray].getDate();
+        const time_end = array_time_filter[endArray].getDate();
+
+        const copydatafilter_tb = [...data_filter_tb]
+        copydatafilter_tb.splice(endArray + 1, filterDates.length);
+        copydatafilter_tb.splice(0, startArray);
+
+        // console.log(array_date_tb)
+        // console.log(array_time_tb)
+        // console.log(copydatafilter_tb)
+
+        //Show table
+        for (let i = 0; i < copydatafilter_tb.length; i++) {
+            let trElement = document.createElement("tr")
+
+            let tdElement1 = document.createElement("td")
+            tdElement1.innerHTML = array_date_tb[i];
+
+            let tdElement2 = document.createElement("td")
+            tdElement2.innerHTML = array_time_tb[i];
+
+            let tdElement3 = document.createElement("td")
+            tdElement3.innerHTML = copydatafilter_tb[i];
+
+            trElement.appendChild(tdElement1)
+            trElement.appendChild(tdElement2)
+            trElement.appendChild(tdElement3)
+
+            let tdBody = document.getElementById("body-table")
+            tdBody.appendChild(trElement)
+        }
+
+        // length_clear_tb = copydatafilter_tb.length;
+
+        // array_date_tb.splice(0, length_clear_tb)
+        // array_time_tb.splice(0, length_clear_tb)
+        // copydatafilter_tb.splice(0, length_clear_tb)
+    }
+</script>
