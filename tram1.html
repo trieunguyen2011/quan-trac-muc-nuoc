@@ -81,7 +81,8 @@
         .filter-box button,
         .button-box-chart button {
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            padding: 2px 15px 5px 15px;
+            font-size: 15px;
+            padding: 3px 10px 4px 10px;
             margin: 10px 5px;
             background-color: grey;
             color: white;
@@ -115,7 +116,7 @@
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             width: 180px;
             height: 38px;
-            font-size: 19px;
+            font-size: 18px;
             padding: 0 0 3px 10px;
             margin-top: -50px;
             color: white;
@@ -221,8 +222,8 @@
                 <canvas id="myChart" height="477px" width="1736px"></canvas>
 
                 <div class="button-box-chart">
-                    <button style="padding: 3px 15px 4px 15px;" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
-                    <button style="padding: 3px 15px 4px 15px;" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
+                    <button style="padding: 3.5px 15px;" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
+                    <button style="padding: 3.5px 15px;" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
                     <button style="margin-left: 50px" onclick="resetData()">Reset</button>
                     <button style="margin-right: 900px;" onclick="downloadPDF()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-export"></i>Export to PDF</button>
                     <button onclick="toggleData(0)">Trạm 1</button>
