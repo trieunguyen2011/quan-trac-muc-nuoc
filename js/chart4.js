@@ -641,6 +641,11 @@ function resetData() {
     myChart.data.labels = x_labels_4;
     myChart.options.scales.x = x_scale_live
     myChart.update();
+
+    document.getElementById('next').disabled = false;
+    document.getElementById('previous').disabled = false;
+
+    document.getElementById('change_chart').value = 'live'
 };
 
 // Change chart
@@ -690,6 +695,9 @@ function change_data() {
         myChart.data.datasets[5].data = array_avg_live_3;
         myChart.data.labels = x_labels_4;
         myChart.options.scales.x = x_scale_live;
+
+        document.getElementById('next').disabled = false;
+        document.getElementById('previous').disabled = false;
     }
     if (change_value == '1-ngay') {
         myChart.data.datasets[0].data = array_distance_1ngay_1;
@@ -700,6 +708,9 @@ function change_data() {
         myChart.data.datasets[5].data = array_avg_1ngay_3;
         myChart.data.labels = array_time_1ngay;
         myChart.options.scales.x = x_scale_hour;
+
+        document.getElementById('next').disabled = true;
+        document.getElementById('previous').disabled = true;
     }
     if (change_value == '3-ngay') {
         myChart.data.datasets[0].data = array_distance_3ngay_1;
@@ -710,6 +721,9 @@ function change_data() {
         myChart.data.datasets[5].data = array_avg_3ngay_3;
         myChart.data.labels = array_time_3ngay;
         myChart.options.scales.x = x_scale_day;
+
+        document.getElementById('next').disabled = true;
+        document.getElementById('previous').disabled = true;
     }
     if (change_value == '7-ngay') {
         myChart.data.datasets[0].data = array_distance_7ngay_1;
@@ -720,6 +734,9 @@ function change_data() {
         myChart.data.datasets[5].data = array_avg_7ngay_3;
         myChart.data.labels = array_time_7ngay;
         myChart.options.scales.x = x_scale_day;
+
+        document.getElementById('next').disabled = true;
+        document.getElementById('previous').disabled = true;
     }
     if (change_value == '15-ngay') {
         myChart.data.datasets[0].data = array_distance_15ngay_1;
@@ -730,6 +747,9 @@ function change_data() {
         myChart.data.datasets[5].data = array_avg_15ngay_3;
         myChart.data.labels = array_time_15ngay;
         myChart.options.scales.x = x_scale_day;
+
+        document.getElementById('next').disabled = true;
+        document.getElementById('previous').disabled = true;
     }
     myChart.update();
 }

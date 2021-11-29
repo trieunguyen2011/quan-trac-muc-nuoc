@@ -214,6 +214,7 @@ button:disabled {
 button:disabled:hover {
     background-color: white;
     color: grey;
+    cursor: default;
 }
 
 .next-btn {
