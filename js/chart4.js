@@ -756,6 +756,9 @@ function change_data() {
 
 //Fillter date
 function filterDate() {
+    document.getElementById('next').disabled = true;
+    document.getElementById('previous').disabled = true;
+
     const data_filter_1 = array_distance_filter_1;
     const data_filter_2 = array_distance_filter_2;
     const data_filter_3 = array_distance_filter_3;
