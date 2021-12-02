@@ -733,6 +733,7 @@ th {
         padding: 5px;
         text-align: left;
         line-height: 1.5;
+        font-size: 12px;
     }
     .footer-header {
         font-weight: 600;
