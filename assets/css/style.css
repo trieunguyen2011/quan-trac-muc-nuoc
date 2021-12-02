@@ -739,10 +739,12 @@ th {
         font-weight: 600;
         color: rgb(7, 66, 228);
         margin-bottom: 2px;
+        font-size: 12px;
     }
     .footer-content {
         font-weight: 600;
         margin-bottom: 0px;
+        font-size: 12px;
     }
     .footer-img {
         width: 12%;
@@ -774,7 +776,7 @@ th {
     .contact-phone {
         text-align: left;
         margin-bottom: 10px;
-        margin-left: 20px;
+        margin-left: 5px;
         margin-right: 0px;
     }
 }
