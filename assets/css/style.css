@@ -540,6 +540,9 @@ th {
         width: 33.33333%;
         /* border-radius: 3px; */
     }
+    .tram-btn a:hover {
+        background-color: rgb(110, 110, 110);
+    }
     .chart-4-box {
         display: block;
         width: 100%;
