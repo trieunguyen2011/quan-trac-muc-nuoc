@@ -214,11 +214,130 @@
             margin-left: 5px;
             display: none;
         }
+        /* Tabet: width >=740px and width <1024px */
+        
+        @media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+            body {
+                width: 100%;
+                margin-top: 0px;
+            }
+            .main {
+                margin: 0 10px;
+            }
+            .chart-title {
+                font-size: 18px;
+                margin: 10px;
+            }
+            .title-box button {
+                display: none;
+            }
+            .chart-line {
+                width: 100%;
+                margin-bottom: 10px;
+                height: 1px;
+                background: #ccc;
+            }
+            .chart-box {
+                display: block;
+                border-radius: 5px;
+                border: solid 2px #e3e3e3;
+                padding: 10px 5px 0px 5px;
+            }
+            .button-box-chart {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #change_chart {
+                float: right;
+                border-radius: .15rem;
+                cursor: pointer;
+                font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                width: 110px;
+                height: 28px;
+                font-size: 15px;
+                padding: 0 0 3px 5px;
+                margin-top: -35px;
+                color: white;
+                background-color: grey;
+            }
+            .chart-box {
+                border-radius: 3px;
+                border: solid 2px #e3e3e3;
+                padding: 5px 2px 0px 2px;
+            }
+            .button-box-chart {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .button-box-chart .pdf-btn {
+                margin-right: 40%;
+            }
+            .button-box-chart .next-btn {
+                padding: 4px 10px;
+            }
+            .filter-box button,
+            .button-box-chart button {
+                font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                font-size: 14px;
+                padding: 4px 5px;
+                margin: 5px 3px;
+                background-color: grey;
+                color: white;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            button:active {
+                transform: translateY(1px);
+            }
+            .filter-box {
+                height: 100%;
+                margin: 10px 0;
+                padding: 5px 10px;
+                border-radius: 3px;
+                border: solid 2px #e3e3e3;
+                background-color: #f5f5f5;
+                font-size: 15px;
+            }
+            .filter-box label {
+                font-weight: 600;
+                font-size: 15px;
+            }
+            #table-box {
+                background-color: white;
+                margin: 5px 0;
+                font-size: 12px;
+                display: none;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th {
+                padding: 6px;
+                background-color: #ccc;
+            }
+            td {
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+                padding: 3px;
+            }
+            .fixTableHead {
+                overflow-y: auto;
+                height: 300px;
+            }
+            #excel-download {
+                float: right;
+                margin: 5px 0;
+            }
+        }
         /* Mobile: width < 740px -------------------------------------------------------- */
         
         @media only screen and (max-width: 46.1875em) {
             body {
-                /* height: 100%; */
                 width: 100%;
                 margin-top: 0px;
             }
@@ -268,6 +387,10 @@
                 border: solid 2px #e3e3e3;
                 padding: 5px 2px 0px 2px;
             }
+            canvas {
+                width: 500px;
+                height: 200px;
+            }
             .button-box-chart {
                 width: 100%;
                 display: flex;
@@ -275,7 +398,7 @@
                 align-items: center;
             }
             .button-box-chart .pdf-btn {
-                margin-right: 250px;
+                margin-right: 10%;
             }
             .button-box-chart .next-btn {
                 padding: 4px 10px;
@@ -293,6 +416,9 @@
             }
             button:active {
                 transform: translateY(1px);
+            }
+            .toggle-btn {
+                display: none;
             }
             .filter-box {
                 height: 100%;
@@ -331,7 +457,7 @@
                 height: 200px;
             }
             #excel-download {
-                float: right;
+                float: none;
                 margin: 5px 0;
             }
         }
@@ -364,8 +490,10 @@
                     <button class="next-btn" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
                     <button style="margin-left: 50px" onclick="resetData()">Reset</button>
                     <button class="pdf-btn" onclick="downloadPDF()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-export"></i>Export to PDF</button>
-                    <button onclick="toggleData(0)">Trạm 1</button>
-                    <button onclick="toggleData(1)">Trung bình</button>
+                    <div class="toggle-btn">
+                        <button onclick="toggleData(0)">Trạm 1</button>
+                        <button onclick="toggleData(1)">Trung bình</button>
+                    </div>
                 </div>
             </div>
             <div class="filter-box">
@@ -595,6 +723,15 @@
         const x_length = array_time_live.length;
         const x_labels = x_data.map(label => label.split(' '));
 
+        const window_width = window.innerWidth;
+        console.log(window_width)
+        if (window_width < 740) {
+            var number_Ratio = 1.2
+        } else {
+            var number_Ratio = 3.6
+        }
+        console.log(number_Ratio)
+
         var bgColor = {
             id: 'bgColor',
             beforeDraw: (chart, options) => {
@@ -649,7 +786,7 @@
                 }],
             },
             options: {
-                // maintainAspectRatio: false,
+                aspectRatio: number_Ratio,
                 responsive: true,
                 scales: {
                     x: {
@@ -663,7 +800,7 @@
                         beginAtZero: true,
                         // max: 240,
                         title: {
-                            display: true,
+                            display: false,
                             text: 'Độ cao (m)',
                             font: {
                                 // family: 'Times',
