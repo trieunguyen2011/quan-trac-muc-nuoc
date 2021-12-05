@@ -86,6 +86,18 @@
             margin-right: 900px;
         }
         
+        .button-box-chart .plot-btn {
+            margin-left: 10px;
+        }
+        
+        .button-box-chart .data-btn {
+            margin-left: 5px;
+        }
+        
+        .button-box-chart .reset-btn {
+            margin-left: 50px;
+        }
+        
         .filter-box button,
         .button-box-chart button {
             font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -279,6 +291,15 @@
             .button-box-chart .next-btn {
                 padding: 4px 10px;
             }
+            .button-box-chart .plot-btn {
+                margin-left: 10px;
+            }
+            .button-box-chart .data-btn {
+                margin-left: 5px;
+            }
+            .button-box-chart .reset-btn {
+                margin-left: 50px;
+            }
             .filter-box button,
             .button-box-chart button {
                 font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -342,7 +363,7 @@
                 margin-top: 0px;
             }
             .main {
-                margin: 0 2px;
+                margin: 5px 2px;
             }
             .chart-title {
                 font-size: 15px;
@@ -354,6 +375,7 @@
             .chart-line {
                 width: 100%;
                 margin-bottom: 5px;
+                margin-top: 2px;
                 height: 1px;
                 background: #ccc;
             }
@@ -398,10 +420,22 @@
                 align-items: center;
             }
             .button-box-chart .pdf-btn {
-                margin-right: 10%;
+                margin-right: 0;
             }
             .button-box-chart .next-btn {
                 padding: 4px 10px;
+            }
+            .button-box-chart .plot-btn {
+                margin-left: 0;
+            }
+            .button-box-chart .data-btn {
+                margin-left: 5px;
+            }
+            .button-box-chart .reset-btn {
+                margin-left: 25%;
+            }
+            #display-btn {
+                margin-left: 2px;
             }
             .filter-box button,
             .button-box-chart button {
@@ -419,6 +453,11 @@
             }
             .toggle-btn {
                 display: none;
+            }
+            #excel-download {
+                float: right;
+                /* display: inline-block; */
+                margin: 5px 2px;
             }
             .filter-box {
                 height: 100%;
@@ -454,11 +493,7 @@
             }
             .fixTableHead {
                 overflow-y: auto;
-                height: 200px;
-            }
-            #excel-download {
-                float: none;
-                margin: 5px 0;
+                height: 300px;
             }
         }
     </style>
@@ -488,7 +523,7 @@
                 <div class="button-box-chart">
                     <button class="next-btn" id="previous" onclick="nextData(-24, -24)"><i class="ti-control-backward"></i></button>
                     <button class="next-btn" id="next" onclick="nextData(24, 24)"><i class="ti-control-forward"></i></button>
-                    <button style="margin-left: 50px" onclick="resetData()">Reset</button>
+                    <button class="reset-btn" onclick="resetData()">Reset</button>
                     <button class="pdf-btn" onclick="downloadPDF()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-export"></i>Export to PDF</button>
                     <div class="toggle-btn">
                         <button onclick="toggleData(0)">Trạm 1</button>
@@ -498,8 +533,8 @@
             </div>
             <div class="filter-box">
                 <label>Start: </label><input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> <label>End: </label><input id="end" type="date" min="" max="" value="">
-                <button style="margin-left: 10px;" onclick="filterDate_Chart()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-stats-up"></i>Plot</button>
-                <button style="margin-left: 5px;" onclick="filterDate_Table()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-view-list-alt"></i>Data</button>
+                <button class="plot-btn" onclick="filterDate_Chart()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-stats-up"></i>Plot</button>
+                <button class="data-btn" onclick="filterDate_Table()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-view-list-alt"></i>Data</button>
                 <button id="display-btn" onclick="Display_Table()">Hide table</button>
                 <button id="excel-download"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-export"></i>Export to Excel</button>
 
@@ -724,13 +759,13 @@
         const x_labels = x_data.map(label => label.split(' '));
 
         const window_width = window.innerWidth;
-        console.log(window_width)
         if (window_width < 740) {
-            var number_Ratio = 1.2
+            var number_Ratio = 1.3
+        } else if (window_width >= 740 && window_width < 1024) {
+            var number_Ratio = 2.5
         } else {
             var number_Ratio = 3.6
         }
-        console.log(number_Ratio)
 
         var bgColor = {
             id: 'bgColor',
