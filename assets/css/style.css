@@ -58,17 +58,16 @@ body {
     padding-left: 20px;
     display: flex;
     width: 100%;
-}
-
-.header-diadiem {
-    float: left;
+    position: relative;
 }
 
 .header-date {
     display: flex;
-    margin-left: 60%;
     font-size: 21px;
     font-style: italic;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
 }
 
 .btn-reload {
@@ -498,11 +497,14 @@ th {
         padding-left: 0;
         display: flex;
         width: 100%;
+        position: relative;
     }
     .header-date {
         font-size: 15px;
         display: flex;
-        margin-left: 60%;
+        position: absolute;
+        right: 0;
+        margin-right: 0px;
     }
     .btn-reload {
         display: none;
@@ -767,7 +769,7 @@ th {
 }
 
 
-/* MOBILE Responsive */
+/* MOBILE Responsive ------------------------------------------------------------*/
 
 @media only screen and (max-width: 46.1875em) {
     body {
@@ -800,12 +802,15 @@ th {
         padding-bottom: 5px;
         display: flex;
         width: 100%;
+        position: relative;
     }
     .header-date {
         font-size: 13px;
         font-style: italic;
         display: flex;
-        margin-left: 20%;
+        position: absolute;
+        right: 0;
+        margin-right: 0px;
     }
     .btn-reload {
         display: none;
@@ -930,6 +935,7 @@ th {
         font-size: 13px;
         display: flex;
         margin-right: 0;
+        margin-left: 0;
         text-align: center;
         align-items: center;
     }
