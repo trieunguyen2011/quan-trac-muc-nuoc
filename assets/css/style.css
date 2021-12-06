@@ -56,25 +56,27 @@ body {
 .header-sub {
     font-size: 22px;
     padding-left: 20px;
+    display: flex;
+    width: 100%;
+}
+
+.header-diadiem {
+    float: left;
 }
 
 .header-date {
-    font-size: 22px;
+    display: flex;
+    margin-left: 60%;
+    font-size: 21px;
     font-style: italic;
-    float: right;
-    margin-top: -28px;
-    margin-right: 222px;
 }
 
 .btn-reload {
-    float: right;
     width: 30px;
     height: 30px;
     color: black;
     font-size: 21px;
     background: white;
-    margin-right: -300px;
-    margin-top: -26px;
     cursor: pointer;
     border: none;
     border-radius: 3px;
@@ -82,17 +84,16 @@ body {
     padding-bottom: 2px;
 }
 
-.btn-reload:hover {
-    background-color: rgb(231, 226, 226);
-}
-
 #display_time {
-    float: right;
+    display: inline-block;
     font-size: 21px;
     font-weight: 550;
     font-style: italic;
-    margin-top: -26.7px;
-    margin-right: -260px;
+    margin: 0 5px;
+}
+
+.btn-reload:hover {
+    background-color: rgb(231, 226, 226);
 }
 
 .header-line {
@@ -192,6 +193,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.button-box-mobile {
+    display: none;
 }
 
 .btn-chart4 {
@@ -461,9 +466,9 @@ th {
 }
 
 
-/* MOBILE Responsive */
+/* Tabet: width >=740px and width <1024px */
 
-@media only screen and (max-width: 46.1875em) {
+@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
     body {
         height: auto;
         width: 100%;
@@ -491,13 +496,13 @@ th {
     .header-sub {
         font-size: 15px;
         padding-left: 0;
+        display: flex;
+        width: 100%;
     }
     .header-date {
         font-size: 15px;
-        font-style: italic;
-        float: right;
-        margin-top: -19px;
-        margin-right: 135px;
+        display: flex;
+        margin-left: 60%;
     }
     .btn-reload {
         display: none;
@@ -506,12 +511,11 @@ th {
         background-color: rgb(231, 226, 226);
     }
     #display_time {
-        float: right;
+        display: inline-block;
         font-size: 15px;
         font-weight: 550;
         font-style: italic;
-        margin-top: -19px;
-        margin-right: -195px;
+        margin: 0 5px;
     }
     .header-line {
         width: 100%;
@@ -571,6 +575,9 @@ th {
         justify-content: center;
         align-items: center;
     }
+    .button-box-mobile {
+        display: none;
+    }
     .btn-chart4 {
         font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         font-size: 12px;
@@ -612,6 +619,317 @@ th {
         font-size: 13px;
         display: flex;
         margin-right: 80px;
+        text-align: center;
+        align-items: center;
+    }
+    .pdf-btn button {
+        margin-right: 0px;
+    }
+    #change_chart {
+        float: right;
+        border-radius: .15rem;
+        cursor: pointer;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        width: 100px;
+        height: 25px;
+        font-size: 13px;
+        padding: 0 0 3px 5px;
+        margin-top: -23px;
+        margin-right: 5px;
+        color: white;
+        background-color: grey;
+    }
+    #change_chart:hover {
+        background-color: rgb(110, 110, 110);
+    }
+    #change_chart:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+    }
+    .content-title {
+        display: none;
+    }
+    #content {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .map-box {
+        margin-top: 10px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
+        padding: 5px;
+        width: 100%;
+        height: 300px;
+    }
+    .map-box:hover {
+        cursor: pointer;
+    }
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+    .table-box {
+        margin: 5px 0;
+        height: auto;
+        width: 100%;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
+        padding: 5px;
+    }
+    .form-control {
+        border-radius: .15rem;
+        cursor: pointer;
+    }
+    .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+    }
+    #list-tram {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        width: 100%;
+        height: 25px;
+        font-size: 13px;
+        padding: 0 0 1.5px 2.5px;
+    }
+    .font-15 {
+        font-size: 12px;
+    }
+    .text-bold {
+        /* font-style: italic; */
+        font-weight: 600;
+    }
+    .margin-left-5px {
+        margin-left: 5px;
+    }
+    .time-data {
+        margin-left: 50px;
+    }
+    table,
+    th,
+    td {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        padding: 2.5px 0 2.5px 5px;
+    }
+    th {
+        text-align: left;
+    }
+    .table-distance {
+        font-size: 11px;
+        margin-top: 10px;
+    }
+    #footer {
+        margin: 15px 0;
+        display: flex;
+        height: 100px;
+        width: 100%;
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
+        font-size: 12px;
+        align-items: center;
+    }
+    .info {
+        width: 100%;
+        padding: 5px;
+        text-align: left;
+        line-height: 1.5;
+        font-size: 12px;
+    }
+    .footer-header {
+        font-weight: 600;
+        color: rgb(7, 66, 228);
+        margin-bottom: 2px;
+        font-size: 12px;
+    }
+    .footer-content {
+        font-weight: 600;
+        margin-bottom: 0px;
+        font-size: 12px;
+    }
+    .footer-img {
+        width: 100px;
+        height: 100%;
+        padding: 5px;
+    }
+    .contact {
+        display: none;
+    }
+}
+
+
+/* MOBILE Responsive */
+
+@media only screen and (max-width: 46.1875em) {
+    body {
+        height: auto;
+        width: 100%;
+        margin-left: 2px;
+        margin-right: auto;
+        background: #f8fafb;
+    }
+    #header {
+        margin-top: 5px;
+        display: block;
+        height: auto;
+        width: 100%;
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
+        padding: 0 10px;
+        /* background: rgba(24, 201, 233, 0.3); */
+    }
+    #header .header-content {
+        color: black;
+        font-size: 15px;
+        padding: 5px 0 5px;
+        padding-left: 0px;
+    }
+    .header-sub {
+        font-size: 13px;
+        padding-left: 0;
+        padding-bottom: 5px;
+        display: flex;
+        width: 100%;
+    }
+    .header-date {
+        font-size: 13px;
+        font-style: italic;
+        display: flex;
+        margin-left: 38%;
+    }
+    .btn-reload {
+        display: none;
+    }
+    .btn-reload:hover {
+        background-color: rgb(231, 226, 226);
+    }
+    #display_time {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 550;
+        font-style: italic;
+        margin: 0 5px;
+    }
+    .header-line {
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: 5px;
+        height: 1px;
+        background: #ccc;
+    }
+    #mini-chart {
+        display: none;
+    }
+    .tram-btn {
+        padding: 10px;
+        display: flex;
+        width: 100%;
+    }
+    .tram-btn a:link,
+    .tram-btn a:visited {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        text-decoration: none;
+        text-align: center;
+        font-size: 12px;
+        color: white;
+        background-color: grey;
+        padding: 4px 20px;
+        width: 33.33333%;
+        /* border-radius: 3px; */
+    }
+    .tram-btn a:hover {
+        background-color: rgb(110, 110, 110);
+    }
+    .chart-4-box {
+        display: block;
+        width: 100%;
+        background: white;
+        margin-top: 0px;
+        border-radius: 3px;
+        box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 25%);
+        padding: 5px 2px;
+    }
+    .chart-title {
+        font-size: 13px;
+        font-weight: 600
+    }
+    .chart-4-line {
+        width: 100%;
+        margin: 5px 0px;
+        height: 1px;
+        background: #ccc;
+    }
+    #chart-4 {
+        width: 100%;
+    }
+    .button-box {
+        width: 100%;
+        display: none
+    }
+    .button-box-mobile {
+        display: inline-block;
+    }
+    .button-box-mobile .next-btn {
+        float: left;
+        margin-left: 30px;
+    }
+    .button-box-mobile .pdf-reset-btn {
+        float: right;
+        margin-right: 30px;
+    }
+    .button-box-mobile .filter-box {
+        display: inline-flex;
+    }
+    .btn-chart4 {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 12px;
+        padding: 4px 5px;
+        margin: 5px 2px;
+        background-color: grey;
+        color: white;
+        border-radius: 3px;
+    }
+    a:active,
+    button:active {
+        transform: translateY(1px);
+    }
+    button:disabled {
+        background-color: white;
+        color: grey;
+    }
+    button:disabled:hover {
+        background-color: white;
+        color: grey;
+        cursor: default;
+    }
+    .next-btn {
+        display: flex;
+    }
+    .next-btn button {
+        padding: 4px 10px;
+        margin: 5px 2px
+    }
+    button:hover {
+        background-color: rgb(110, 110, 110);
+    }
+    .toggle-btn {
+        display: none;
+    }
+    .filter-box {
+        font-weight: 600;
+        font-size: 13px;
+        display: flex;
+        margin-right: 0;
         text-align: center;
         align-items: center;
     }

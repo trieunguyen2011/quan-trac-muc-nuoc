@@ -24,10 +24,16 @@
         <div id="header">
             <h1 class="header-content">Hệ thống quan trắc mực nước tại các trạm bơm xả nước thải</h1>
             <div class="header-line"></div>
-            <p class="header-sub">Địa điểm: TP Bạc Liêu</p>
-            <p class="header-date">Cập nhật:</p>
-            <p id="display_time"></p>
-            <button class="btn-reload" onclick="window.location.reload()"><i class="ti-reload"></i></button>
+            <div class="header-sub">
+                <div class="header-diadiem">
+                    <p>Địa điểm: TP Bạc Liêu</p>
+                </div>
+                <div class="header-date">
+                    <p>Cập nhật:</p>
+                    <p id="display_time"></p>
+                    <button class="btn-reload" onclick="window.location.reload()"><i class="ti-reload"></i></button>
+                </div>
+            </div>
         </div>
         <!-- End Header -->
 
@@ -117,6 +123,22 @@
                         <button class="btn-chart4" onclick="toggleData(3)">TB Trạm 1</button>
                         <button class="btn-chart4" onclick="toggleData(4)">TB Trạm 2</button>
                         <button class="btn-chart4" onclick="toggleData(5)">TB Trạm 3</button>
+                    </div>
+                </div>
+                <div class="button-box-mobile">
+                    <div class="next-btn">
+                        <button class="btn-chart4" id="previous" onclick="nextData(-52, -52)"><i
+                            class="ti-control-backward"></i></button>
+                        <button class="btn-chart4" id="next" onclick="nextData(52, 52)"><i
+                            class="ti-control-forward"></i></button>
+                    </div>
+                    <div class="pdf-reset-btn">
+                        <button class="btn-chart4" style="margin-right: 0px;" onclick="resetData()">Reset</button>
+                        <button class="btn-chart4" style="margin-left: 0px;" onclick="downloadPDF()"><i style="font-size: 13px; margin: 0 5px 0px -3px;" class="ti-export"></i>PDF</button>
+                    </div>
+                    <div class="filter-box">
+                        Start: <input style="margin-right: 5px;" id="start" type="date" min="" max="" value=""> End: <input id="end" type="date" min="" max="" value="">
+                        <button class="btn-chart4" onclick="filterDate()"><i style="font-size: 13px; margin: 0 5px 0px -3px;" class="ti-stats-up"></i>Plot</button>
                     </div>
                 </div>
             </div>

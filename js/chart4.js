@@ -430,6 +430,21 @@ function showChart() {
         },
     }
 
+    const window_width = window.innerWidth;
+    if (window_width < 740) {
+        var number_Ratio = 1.2
+        var display_value = false
+        var position_value = 'bottom'
+    } else if (window_width >= 740 && window_width < 1024) {
+        var number_Ratio = 2.5
+        var display_value = true
+        var position_value = 'right'
+    } else {
+        var number_Ratio = 3.16
+        var display_value = true
+        var position_value = 'right'
+    }
+
     const ctx = document.getElementById("chart-4").getContext("2d");
     myChart = new Chart(ctx, {
         data: {
@@ -525,7 +540,9 @@ function showChart() {
             ],
         },
         options: {
+            aspectRatio: number_Ratio,
             responsive: true,
+
             scales: {
                 x: {
                     min: x_length_4 - 52,
@@ -537,7 +554,7 @@ function showChart() {
                 y: {
                     beginAtZero: true,
                     title: {
-                        display: true,
+                        display: display_value,
                         text: 'Độ cao (m)',
                         font: {
                             // family: 'Times',
@@ -556,7 +573,7 @@ function showChart() {
             },
             plugins: {
                 legend: {
-                    position: 'right',
+                    position: position_value,
                     labels: {
                         padding: 15,
                         font: {
