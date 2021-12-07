@@ -248,6 +248,15 @@ docClient.query(params_chart1_4, function(err, data) {
     document.getElementById('end').max = date_filter;
     document.getElementById('end').min = min_filter;
     document.getElementById('end').value = date_filter;
+
+    //Moblie
+    document.getElementById('start_m').value = date_filter;
+    document.getElementById('start_m').min = min_filter;
+    document.getElementById('start_m').max = date_filter;
+
+    document.getElementById('end_m').max = date_filter;
+    document.getElementById('end_m').min = min_filter;
+    document.getElementById('end_m').value = date_filter;
 });
 //---------------------------------------------------------------------------------------------------------
 
@@ -878,6 +887,113 @@ function filterDate() {
     array_avg_filter_3.splice(0, length_clear_1)
 }
 
+//Fillter date mobile
+function filterDate_mobile() {
+    document.getElementById('next').disabled = true;
+    document.getElementById('previous').disabled = true;
+
+    const data_filter_1 = array_distance_filter_1;
+    const data_filter_2 = array_distance_filter_2;
+    const data_filter_3 = array_distance_filter_3;
+    var x_scale_filter_day = {
+        type: 'time',
+        time: {
+            unit: 'day',
+        },
+        ticks: {
+            color: 'black'
+        },
+    };
+    var x_scale_filter_hour = {
+        type: 'time',
+        time: {
+            unit: 'hour',
+            stepSize: 2
+        },
+        ticks: {
+            color: 'black'
+        },
+    };
+
+    const start1 = new Date(document.getElementById('start_m').value);
+    const start = start1.setHours(0, 0, 0, 0);
+    const end1 = new Date(document.getElementById('end_m').value);
+    const end = end1.setHours(23, 59, 59, 999);
+
+    const filterDates = array_time_filter.filter(date => date >= start && date <= end)
+
+    myChart.data.labels = filterDates;
+
+
+    //working on the data
+    const startArray = array_time_filter.indexOf(filterDates[0])
+    const endArray = array_time_filter.indexOf(filterDates[filterDates.length - 1])
+    const time_start = array_time_filter[startArray].getDate();
+    const time_end = array_time_filter[endArray].getDate();
+
+    //Chart 1
+    const copydatafilter_1 = [...data_filter_1]
+    copydatafilter_1.splice(endArray + 1, filterDates.length);
+    copydatafilter_1.splice(0, startArray);
+    //Chart 2
+    const copydatafilter_2 = [...data_filter_2]
+    copydatafilter_2.splice(endArray + 1, filterDates.length);
+    copydatafilter_2.splice(0, startArray);
+    // Chart 3
+    const copydatafilter_3 = [...data_filter_3]
+    copydatafilter_3.splice(endArray + 1, filterDates.length);
+    copydatafilter_3.splice(0, startArray);
+
+    for (let i = 0; i < copydatafilter_1.length; i++) {
+        avg_data_1_0 = copydatafilter_1[i];
+        array_avg_filter_1_0.push(avg_data_1_0);
+
+        avg_filter_1 = array_avg_filter_1_0.reduce((a, b) => a + b, 0) / array_avg_filter_1_0.length;
+        avg_filter_final_1 = Math.round(avg_filter_1 * 1000) / 1000; // Làm tròn
+        array_avg_filter_1.push(avg_filter_final_1);
+    }
+    for (let i = 0; i < copydatafilter_2.length; i++) {
+        avg_data_2_0 = copydatafilter_2[i];
+        array_avg_filter_2_0.push(avg_data_2_0);
+
+        avg_filter_2 = array_avg_filter_2_0.reduce((a, b) => a + b, 0) / array_avg_filter_2_0.length;
+        avg_filter_final_2 = Math.round(avg_filter_2 * 1000) / 1000; // Làm tròn
+        array_avg_filter_2.push(avg_filter_final_2);
+    }
+    for (let i = 0; i < copydatafilter_3.length; i++) {
+        avg_data_3_0 = copydatafilter_3[i];
+        array_avg_filter_3_0.push(avg_data_3_0);
+
+        avg_filter_3 = array_avg_filter_3_0.reduce((a, b) => a + b, 0) / array_avg_filter_3_0.length;
+        avg_filter_final_3 = Math.round(avg_filter_3 * 1000) / 1000; // Làm tròn
+        array_avg_filter_3.push(avg_filter_final_3);
+    }
+
+    if (time_end - time_start > 1) {
+        myChart.options.scales.x = x_scale_filter_day;
+    } else {
+        myChart.options.scales.x = x_scale_filter_hour;
+    }
+
+    myChart.data.datasets[0].data = copydatafilter_1;
+    myChart.data.datasets[1].data = copydatafilter_2;
+    myChart.data.datasets[2].data = copydatafilter_3;
+    myChart.data.datasets[3].data = array_avg_filter_1;
+    myChart.data.datasets[4].data = array_avg_filter_2;
+    myChart.data.datasets[5].data = array_avg_filter_3;
+    myChart.update();
+
+    length_clear_0 = array_avg_filter_1_0.length;
+    length_clear_1 = array_avg_filter_1.length;
+
+    array_avg_filter_1_0.splice(0, length_clear_0)
+    array_avg_filter_1.splice(0, length_clear_1)
+    array_avg_filter_2_0.splice(0, length_clear_0)
+    array_avg_filter_2.splice(0, length_clear_1)
+    array_avg_filter_3_0.splice(0, length_clear_0)
+    array_avg_filter_3.splice(0, length_clear_1)
+}
+
 // PDF
 function downloadPDF() {
     const canvas = document.getElementById('chart-4');
@@ -886,5 +1002,16 @@ function downloadPDF() {
     let pdf = new jsPDF('landscape');
     pdf.setFontSize(15);
     pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 90);
+    pdf.save('water_level_data.pdf');
+}
+
+// PDF mobile
+function downloadPDF_mobile() {
+    const canvas = document.getElementById('chart-4');
+    const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
+
+    let pdf = new jsPDF('portrait');
+    pdf.setFontSize(15);
+    pdf.addImage(canvasImage, 'JPEG', 5, 60, 200, 150);
     pdf.save('water_level_data.pdf');
 }
