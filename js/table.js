@@ -53,7 +53,6 @@ function fn_change() {
             document.getElementById("hien-tai").innerHTML = hien_tai + " m";
             document.getElementById("time-hien-tai").innerHTML = time_hien_tai;
 
-
             // 1 NGÀY-----------------------------------------------------------------------
             for (let i = 0; i < data.Items.length; i++) {
                 distance = JSON.parse(data.Items[i].device_data.Distance);

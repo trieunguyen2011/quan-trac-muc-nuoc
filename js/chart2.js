@@ -28,6 +28,14 @@ docClient.query(params_chart2, function(err, data) {
             time_chart2 = hour_chart2 + ":" + min_chart2;
             array_time_chart2.push(time_chart2);
         }
+        //Alert message
+        var showAlert2 = document.getElementById("alert-2");
+        distance_alert2 = array_distance_chart2[array_distance_chart2.length - 1];
+        if (distance_alert2 < 0.5) {
+            showAlert2.style.display = "block";
+        }
+
+        //Biểu đồ
         const x_data_chart2 = array_time_chart2;
         const y_data_chart2 = array_distance_chart2;
         x_length_2 = x_data_chart2.length;

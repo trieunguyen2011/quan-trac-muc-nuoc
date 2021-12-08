@@ -55,6 +55,13 @@ docClient.query(params_chart1, function(err, data) {
         display_time = array_time_update[array_time_update.length - 1];
         document.getElementById("display_time").innerHTML = display_time;
 
+        //Alert message
+        var showAlert1 = document.getElementById("alert-1");
+        distance_alert1 = array_distance_chart1[array_distance_chart1.length - 1];
+        if (distance_alert1 < 0.5) {
+            showAlert1.style.display = "block";
+        }
+
 
         // Biểu đồ
         const x_data_chart1 = array_time_chart1;
