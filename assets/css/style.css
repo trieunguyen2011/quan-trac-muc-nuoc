@@ -118,7 +118,7 @@ body {
     background-color: #f44336;
     color: white;
     padding: 10px;
-    /* display: none; */
+    display: none;
 }
 
 .mid-message {
@@ -893,10 +893,8 @@ th {
     #alert-1,
     #alert-2,
     #alert-3 {
-        background-color: #f44336;
-        color: white;
         padding: 5px 10px;
-        /* display: none; */
+        display: none;
     }
     .mid-message {
         margin: 0 10px;
