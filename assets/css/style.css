@@ -28,10 +28,11 @@ html {
 /*End class chung*/
 
 body {
-    height: 1780px;
+    height: auto;
     width: 1300px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: ;
     background: #f8fafb;
 }
 
@@ -276,7 +277,7 @@ button:hover {
 }
 
 .content-title {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     font-size: 22px;
     font-weight: 600;
@@ -382,6 +383,7 @@ th {
 
 #footer {
     margin-top: 30px;
+    margin-bottom: 20px;
     display: flex;
     height: 150px;
     width: 100%;
@@ -476,7 +478,7 @@ th {
         background: #f8fafb;
     }
     #header {
-        margin-top: 5px;
+        margin-top: 10px;
         display: block;
         height: 70px;
         width: 100%;
@@ -730,6 +732,7 @@ th {
     }
     #footer {
         margin: 15px 0;
+        margin-bottom: 10px;
         display: flex;
         height: 100px;
         width: 100%;
@@ -1044,6 +1047,7 @@ th {
     }
     #footer {
         margin: 15px 0;
+        margin-bottom: 5px;
         display: flex;
         height: auto;
         width: 100%;
