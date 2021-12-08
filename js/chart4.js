@@ -1013,5 +1013,5 @@ function downloadPDF_mobile() {
     let pdf = new jsPDF('portrait');
     pdf.setFontSize(15);
     pdf.addImage(canvasImage, 'JPEG', 5, 60, 200, 170);
-    pdf.save('water_level_data.pdf');
+    pdf.save('water_level_data_full.pdf');
 }
