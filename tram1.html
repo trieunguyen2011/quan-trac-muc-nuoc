@@ -1036,11 +1036,23 @@
     function downloadPDF() {
         const canvas = document.getElementById('myChart');
         const canvasImage = canvas.toDataURL('image/jpeg', 1.0);
-
-        let pdf = new jsPDF('landscape');
-        pdf.setFontSize(15);
-        pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 80);
-        pdf.save('water_level_data.pdf');
+        const window_width = window.innerWidth;
+        if (window_width < 740) {
+            let pdf = new jsPDF('portrait');
+            pdf.setFontSize(15);
+            pdf.addImage(canvasImage, 'JPEG', 5, 60, 200, 160);
+            pdf.save('water_level_data.pdf');
+        } else if (window_width >= 740 && window_width < 1024) {
+            let pdf = new jsPDF('landscape');
+            pdf.setFontSize(15);
+            pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 80);
+            pdf.save('water_level_data.pdf');
+        } else {
+            let pdf = new jsPDF('landscape');
+            pdf.setFontSize(15);
+            pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 80);
+            pdf.save('water_level_data.pdf');
+        }
     }
     //-------------------------------------------------------------------------------------------
 
