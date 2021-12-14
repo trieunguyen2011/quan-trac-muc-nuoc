@@ -142,7 +142,7 @@
          * results to `<table data-excel-name="Another table">...</table>`.
          */
         var defaultOptions = {
-            defaultFileName: 'water_level_data',
+            defaultFileName: 'Tram_2',
             tableNameDataAttribute: 'excel-name',
 
             /**
@@ -2511,7 +2511,8 @@
     function(module, exports) {
 
         /* WEBPACK VAR INJECTION */
-        (function(__webpack_amd_options__) { module.exports = __webpack_amd_options__;
+        (function(__webpack_amd_options__) {
+            module.exports = __webpack_amd_options__;
 
             /* WEBPACK VAR INJECTION */
         }.call(exports, {}))

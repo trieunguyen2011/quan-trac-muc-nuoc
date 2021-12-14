@@ -644,7 +644,7 @@ function nextData(start, end) {
     };
     myChart.update();
 }
-setTimeout(showChart, 1000);
+setTimeout(showChart, 1500);
 
 // RESET CHART
 function resetData() {
@@ -1002,7 +1002,7 @@ function downloadPDF() {
     let pdf = new jsPDF('landscape');
     pdf.setFontSize(15);
     pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 90);
-    pdf.save('water_level_data.pdf');
+    pdf.save('Tong_hop.pdf');
 }
 
 // PDF mobile
@@ -1013,5 +1013,5 @@ function downloadPDF_mobile() {
     let pdf = new jsPDF('portrait');
     pdf.setFontSize(15);
     pdf.addImage(canvasImage, 'JPEG', 5, 60, 200, 170);
-    pdf.save('water_level_data_full.pdf');
+    pdf.save('Tong_hop.pdf');
 }
