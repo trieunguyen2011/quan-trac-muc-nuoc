@@ -1,22 +1,57 @@
-var lat_1_data;
-var lng_1_data;
-var lat_2_data;
-var lng_2_data;
-var lat_3_data;
-var lng_3_data;
+var lat_1_data, lng_1_data, lat_2_data, lng_2_data, lat_3_data, lng_3_data;
+// var lng_1_data;
+// var lat_2_data;
+// var lng_2_data;
+// var lat_3_data;
+// var lng_3_data;
+
+var params_map1 = {
+    TableName: "gps_water_level",
+    KeyConditionExpression: "device_id = :a",
+    ExpressionAttributeValues: {
+        ":a": 1,
+    },
+};
+var params_map2 = {
+    TableName: "gps_water_level",
+    KeyConditionExpression: "device_id = :a",
+    ExpressionAttributeValues: {
+        ":a": 2,
+    },
+};
+var params_map3 = {
+    TableName: "gps_water_level",
+    KeyConditionExpression: "device_id = :a",
+    ExpressionAttributeValues: {
+        ":a": 3,
+    },
+};
 var docClient = new AWS.DynamoDB.DocumentClient();
 // Tọa độ 1
-docClient.query(params_chart1, function(err, data) {
-    lat_1_data = data.Items[data.Items.length - 1].device_data.Latitude;
-    lng_1_data = data.Items[data.Items.length - 1].device_data.Longitude;
+docClient.query(params_map1, function(err, data) {
+    lat_1_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+    lng_1_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+    if (lat_1_data == 0) {
+        lat_1_data = 9.283603
+        lng_1_data = 105.7234
+    }
     // Tọa độ 2
-    docClient.query(params_chart2, function(err, data) {
-        lat_2_data = data.Items[data.Items.length - 1].device_data.Latitude;
-        lng_2_data = data.Items[data.Items.length - 1].device_data.Longitude;
-        // Tọa độ 3
-        docClient.query(params_chart3, function(err, data) {
-            lat_3_data = data.Items[data.Items.length - 1].device_data.Latitude;
-            lng_3_data = data.Items[data.Items.length - 1].device_data.Longitude;
+    docClient.query(params_map2, function(err, data) {
+        lat_2_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+        lng_2_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+        if (lat_2_data == 0) {
+            lat_2_data = 9.283539
+            lng_2_data = 105.717714
+        }
+        //     // Tọa độ 3
+        docClient.query(params_map3, function(err, data) {
+            lat_3_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+            lng_3_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+            if (lat_3_data == 0) {
+                lat_3_data = 9.278525
+                lng_3_data = 105.72178
+            }
+
             initMap();
 
             function initMap() {
@@ -37,7 +72,7 @@ docClient.query(params_chart1, function(err, data) {
                 // Tạo đối tượng marker từ MarkerOption
                 marker1 = new map4d.Marker({
                     // Form thông tin
-                    title: "Trạm 1",
+                    // title: "Trạm 1",
                     // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
@@ -50,7 +85,7 @@ docClient.query(params_chart1, function(err, data) {
 
                 let marker2 = new map4d.Marker({
                     // Form thông tin
-                    title: "Trạm 2",
+                    // title: "Trạm 2",
                     // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
@@ -63,7 +98,7 @@ docClient.query(params_chart1, function(err, data) {
 
                 let marker3 = new map4d.Marker({
                     // Form thông tin
-                    title: "Trạm 3",
+                    // title: "Trạm 3",
                     // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
@@ -81,22 +116,6 @@ docClient.query(params_chart1, function(err, data) {
 
                 // Form thông tin theo HTML
                 // marker1.setInfoContents("có thể là string hoặc html")
-
-                // Khởi tạo một Polygon
-                // let polygon = new map4d.Polygon({
-                //     fillOpacity: 0.05,
-                //     userInteractionEnabled: true,
-                //     paths: [
-                //         [
-                //             { lat: 9.283603, lng: 105.7234 },
-                //             { lat: 9.283539, lng: 105.717714 },
-                //             { lat: 9.278525, lng: 105.72178 },
-                //             { lat: 9.283603, lng: 105.7234 },
-                //         ],
-                //     ],
-
-                //     // Thêm Polygon vào bản đồ
-                //     polygon.setMap(map),
 
                 // Tính khoảng cách giữa các điểm (đơn vị: mét)
                 /*let measure = new map4d.Measure([
