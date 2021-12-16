@@ -1,9 +1,4 @@
 var lat_1_data, lng_1_data, lat_2_data, lng_2_data, lat_3_data, lng_3_data;
-// var lng_1_data;
-// var lat_2_data;
-// var lng_2_data;
-// var lat_3_data;
-// var lng_3_data;
 
 var params_map1 = {
     TableName: "gps_water_level",
@@ -114,19 +109,37 @@ docClient.query(params_map1, function(err, data) {
                 marker2.setMap(map);
                 marker3.setMap(map);
 
-                // Form thông tin theo HTML
-                // marker1.setInfoContents("có thể là string hoặc html")
-
-                // Tính khoảng cách giữa các điểm (đơn vị: mét)
-                /*let measure = new map4d.Measure([
-                  [9.283603, 105.7234],
-                  [9.283539, 105.717714],
-                  // [9.278525, 105.721780],
-                ]);
-                let length = measure.length;
-                console.log(length);*/
-
-                // });
+                //Update value of marker
+                docClient.query(params_chart1, function(err, data) {
+                    for (let i = 0; i < data.Items.length; i++) {
+                        distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
+                        array_distance_chart1.push(distance_data_chart1);
+                    }
+                    //Update value of marker
+                    let FinalhMarker1 = array_distance_chart1[array_distance_chart1.length - 1];
+                    marker1.setInfoContents("Độ cao hiện tại: " + FinalhMarker1 + "\n" + "m");
+                    marker1.setMap(map);
+                })
+                docClient.query(params_chart2, function(err, data) {
+                    for (let i = 0; i < data.Items.length; i++) {
+                        distance_data_chart2 = JSON.parse(data.Items[i].device_data.Distance);
+                        array_distance_chart2.push(distance_data_chart2);
+                    }
+                    //Update value of marker
+                    let FinalhMarker2 = array_distance_chart2[array_distance_chart2.length - 1];
+                    marker2.setInfoContents("Độ cao hiện tại: " + FinalhMarker2 + "\n" + "m");
+                    marker2.setMap(map);
+                })
+                docClient.query(params_chart3, function(err, data) {
+                    for (let i = 0; i < data.Items.length; i++) {
+                        distance_data_chart3 = JSON.parse(data.Items[i].device_data.Distance);
+                        array_distance_chart3.push(distance_data_chart3);
+                    }
+                    //Update value of marker
+                    let FinalhMarker3 = array_distance_chart3[array_distance_chart3.length - 1];
+                    marker3.setInfoContents("Độ cao hiện tại: " + FinalhMarker3 + "\n" + "m");
+                    marker3.setMap(map);
+                })
             };
         });
     });
