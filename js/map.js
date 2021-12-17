@@ -43,17 +43,24 @@ docClient.query(params_map1, function(err, data) {
             lat_3_data = data.Items[data.Items.length - 1].gps_data.Latitude;
             lng_3_data = data.Items[data.Items.length - 1].gps_data.Longitude;
             if (lat_3_data == 0) {
-                lat_3_data = 9.280206
-                lng_3_data = 105.721778
+                lat_3_data = 9.279089
+                lng_3_data = 105.722414
             }
 
             initMap();
 
             function initMap() {
                 // Thiết lập ban đầu
+
+                const window_width = window.innerWidth;
+                if (window_width < 740) {
+                    var zoom_value = 14;
+                } else {
+                    var zoom_value = 15;
+                }
                 var options = {
-                    center: { lat: 9.286595, lng: 105.721851 },
-                    zoom: 15,
+                    center: { lat: 9.286103, lng: 105.721894 },
+                    zoom: zoom_value,
                     controls: true,
                 };
                 var map = new map4d.Map(document.getElementById("map"), options);
