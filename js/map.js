@@ -73,9 +73,6 @@ docClient.query(params_map1, function(err, data) {
 
                 // Tạo đối tượng marker từ MarkerOption
                 var marker1 = new map4d.Marker({
-                    // Form thông tin
-                    // title: "Trạm 1",
-                    // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
                         text: "Trạm 1",
@@ -86,9 +83,6 @@ docClient.query(params_map1, function(err, data) {
                 });
 
                 var marker2 = new map4d.Marker({
-                    // Form thông tin
-                    // title: "Trạm 2",
-                    // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
                         text: "Trạm 2",
@@ -99,9 +93,6 @@ docClient.query(params_map1, function(err, data) {
                 });
 
                 var marker3 = new map4d.Marker({
-                    // Form thông tin
-                    // title: "Trạm 3",
-                    // snippet: "Độ cao hiện tại: 1,5m",
                     //Tên marker
                     label: new map4d.MarkerLabel({
                         text: "Trạm 3",
