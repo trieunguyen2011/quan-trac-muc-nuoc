@@ -31,7 +31,7 @@ docClient.query(params_chart2, function(err, data) {
         //Alert message
         var showAlert2 = document.getElementById("alert-2");
         distance_alert2 = array_distance_chart2[array_distance_chart2.length - 1];
-        if (distance_alert2 < 0.5) {
+        if (distance_alert2 < 0.6) {
             showAlert2.style.display = "block";
         }
 

@@ -119,6 +119,7 @@ body {
     color: white;
     padding: 10px;
     display: none;
+    animation: alertbox .8s infinite;
 }
 
 .mid-message {
@@ -501,6 +502,15 @@ th {
 .contact-mail:hover,
 .contact-phone:hover {
     font-weight: 600;
+}
+
+@keyframes alertbox {
+    from {
+        background-color: #f44336;
+    }
+    to {
+        background-color: orange;
+    }
 }
 
 
