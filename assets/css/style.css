@@ -119,7 +119,7 @@ body {
     color: white;
     padding: 10px;
     display: none;
-    animation: alertbox .8s infinite;
+    animation: alertbox 1s infinite;
 }
 
 .mid-message {
@@ -505,7 +505,7 @@ th {
 
 @keyframes alertbox {
     from {
-        background-color: white;
+        background-color: #f8fafb;
     }
     to {
         background-color: #f44336;
