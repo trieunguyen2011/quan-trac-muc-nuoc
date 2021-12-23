@@ -123,11 +123,7 @@ docClient.query(params_chart1_4, function(err, data) {
         array_distance_15ngay_1.push(distance_data_chart1_4);
         array_distance_filter_1.push(distance_data_chart1_4);
 
-        // avg_chart1_4 = array_distance_live_1.reduce((a, b) => a + b, 0) / array_distance_live_1.length;
-        // avg_chart1_4_final = Math.round(avg_chart1_4 * 100) / 100; // Làm tròn
-        // array_avg_live_1.push(avg_chart1_4_final);
-
-        if (array_distance_live_1.length > 480) {
+        if (array_distance_live_1.length > 288) {
             array_distance_live_1.shift();
         }
         if (array_distance_1ngay_1.length > 96) {
@@ -223,7 +219,7 @@ docClient.query(params_chart1_4, function(err, data) {
         array_time_7ngay.push(time_stamp_chart4);
         array_time_15ngay.push(time_stamp_chart4);
 
-        if (array_time_live.length > 480) {
+        if (array_time_live.length > 288) {
             array_time_live.shift();
         }
         if (array_time_1ngay.length > 96) {
@@ -276,7 +272,7 @@ docClient.query(params_chart2_4, function(err, data) {
         // avg_chart2_4_final = Math.round(avg_chart2_4 * 100) / 100; // Làm tròn
         // array_avg_live_2.push(avg_chart2_4_final);
 
-        if (array_distance_live_2.length > 480) {
+        if (array_distance_live_2.length > 288) {
             array_distance_live_2.shift();
         }
         if (array_distance_1ngay_2.length > 96) {
@@ -356,7 +352,7 @@ docClient.query(params_chart3_4, function(err, data) {
         // avg_chart3_4_final = Math.round(avg_chart3_4 * 100) / 100; // Làm tròn
         // array_avg_live_3.push(avg_chart3_4_final);
 
-        if (array_distance_live_3.length > 480) {
+        if (array_distance_live_3.length > 288) {
             array_distance_live_3.shift();
         }
         if (array_distance_1ngay_3.length > 96) {
@@ -644,7 +640,7 @@ function nextData(start, end) {
     };
     myChart.update();
 }
-setTimeout(showChart, 1500);
+setTimeout(showChart, 1000);
 
 // RESET CHART
 function resetData() {
