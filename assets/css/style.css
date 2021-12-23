@@ -142,7 +142,6 @@ body {
 }
 
 #mini-chart {
-    /* margin-top: 30px; */
     display: flex;
     flex-wrap: nowrap;
 }
@@ -506,10 +505,10 @@ th {
 
 @keyframes alertbox {
     from {
-        background-color: #f44336;
+        background-color: white;
     }
     to {
-        background-color: orange;
+        background-color: #f44336;
     }
 }
 
