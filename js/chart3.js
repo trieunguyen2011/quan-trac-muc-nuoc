@@ -65,7 +65,7 @@ docClient.query(params_chart3, function(err, data) {
                 },
                 scales: {
                     x: {
-                        min: x_length_3 - 24,
+                        min: x_length_3 - 37,
                         max: x_length_3,
                         ticks: {
                             color: 'black'

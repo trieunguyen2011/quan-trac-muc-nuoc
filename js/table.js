@@ -90,22 +90,22 @@ function fn_change() {
                 array_time_15day.push(full_time);
 
 
-                if (array_distance_1day.length > 96) {
+                if (array_distance_1day.length > 145) {
                     array_distance_1day.shift();
                     array_time_1day.shift();
                 }
 
-                if (array_distance_3day.length > 288) {
+                if (array_distance_3day.length > 433) {
                     array_distance_3day.shift();
                     array_time_3day.shift();
                 }
 
-                if (array_distance_7day.length > 672) {
+                if (array_distance_7day.length > 1008) {
                     array_distance_7day.shift();
                     array_time_7day.shift();
                 }
 
-                if (array_distance_15day.length > 1440) {
+                if (array_distance_15day.length > 2160) {
                     array_distance_15day.shift();
                     array_time_15day.shift();
                 }
@@ -311,22 +311,22 @@ function fn_change() {
                 array_time_15day.push(full_time);
 
 
-                if (array_distance_1day.length > 96) {
+                if (array_distance_1day.length > 145) {
                     array_distance_1day.shift();
                     array_time_1day.shift();
                 }
 
-                if (array_distance_3day.length > 288) {
+                if (array_distance_3day.length > 433) {
                     array_distance_3day.shift();
                     array_time_3day.shift();
                 }
 
-                if (array_distance_7day.length > 672) {
+                if (array_distance_7day.length > 1008) {
                     array_distance_7day.shift();
                     array_time_7day.shift();
                 }
 
-                if (array_distance_15day.length > 1440) {
+                if (array_distance_15day.length > 2160) {
                     array_distance_15day.shift();
                     array_time_15day.shift();
                 }
@@ -531,22 +531,22 @@ function fn_change() {
                     array_time_15day.push(full_time);
 
 
-                    if (array_distance_1day.length > 96) {
+                    if (array_distance_1day.length > 145) {
                         array_distance_1day.shift();
                         array_time_1day.shift();
                     }
 
-                    if (array_distance_3day.length > 288) {
+                    if (array_distance_3day.length > 433) {
                         array_distance_3day.shift();
                         array_time_3day.shift();
                     }
 
-                    if (array_distance_7day.length > 672) {
+                    if (array_distance_7day.length > 1008) {
                         array_distance_7day.shift();
                         array_time_7day.shift();
                     }
 
-                    if (array_distance_15day.length > 1440) {
+                    if (array_distance_15day.length > 2160) {
                         array_distance_15day.shift();
                         array_time_15day.shift();
                     }

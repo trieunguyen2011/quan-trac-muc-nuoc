@@ -123,22 +123,22 @@ docClient.query(params_chart1_4, function(err, data) {
         array_distance_15ngay_1.push(distance_data_chart1_4);
         array_distance_filter_1.push(distance_data_chart1_4);
 
-        if (array_distance_live_1.length > 288) {
+        if (array_distance_live_1.length > 145) {
             array_distance_live_1.shift();
         }
-        if (array_distance_1ngay_1.length > 96) {
+        if (array_distance_1ngay_1.length > 145) {
             array_distance_1ngay_1.shift();
         }
-        if (array_distance_3ngay_1.length > 288) {
+        if (array_distance_3ngay_1.length > 433) {
             array_distance_3ngay_1.shift();
         }
-        if (array_distance_7ngay_1.length > 672) {
+        if (array_distance_7ngay_1.length > 1009) {
             array_distance_7ngay_1.shift();
         }
-        if (array_distance_15ngay_1.length > 1440) {
+        if (array_distance_15ngay_1.length > 2161) {
             array_distance_15ngay_1.shift();
         }
-        alert_data = 0.1;
+        alert_data = 0.5;
         array_line_alert.push(alert_data);
     }
     // AVERGAGE
@@ -219,19 +219,19 @@ docClient.query(params_chart1_4, function(err, data) {
         array_time_7ngay.push(time_stamp_chart4);
         array_time_15ngay.push(time_stamp_chart4);
 
-        if (array_time_live.length > 288) {
+        if (array_time_live.length > 145) {
             array_time_live.shift();
         }
-        if (array_time_1ngay.length > 96) {
+        if (array_time_1ngay.length > 145) {
             array_time_1ngay.shift();
         }
-        if (array_time_3ngay.length > 288) {
+        if (array_time_3ngay.length > 433) {
             array_time_3ngay.shift();
         }
-        if (array_time_7ngay.length > 672) {
+        if (array_time_7ngay.length > 1009) {
             array_time_7ngay.shift();
         }
-        if (array_time_15ngay.length > 1440) {
+        if (array_time_15ngay.length > 2160) {
             array_time_15ngay.shift();
         }
     }
@@ -272,19 +272,19 @@ docClient.query(params_chart2_4, function(err, data) {
         // avg_chart2_4_final = Math.round(avg_chart2_4 * 100) / 100; // Làm tròn
         // array_avg_live_2.push(avg_chart2_4_final);
 
-        if (array_distance_live_2.length > 288) {
+        if (array_distance_live_2.length > 145) {
             array_distance_live_2.shift();
         }
-        if (array_distance_1ngay_2.length > 96) {
+        if (array_distance_1ngay_2.length > 145) {
             array_distance_1ngay_2.shift();
         }
-        if (array_distance_3ngay_2.length > 288) {
+        if (array_distance_3ngay_2.length > 433) {
             array_distance_3ngay_2.shift();
         }
-        if (array_distance_7ngay_2.length > 672) {
+        if (array_distance_7ngay_2.length > 1009) {
             array_distance_7ngay_2.shift();
         }
-        if (array_distance_15ngay_2.length > 1440) {
+        if (array_distance_15ngay_2.length > 2161) {
             array_distance_15ngay_2.shift();
         }
     }
@@ -352,19 +352,19 @@ docClient.query(params_chart3_4, function(err, data) {
         // avg_chart3_4_final = Math.round(avg_chart3_4 * 100) / 100; // Làm tròn
         // array_avg_live_3.push(avg_chart3_4_final);
 
-        if (array_distance_live_3.length > 288) {
+        if (array_distance_live_3.length > 145) {
             array_distance_live_3.shift();
         }
-        if (array_distance_1ngay_3.length > 96) {
+        if (array_distance_1ngay_3.length > 145) {
             array_distance_1ngay_3.shift();
         }
-        if (array_distance_3ngay_3.length > 288) {
+        if (array_distance_3ngay_3.length > 433) {
             array_distance_3ngay_3.shift();
         }
-        if (array_distance_7ngay_3.length > 672) {
+        if (array_distance_7ngay_3.length > 1009) {
             array_distance_7ngay_3.shift();
         }
-        if (array_distance_15ngay_3.length > 1440) {
+        if (array_distance_15ngay_3.length > 2161) {
             array_distance_15ngay_3.shift();
         }
     }
@@ -550,7 +550,7 @@ function showChart() {
 
             scales: {
                 x: {
-                    min: x_length_4 - 52,
+                    min: x_length_4 - 37,
                     max: x_length_4,
                     ticks: {
                         color: 'black'
@@ -628,14 +628,14 @@ function nextData(start, end) {
     document.getElementById('next').disabled = false;
 
     if (endScale > x_length_4) {
-        myChart.options.scales.x.min = x_length_4 - 52;
+        myChart.options.scales.x.min = x_length_4 - 37;
         myChart.options.scales.x.max = x_length_4 - 1;
         document.getElementById('next').disabled = true;
     };
 
     if (startScale < 0) {
         myChart.options.scales.x.min = 0;
-        myChart.options.scales.x.max = 51;
+        myChart.options.scales.x.max = 36;
         document.getElementById('previous').disabled = true;
     };
     myChart.update();
@@ -648,7 +648,7 @@ function resetData() {
     live_x = array_time_live;
     const x_labels_4 = live_x.map(label => label.split(' '));
     var x_scale_live = {
-        min: x_length_4 - 52,
+        min: x_length_4 - 37,
         max: x_length_4,
         ticks: {
             color: 'black'
@@ -679,7 +679,7 @@ function change_data() {
     const x_labels_4 = live_x.map(label => label.split(' '));
 
     var x_scale_live = {
-        min: live_x_length - 52,
+        min: live_x_length - 37,
         max: live_x_length,
         ticks: {
             color: 'black'
