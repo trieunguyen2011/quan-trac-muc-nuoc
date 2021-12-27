@@ -522,8 +522,8 @@
                 <canvas id="myChart" height="477px" width="1736px"></canvas>
 
                 <div class="button-box-chart">
-                    <button class="next-btn" id="previous" onclick="nextData(-36, -36)"><i class="ti-control-backward"></i></button>
-                    <button class="next-btn" id="next" onclick="nextData(36, 36)"><i class="ti-control-forward"></i></button>
+                    <button class="next-btn" id="previous" onclick="nextData(-37, -37)"><i class="ti-control-backward"></i></button>
+                    <button class="next-btn" id="next" onclick="nextData(37, 37)"><i class="ti-control-forward"></i></button>
                     <button class="reset-btn" onclick="resetData()">Reset</button>
                     <button class="pdf-btn" onclick="downloadPDF()"><i style="margin: 0 5px 0 -3px; font-size: 14px;" class="ti-download"></i>Download PDF</button>
                     <div class="toggle-btn">
@@ -908,14 +908,14 @@
         document.getElementById('next').disabled = false;
 
         if (endScale > x_length) {
-            myChart.options.scales.x.min = x_length - 36;
+            myChart.options.scales.x.min = x_length - 37;
             myChart.options.scales.x.max = x_length - 1;
             document.getElementById('next').disabled = true;
         };
 
         if (startScale < 0) {
             myChart.options.scales.x.min = 0;
-            myChart.options.scales.x.max = 35;
+            myChart.options.scales.x.max = 36;
             document.getElementById('previous').disabled = true;
         };
         myChart.update();
