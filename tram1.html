@@ -135,6 +135,21 @@
             color: grey;
         }
         
+        #tham_chieu {
+            float: right;
+            border-radius: .25rem;
+            cursor: pointer;
+            font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            width: 220px;
+            height: 38px;
+            font-size: 18px;
+            padding: 0 0 3px 10px;
+            margin-top: -50px;
+            margin-right: 200px;
+            color: black;
+            background-color: white;
+        }
+        
         #change_chart {
             float: right;
             border-radius: .25rem;
@@ -149,10 +164,15 @@
             background-color: grey;
         }
         
+        #tham_chieu:hover {
+            background-color: white;
+        }
+        
         #change_chart:hover {
             background-color: rgb(110, 110, 110);
         }
         
+        #tham_chieu:focus,
         #change_chart:focus {
             color: #495057;
             background-color: #fff;
@@ -510,6 +530,13 @@
                 <button onclick="window.location.reload()"><i class="ti-reload"></i></button>
             </div>
             <div class="select-box">
+                <select id="tham_chieu">
+                    <option value="" selected disabled>Chọn kiểu tham chiếu</option>
+                    <option value="sensor">Vị trí cảm biến</option>
+                    <option value="average">Trung bình mực nước</option>
+                </select>
+            </div>
+            <div class="select-box">
                 <select id="change_chart">
                     <option id="live-id" value="live">Live</option>
                     <option value="1-ngay">1 ngày</option>
@@ -594,6 +621,11 @@
     var array_avg_15ngay = new Array();
     var array_avg_15ngay_0 = new Array();
 
+    var array_distance_thamchieu = new Array();
+    var array_avg_thamchieu = new Array();
+    var array_avg_thamchieu_0 = new Array();
+    var array_data_thamchieu = new Array();
+
     AWS.config.update({
         region: "ap-northeast-1",
         endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
@@ -620,6 +652,7 @@
             array_distance_7ngay.push(distance_data);
             array_distance_15ngay.push(distance_data);
             array_distance_filter.push(distance_data);
+            array_data_thamchieu.push(distance_data);
 
             // avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
             // avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
@@ -645,6 +678,23 @@
             array_line_alert.push(alert_data);
         }
 
+        // THAM CHIEU TB DATA
+        avg_thamchieu = array_data_thamchieu = array_data_thamchieu.reduce((a, b) => a + b, 0) / array_data_thamchieu.length;
+        avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+        for (let i = 0; i < array_distance_live.length; i++) {
+            thamchieu_data = array_distance_live[i] - avg_thamchieu_final;
+            thamchieu_data_final = Math.round(thamchieu_data * 1000) / 1000; // Làm tròn
+            array_distance_thamchieu.push(thamchieu_data_final)
+        }
+        for (let i = 0; i < array_distance_thamchieu.length; i++) {
+            avg_data_thamchieu = array_distance_thamchieu[i];
+            array_avg_thamchieu_0.push(avg_data_thamchieu);
+
+            avg_thamchieu = array_avg_thamchieu_0.reduce((a, b) => a + b, 0) / array_avg_thamchieu_0.length;
+            avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+            array_avg_thamchieu.push(avg_thamchieu_final);
+        }
+        // -----------------------------------------------------------------------------
         // AVERGAGE
         for (let i = 0; i < array_distance_live.length; i++) {
             avg_data_1 = array_distance_live[i];
@@ -1006,6 +1056,46 @@
 
             document.getElementById('next').disabled = true;
             document.getElementById('previous').disabled = true;
+        }
+        myChart.update();
+    }
+
+    // THAM CHIẾU
+    tham_chieu.addEventListener('change', change_thamchieu);
+
+    function change_thamchieu() {
+        live_x = array_time_live;
+        live_x_length = array_time_live.length;
+        const x_labels = live_x.map(label => label.split(' '));
+        var x_scale_live = {
+            min: live_x_length - 73,
+            max: live_x_length,
+            ticks: {
+                color: 'black'
+            },
+        };
+
+        const thamchieu_value = document.getElementById('tham_chieu').value;
+        console.log(thamchieu_value)
+        if (thamchieu_value == 'sensor') {
+            myChart.data.datasets[0].data = array_distance_live;
+            myChart.data.datasets[1].data = array_avg_live;
+            myChart.data.datasets[2].hidden = 'false';
+            myChart.data.labels = x_labels;
+            myChart.options.scales.x = x_scale_live;
+
+            document.getElementById('next').disabled = false;
+            document.getElementById('previous').disabled = false;
+        }
+        if (thamchieu_value == 'average') {
+            myChart.data.datasets[0].data = array_distance_thamchieu;
+            myChart.data.datasets[1].data = array_avg_thamchieu;
+            myChart.data.datasets[2].hidden = 'true';
+            myChart.data.labels = x_labels;
+            myChart.options.scales.x = x_scale_live;
+
+            document.getElementById('next').disabled = false;
+            document.getElementById('previous').disabled = false;
         }
         myChart.update();
     }

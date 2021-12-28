@@ -33,6 +33,7 @@ body {
 }
 
 #header {
+    position: relative;
     margin-top: 20px;
     display: block;
     height: 130px;
@@ -47,6 +48,17 @@ body {
     font-size: 28px;
     padding: 20px 0 10px;
     padding-left: 20px;
+}
+
+#tham-chieu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    width: 15%;
+    height: 30px;
+    font-size: 16px;
+    padding: 0 0 3px 10px;
 }
 
 .header-sub {
@@ -540,6 +552,9 @@ th {
         padding: 5px 0 5px;
         padding-left: 0px;
     }
+    .thamchieu-box {
+        display: none;
+    }
     .header-sub {
         font-size: 15px;
         padding-left: 0;
@@ -856,6 +871,9 @@ th {
         font-size: 15px;
         padding: 5px 0 5px;
         padding-left: 0px;
+    }
+    .thamchieu-box {
+        display: none;
     }
     .header-sub {
         font-size: 13px;
