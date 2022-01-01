@@ -75,7 +75,7 @@ docClient.query(params_map1, function(err, data) {
                 var marker1 = new map4d.Marker({
                     //Tên marker
                     label: new map4d.MarkerLabel({
-                        text: "Trạm 1",
+                        text: "Trạm 3",
                         color: "0000000",
                         fontSize: 20,
                     }),
@@ -95,7 +95,7 @@ docClient.query(params_map1, function(err, data) {
                 var marker3 = new map4d.Marker({
                     //Tên marker
                     label: new map4d.MarkerLabel({
-                        text: "Trạm 3",
+                        text: "Trạm 1",
                         color: "0000000",
                         fontSize: 20,
                     }),
@@ -112,7 +112,7 @@ docClient.query(params_map1, function(err, data) {
                 // }, { marker: true });
 
                 //Update value of marker
-                docClient.query(params_chart1, function(err, data) {
+                /*docClient.query(params_chart1, function(err, data) {
                     for (let i = 0; i < data.Items.length; i++) {
                         distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
                         array_distance_chart1.push(distance_data_chart1);
@@ -141,7 +141,7 @@ docClient.query(params_map1, function(err, data) {
                     let FinalMarker3 = array_distance_chart3[array_distance_chart3.length - 1];
                     marker3.setInfoContents("Độ cao hiện tại: " + FinalMarker3 + "m");
                     marker3.setMap(map);
-                })
+                })*/
             };
 
 

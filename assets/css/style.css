@@ -50,15 +50,53 @@ body {
     padding-left: 20px;
 }
 
-#tham-chieu {
+
+/* Tham chiếu dropdown */
+
+.dropbtn {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: white;
+    padding: 6px 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-thamchieu {
     position: absolute;
     top: 20px;
     right: 20px;
-    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    width: 15%;
-    height: 30px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 175px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    background-color: white;
+    outline: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 8px 10px;
+    text-decoration: none;
+    display: block;
     font-size: 16px;
-    padding: 0 0 3px 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: #d1d1d1
+}
+
+.dropdown-thamchieu:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-thamchieu .dropbtn {
+    background-color: grey;
 }
 
 .header-sub {
@@ -280,6 +318,7 @@ button:disabled:hover {
     margin: 10px 0px 5px 5px;
 }
 
+.dropdown-thamchieu .dropbtn:hover,
 button:hover {
     background-color: rgb(110, 110, 110);
 }
