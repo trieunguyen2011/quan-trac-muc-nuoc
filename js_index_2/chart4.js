@@ -87,6 +87,15 @@ var array_distance_filter_3 = new Array();
 var array_avg_filter_3 = new Array();
 var array_avg_filter_3_0 = new Array();
 
+//Tham chiếu
+var array_thamchieu_1 = new Array();
+var array_distance_1 = new Array();
+
+var array_thamchieu_2 = new Array();
+var array_distance_2 = new Array();
+
+var array_thamchieu_3 = new Array();
+var array_distance_3 = new Array();
 
 var params_chart1_4 = {
     TableName: "water_level",
@@ -116,12 +125,22 @@ docClient.query(params_chart1_4, function(err, data) {
 
     for (let i = 0; i < data.Items.length; i++) {
         distance_data_chart1_4 = JSON.parse(data.Items[i].device_data.Distance);
-        array_distance_live_1.push(distance_data_chart1_4);
-        array_distance_1ngay_1.push(distance_data_chart1_4);
-        array_distance_3ngay_1.push(distance_data_chart1_4);
-        array_distance_7ngay_1.push(distance_data_chart1_4);
-        array_distance_15ngay_1.push(distance_data_chart1_4);
-        array_distance_filter_1.push(distance_data_chart1_4);
+        array_distance_1.push(distance_data_chart1_4);
+    }
+
+    // Tham chiếu TB
+    array_thamchieu_1 = array_distance_1;
+    avg_thamchieu = array_thamchieu_1 = array_thamchieu_1.reduce((a, b) => a + b, 0) / array_thamchieu_1.length;
+    avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+    for (let i = 0; i < array_distance_1.length; i++) {
+        thamchieu_data = array_distance_1[i] - avg_thamchieu_final;
+        thamchieu_data_final = Math.round(thamchieu_data * 1000) / 1000; // Làm tròn
+        array_distance_live_1.push(thamchieu_data_final);
+        array_distance_1ngay_1.push(thamchieu_data_final);
+        array_distance_3ngay_1.push(thamchieu_data_final);
+        array_distance_7ngay_1.push(thamchieu_data_final);
+        array_distance_15ngay_1.push(thamchieu_data_final);
+        array_distance_filter_1.push(thamchieu_data_final);
 
         if (array_distance_live_1.length > 145) {
             array_distance_live_1.shift();
@@ -141,6 +160,7 @@ docClient.query(params_chart1_4, function(err, data) {
         alert_data = 0.5;
         array_line_alert.push(alert_data);
     }
+
     // AVERGAGE
     for (let i = 0; i < array_distance_live_1.length; i++) {
         avg_data_chart1_1 = array_distance_live_1[i];
@@ -261,16 +281,22 @@ docClient.query(params_chart1_4, function(err, data) {
 docClient.query(params_chart2_4, function(err, data) {
     for (let i = 0; i < data.Items.length; i++) {
         distance_data_chart2_4 = JSON.parse(data.Items[i].device_data.Distance);
-        array_distance_live_2.push(distance_data_chart2_4);
-        array_distance_1ngay_2.push(distance_data_chart2_4);
-        array_distance_3ngay_2.push(distance_data_chart2_4);
-        array_distance_7ngay_2.push(distance_data_chart2_4);
-        array_distance_15ngay_2.push(distance_data_chart2_4);
-        array_distance_filter_2.push(distance_data_chart2_4);
+        array_distance_2.push(distance_data_chart2_4);
+    }
 
-        // avg_chart2_4 = array_distance_live_2.reduce((a, b) => a + b, 0) / array_distance_live_2.length;
-        // avg_chart2_4_final = Math.round(avg_chart2_4 * 100) / 100; // Làm tròn
-        // array_avg_live_2.push(avg_chart2_4_final);
+    // Tham chiếu TB
+    array_thamchieu_2 = array_distance_2;
+    avg_thamchieu = array_thamchieu_2 = array_thamchieu_2.reduce((a, b) => a + b, 0) / array_thamchieu_2.length;
+    avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+    for (let i = 0; i < array_distance_2.length; i++) {
+        thamchieu_data = array_distance_2[i] - avg_thamchieu_final;
+        thamchieu_data_final = Math.round(thamchieu_data * 1000) / 1000; // Làm tròn
+        array_distance_live_2.push(thamchieu_data_final);
+        array_distance_1ngay_2.push(thamchieu_data_final);
+        array_distance_3ngay_2.push(thamchieu_data_final);
+        array_distance_7ngay_2.push(thamchieu_data_final);
+        array_distance_15ngay_2.push(thamchieu_data_final);
+        array_distance_filter_2.push(thamchieu_data_final);
 
         if (array_distance_live_2.length > 145) {
             array_distance_live_2.shift();
@@ -341,16 +367,22 @@ docClient.query(params_chart2_4, function(err, data) {
 docClient.query(params_chart3_4, function(err, data) {
     for (let i = 0; i < data.Items.length; i++) {
         distance_data_chart3_4 = JSON.parse(data.Items[i].device_data.Distance);
-        array_distance_live_3.push(distance_data_chart3_4);
-        array_distance_1ngay_3.push(distance_data_chart3_4);
-        array_distance_3ngay_3.push(distance_data_chart3_4);
-        array_distance_7ngay_3.push(distance_data_chart3_4);
-        array_distance_15ngay_3.push(distance_data_chart3_4);
-        array_distance_filter_3.push(distance_data_chart3_4);
+        array_distance_3.push(distance_data_chart3_4);
+    }
 
-        // avg_chart3_4 = array_distance_live_3.reduce((a, b) => a + b, 0) / array_distance_live_3.length;
-        // avg_chart3_4_final = Math.round(avg_chart3_4 * 100) / 100; // Làm tròn
-        // array_avg_live_3.push(avg_chart3_4_final);
+    // Tham chiếu TB
+    array_thamchieu_3 = array_distance_3;
+    avg_thamchieu = array_thamchieu_3 = array_thamchieu_3.reduce((a, b) => a + b, 0) / array_thamchieu_3.length;
+    avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+    for (let i = 0; i < array_distance_3.length; i++) {
+        thamchieu_data = array_distance_3[i] - avg_thamchieu_final;
+        thamchieu_data_final = Math.round(thamchieu_data * 1000) / 1000; // Làm tròn
+        array_distance_live_3.push(thamchieu_data_final);
+        array_distance_1ngay_3.push(thamchieu_data_final);
+        array_distance_3ngay_3.push(thamchieu_data_final);
+        array_distance_7ngay_3.push(thamchieu_data_final);
+        array_distance_15ngay_3.push(thamchieu_data_final);
+        array_distance_filter_3.push(thamchieu_data_final);
 
         if (array_distance_live_3.length > 145) {
             array_distance_live_3.shift();

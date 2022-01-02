@@ -25,10 +25,10 @@ docClient.query(params_chart1, function(err, data) {
     for (let i = 0; i < data.Items.length; i++) {
         distance_data_chart1 = JSON.parse(data.Items[i].device_data.Distance);
         array_distance_chart1.push(distance_data_chart1);
-        array_thamchieu_chart1.push(distance_data_chart1);
     }
 
     // Tham chiếu TB
+    array_thamchieu_chart1 = array_distance_chart1;
     avg_thamchieu = array_thamchieu_chart1 = array_thamchieu_chart1.reduce((a, b) => a + b, 0) / array_thamchieu_chart1.length;
     avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
     for (let i = 0; i < array_distance_chart1.length; i++) {

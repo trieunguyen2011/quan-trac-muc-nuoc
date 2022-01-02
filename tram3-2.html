@@ -8,14 +8,14 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trạm 2</title>
+    <title>Trạm 3</title>
     <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
     <link rel="icon" href="./assets/images/logo_ctu/1024px-Logo_Dai_hoc_Can_Tho.svg.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
-    <script src="./js_index/framework_excel2.js"></script>
+    <script src="./js_index_2/framework_excel3.js"></script>
     <style>
         * {
             padding: 0;
@@ -506,7 +506,7 @@
     <div class="main">
         <div>
             <div class="title-box">
-                <h1 class="chart-title">Trạm 2</h1>
+                <h1 class="chart-title">Trạm 3</h1>
                 <button onclick="window.location.reload()"><i class="ti-reload"></i></button>
             </div>
             <div class="select-box">
@@ -594,6 +594,9 @@
     var array_avg_15ngay = new Array();
     var array_avg_15ngay_0 = new Array();
 
+    var array_distance = new Array();
+    var array_thamchieu = new Array();
+
     AWS.config.update({
         region: "ap-northeast-1",
         endpoint: "http://dynamodb.ap-northeast-1.amazonaws.com",
@@ -605,46 +608,49 @@
         TableName: "water_level",
         KeyConditionExpression: "device_id = :a",
         ExpressionAttributeValues: {
-            ":a": 2,
+            ":a": 3,
         },
     };
 
     var docClient = new AWS.DynamoDB.DocumentClient();
     docClient.query(params_chart1, function(err, data) {
-
         for (let i = 0; i < data.Items.length; i++) {
             distance_data = JSON.parse(data.Items[i].device_data.Distance);
-            array_distance_live.push(distance_data);
-            array_distance_1ngay.push(distance_data);
-            array_distance_3ngay.push(distance_data);
-            array_distance_7ngay.push(distance_data);
-            array_distance_15ngay.push(distance_data);
-            array_distance_filter.push(distance_data);
-
-            // avg = array_distance_live.reduce((a, b) => a + b, 0) / array_distance_live.length;
-            // avg_final = Math.round(avg * 1000) / 1000; // Làm tròn
-            // array_avg_live.push(avg_final);
-
-            if (array_distance_live.length > 480) {
-                array_distance_live.shift();
-            }
-            if (array_distance_1ngay.length > 96) {
-                array_distance_1ngay.shift();
-            }
-            if (array_distance_3ngay.length > 288) {
-                array_distance_3ngay.shift();
-            }
-            if (array_distance_7ngay.length > 672) {
-                array_distance_7ngay.shift();
-            }
-            if (array_distance_15ngay.length > 1440) {
-                array_distance_15ngay.shift();
-            }
-
-            alert_data = 0.1;
-            array_line_alert.push(alert_data);
+            array_distance.push(distance_data);
         }
 
+        // Tham chiếu TB
+        array_thamchieu = array_distance;
+        avg_thamchieu = array_thamchieu = array_thamchieu.reduce((a, b) => a + b, 0) / array_thamchieu.length;
+        avg_thamchieu_final = Math.round(avg_thamchieu * 1000) / 1000; // Làm tròn
+        for (let i = 0; i < array_distance.length; i++) {
+            thamchieu_data = array_distance[i] - avg_thamchieu_final;
+            thamchieu_data_final = Math.round(thamchieu_data * 1000) / 1000; // Làm tròn
+            array_distance_live.push(thamchieu_data_final);
+            array_distance_1ngay.push(thamchieu_data_final);
+            array_distance_3ngay.push(thamchieu_data_final);
+            array_distance_7ngay.push(thamchieu_data_final);
+            array_distance_15ngay.push(thamchieu_data_final);
+            array_distance_filter.push(thamchieu_data_final);
+
+            if (array_distance_live.length > 145) {
+                array_distance_live.shift();
+            }
+            if (array_distance_1ngay.length > 145) {
+                array_distance_1ngay.shift();
+            }
+            if (array_distance_3ngay.length > 433) {
+                array_distance_3ngay.shift();
+            }
+            if (array_distance_7ngay.length > 1009) {
+                array_distance_7ngay.shift();
+            }
+            if (array_distance_15ngay.length > 2161) {
+                array_distance_15ngay.shift();
+            }
+            alert_data = 0.5;
+            array_line_alert.push(alert_data);
+        }
         // AVERGAGE
         for (let i = 0; i < array_distance_live.length; i++) {
             avg_data_1 = array_distance_live[i];
@@ -725,19 +731,19 @@
             array_time_7ngay.push(time_stamp);
             array_time_15ngay.push(time_stamp);
 
-            if (array_time_live.length > 480) {
+            if (array_time_live.length > 145) {
                 array_time_live.shift();
             }
-            if (array_time_1ngay.length > 96) {
+            if (array_time_1ngay.length > 145) {
                 array_time_1ngay.shift();
             }
-            if (array_time_3ngay.length > 288) {
+            if (array_time_3ngay.length > 433) {
                 array_time_3ngay.shift();
             }
-            if (array_time_7ngay.length > 672) {
+            if (array_time_7ngay.length > 1009) {
                 array_time_7ngay.shift();
             }
-            if (array_time_15ngay.length > 1440) {
+            if (array_time_15ngay.length > 2160) {
                 array_time_15ngay.shift();
             }
         }
@@ -789,7 +795,7 @@
                 labels: x_labels,
                 datasets: [{ //0
                     type: "line",
-                    label: "Trạm 2",
+                    label: "Trạm 3",
                     data: y_data,
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
@@ -1053,7 +1059,7 @@
             let pdf = new jsPDF('landscape');
             pdf.setFontSize(15);
             pdf.addImage(canvasImage, 'JPEG', 5, 40, 280, 80);
-            pdf.save('Tram_2.pdf');
+            pdf.save('Tram_3.pdf');
         }
     }
     //-------------------------------------------------------------------------------------------
