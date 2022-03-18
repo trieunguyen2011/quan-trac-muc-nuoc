@@ -157,7 +157,7 @@ docClient.query(params_chart1_4, function(err, data) {
         if (array_distance_15ngay_1.length > 2161) {
             array_distance_15ngay_1.shift();
         }
-        alert_data = 0.5;
+        alert_data = 0.2;
         array_line_alert.push(alert_data);
     }
 
