@@ -147,7 +147,7 @@ docClient.query(params_chart1, function(err, data) {
                     intersect: false,
                     mode: 'index'
                 },
-                // animation,
+
             },
         });
     }
