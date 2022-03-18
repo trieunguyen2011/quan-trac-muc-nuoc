@@ -25,16 +25,16 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         // Tọa độ
-        docClient.query(params_map1, function(err, data) {
-            lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
-            lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
-            if (lat_data == 0) {
-                lat_data = 9.283603
-                lng_data = 105.7234
-            }
-            toa_do = lat_data + ', ' + lng_data;
-            document.getElementById("toa-do").innerHTML = toa_do;
-        });
+        // docClient.query(params_map1, function(err, data) {
+        //     lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+        //     lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+        //     if (lat_data == 0) {
+        lat_data = 9.283603
+        lng_data = 105.7234
+            // }
+        toa_do = lat_data + ', ' + lng_data;
+        document.getElementById("toa-do").innerHTML = toa_do;
+        // });
 
         docClient.query(params_chart1, function(err, data) {
             // 1 NGÀY-----------------------------------------------------------------------
@@ -254,16 +254,16 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         // Tọa độ
-        docClient.query(params_map2, function(err, data) {
-            lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
-            lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
-            if (lat_data == 0) {
-                lat_data = 9.283539
-                lng_data = 105.717714
-            }
-            toa_do = lat_data + ', ' + lng_data;
-            document.getElementById("toa-do").innerHTML = toa_do;
-        });
+        // docClient.query(params_map2, function(err, data) {
+        //     lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+        //     lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+        //     if (lat_data == 0) {
+        lat_data = 9.283539
+        lng_data = 105.717714
+            // }
+        toa_do = lat_data + ', ' + lng_data;
+        document.getElementById("toa-do").innerHTML = toa_do;
+        // });
 
         docClient.query(params_chart2, function(err, data) {
             // 1 NGÀY-----------------------------------------------------------------------
@@ -481,16 +481,16 @@ function fn_change() {
 
         var docClient = new AWS.DynamoDB.DocumentClient();
         // Tọa độ
-        docClient.query(params_map3, function(err, data) {
-            lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
-            lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
-            if (lat_data == 0) {
-                lat_data = 9.278525
-                lng_data = 105.72178
-            }
-            toa_do = lat_data + ', ' + lng_data;
-            document.getElementById("toa-do").innerHTML = toa_do;
-        });
+        // docClient.query(params_map3, function(err, data) {
+        //     lat_data = data.Items[data.Items.length - 1].gps_data.Latitude;
+        //     lng_data = data.Items[data.Items.length - 1].gps_data.Longitude;
+        //     if (lat_data == 0) {
+        lat_data = 9.278525
+        lng_data = 105.72178
+            // }
+        toa_do = lat_data + ', ' + lng_data;
+        document.getElementById("toa-do").innerHTML = toa_do;
+        // });
 
         docClient.query(params_chart3, function(err, data) {
             // 1 NGÀY-----------------------------------------------------------------------
